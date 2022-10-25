@@ -1,0 +1,17 @@
+# See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+module MarkdownPDF
+  VERSION: String
+
+  class Generator
+    def initialize: (?fonts_path: String fp, ?styling_image_path: String sip, ?styling_yml_filename: String syf) -> void
+
+    def file_to_pdf: (markdown_file: String, pdf_destination_file: String, images_path: String | nil) -> void
+
+    def markdown_to_pdf: (markdown_string: String, pdf_destination_file: String, images_path: String | nil) -> void
+  end
+
+  def generate_markdown_pdf: (styling_yml_filename: String, markdown_file: String, pdf_destination_file: String) -> void
+
+  def generate_markdown_string_pdf: (styling_yml_filename: String, markdown_string: String, images_path: String, destination_filename: String) -> void
+end

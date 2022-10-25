@@ -1,0 +1,250 @@
+fonts:
+
+page:
+  font: 'Helvetica'
+  size: 10
+  character-spacing: 0
+  styles: [ ]
+  color: '000000'
+  page-size: 'A4'
+  page-layout: 'portrait'
+  margin-left-mm: 20
+  margin-right-mm: 20
+  margin-top-mm: 20
+  margin-bottom-mm: 20
+  leading: 2
+
+page-header:
+  filter-pages: [ 1 ]
+  align: "left"
+  position-top: -30
+  size: 8
+  leading: 4
+
+page-header-2:
+  filter-pages: [ 1 ]
+  align: "center"
+  position-top: -30
+  size: 8
+  leading: 4
+
+page-logo:
+  filter-pages: [ 1 ]
+  align: "right"
+  max-width-mm: 40
+  position-top: -50
+
+page-numbers:
+  disabled: false
+  template: '<page> / <total>'
+  start-count-at: 1
+  filter-pages: [ ]
+  align: right
+  position-bottom: -16
+  #  position-left: 0
+  #  position-from-right: 50
+  #  font: 'Helvetica'
+  size: 8
+#  character-spacing: 0
+#  styles: []
+#  color: '000000'
+
+page-footer:
+  filter-pages: [ ]
+  align: "left"
+  position-bottom: -21
+  size: 8
+
+page-footer-2:
+  filter-pages: [ ]
+  align: "center"
+  position-bottom: -21
+  size: 8
+
+paragraph:
+  align: 'justify'
+  #  padding-mm: 2
+  #  padding-left-mm: 2
+  #  padding-right-mm: 2
+  #  padding-top-mm: 2
+  padding-bottom-mm: 2
+#  font: 'Helvetica'
+#  size: 10
+#  character-spacing: 0
+#  styles: []
+#  color: '000000'
+
+link:
+  #  font: 'Helvetica'
+  #  size: 10
+  #  character-spacing: 0
+  #  styles: []
+  color: '000088'
+
+unordered-list-point:
+  sign: "•"
+#    font: 'Helvetica'
+#    size: 10
+#    character-spacing: 0
+#    styles: []
+#    color: '000000'
+
+ordered-list-point:
+#    font: 'Helvetica'
+#    size: 10
+#    character-spacing: 0
+#    styles: []
+#    color: '000000'
+
+ordered-list-point-3:
+  template: '<number>)'
+  alphabetical: true
+
+ordered-list-point-4:
+  template: '(<number>)'
+
+hrule:
+  margin-top-mm: 2
+  margin-bottom-mm: 4
+  line-width: 1
+
+header:
+  #  font: 'Helvetica'
+  #  size: 10
+  #  character-spacing: 0
+  styles: [ 'bold' ]
+  #  color: '000000'
+  #  padding-mm: 2
+  #  padding-left-mm: 2
+  #  padding-right-mm: 2
+  padding-top-mm: 2
+  padding-bottom-mm: 2
+
+header-1:
+  size: 18
+  padding-top-mm: 6
+header-2:
+  size: 16
+  padding-top-mm: 5
+header-3:
+  size: 14
+  padding-top-mm: 4
+header-4:
+  size: 12
+  padding-top-mm: 3
+header-5:
+  size: 11
+header-6:
+  size: 10
+header-7:
+  size: 10
+header-8:
+  size: 10
+
+table:
+  #  margin-mm: 2
+  #  margin-left-mm: 2
+  #  margin-right-mm: 2
+  margin-top-mm: 2
+  margin-bottom-mm: 4
+  header:
+    style: 'bold'
+    background-color: 'F0F0F0'
+    size: 10
+  cell:
+    #    background-color: '000FFF'
+    #    border-color-top: '000FFF'
+    #    border-color-bottom: 'FFF000'
+    #    border-color-left: 'F000FF'
+    #    border-color-right: '00FFF0'
+    #    no-border-right: false
+    #    no-border-left: false
+    #    no-border-bottom: false
+    #    no-border-top: false
+    border-width-top-mm: 0.25
+    border-width-left-mm: 0.25
+    border-width-right-mm: 0.25
+    border-width-bottom-mm: 0.25
+    #    padding-mm: 3
+    padding-left-mm: 3
+    padding-right-mm: 3
+    padding-top-mm: 1
+    padding-bottom-mm: 2
+    #    font: 'Helvetica'
+    size: 9
+#    character-spacing: 0
+#    styles: []
+#    color: '000088'
+
+blockquote:
+  #    font: 'Helvetica'
+  size: 14
+  #    character-spacing: 0
+  styles: [ 'italic' ]
+  color: '008800'
+  #  margin-mm: 2
+  #  margin-left-mm: 2
+  #  margin-right-mm: 2
+  margin-top-mm: 2
+  margin-bottom-mm: 2
+
+code:
+  font: 'Courier'
+  #  size: 9
+  #  character-spacing: 0
+  #  styles: []
+  color: '880000'
+
+codeblock:
+  background-color: 'F5F5F5'
+  font: 'Courier'
+  size: 8
+  #  character-spacing: 0
+  color: '880000'
+  padding-mm: 3
+  #  padding-left-mm: 3
+  #  padding-right-mm: 3
+  #  padding-top-mm: 3
+  #  padding-bottom-mm: 3
+  #  margin-mm: 2
+  #  margin-left-mm: 2
+  #  margin-right-mm: 2
+  margin-top-mm: 2
+  margin-bottom-mm: 2
+
+image:
+  max-width-mm: 50
+  margin-mm: 2
+  #  margin-left-mm: 2
+  #  margin-right-mm: 2
+  #  margin-top-mm: 2
+  margin-bottom-mm: 3
+  align: "center"
+
+image-classes:
+  small:
+    max-width-mm: 10
+  left:
+    margin-mm: 0
+    align: "left"
+  center:
+    margin-mm: 0
+    align: "center"
+  right:
+    margin-mm: 0
+    align: "right"
+
+footnote-definition:
+  point:
+    #  font: 'Helvetica'
+    size: 13
+    #  character-spacing: 0
+    styles: [ 'superscript' ]
+    color: '000000'
+
+footnote-reference:
+  #  font: 'Helvetica'
+  size: 13
+  #  character-spacing: 0
+  styles: [ 'superscript' ]
+  color: '000088'
