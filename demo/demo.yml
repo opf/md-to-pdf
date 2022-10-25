@@ -1,7 +1,19 @@
 fonts:
+  - name: 'Vollkorn'
+    pathname: 'Vollkorn'
+    regular: 'Vollkorn-Regular.ttf'
+    bold: 'Vollkorn-Bold.ttf'
+    italic: 'Vollkorn-Italic.ttf'
+    bold-italic: 'Vollkorn-BoldItalic.ttf'
+  - name: 'Consolas'
+    pathname: 'Consolas'
+    regular: 'Consolas-Regular.ttf'
+    bold: 'Consolas-Bold.ttf'
+    italic: 'Consolas-Italic.ttf'
+    bold-italic: 'Consolas-BoldItalic.ttf'
 
 page:
-  font: 'Helvetica'
+  font: 'Vollkorn'
   size: 10
   character-spacing: 0
   styles: [ ]
@@ -189,7 +201,7 @@ blockquote:
   margin-bottom-mm: 2
 
 code:
-  font: 'Courier'
+  font: 'Consolas'
   #  size: 9
   #  character-spacing: 0
   #  styles: []
@@ -197,7 +209,7 @@ code:
 
 codeblock:
   background-color: 'F5F5F5'
-  font: 'Courier'
+  font: 'Consolas'
   size: 8
   #  character-spacing: 0
   color: '880000'
