@@ -2,9 +2,9 @@ require 'text/hyphen'
 
 module MarkdownToPDF
   class Hyphenate
-    def initialize(language)
+    def initialize(language, enabled)
       @loaded = false
-      return if language.nil?
+      return if language.nil? || !enabled
 
       language = 'de2' if language == 'de'
       language = 'hu2' if language == 'hu'

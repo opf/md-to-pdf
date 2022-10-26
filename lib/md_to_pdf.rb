@@ -32,7 +32,7 @@ module MarkdownToPDF
       pdf_setup_document
       @images_path = images_path
       doc = Parser.new.parse_markdown(markdown_string)
-      @hyphens = Hyphenate.new(doc[:language])
+      @hyphens = Hyphenate.new(doc[:language], doc[:hyphenation])
       render_doc(doc)
       @pdf.render_file(pdf_destination)
     end
@@ -44,11 +44,12 @@ module MarkdownToPDF
       root = doc[:root]
       render_node(root, opts)
       render_footnotes(opts)
-      render_page_numbers(opts, doc)
       render_page_footer(doc[:footer], @styles.page_footer, opts)
       render_page_footer(doc[:footer2], @styles.page_footer2, opts)
+      render_page_footer(doc[:footer3], @styles.page_footer3, opts)
       render_page_header(doc[:header], @styles.page_header, opts)
       render_page_header(doc[:header2], @styles.page_header2, opts)
+      render_page_header(doc[:header3], @styles.page_header3, opts)
       render_page_logo(doc[:logo], root, opts)
     end
 
@@ -79,21 +80,26 @@ module MarkdownToPDF
       return if style['disabled']
 
       font_opts = @convert.opts_font(style, opts)
-      lines = text.split("\n").map do |h|
-        line = h.strip
-        {
-          text: line,
-          height: @pdf.height_of(line, font_opts.merge({ final_gap: false })),
-          width: @pdf.width_of(line, font_opts)
-        }
-      end
 
       filter_page = style['filter-pages'] || []
-      @pdf.repeat(lambda { |pg| !filter_page.include?(pg) }) do
+      @pdf.repeat(lambda { |pg| !filter_page.include?(pg) }, dynamic: true) do
+        page_top = top
+        @pdf.set_font(@pdf.find_font(font_opts[:font]))
+        lines = text
+                  .gsub('<page>', @pdf.page_number.to_s)
+                  .gsub('<total>', @pdf.page_count.to_s)
+                  .split("\n").map do |h|
+          line = h.strip
+          {
+            text: line,
+            height: @pdf.height_of(line, font_opts.merge({ final_gap: false })),
+            width: @pdf.width_of(line, font_opts)
+          }
+        end
         lines.each do |line|
           left = @pdf.alignment_to_x(style['align'], line[:width])
-          @pdf.draw_text(line[:text], font_opts.merge({ at: [left, top] }))
-          top -= line[:height] + (font_opts[:leading])
+          @pdf.draw_text(line[:text], font_opts.merge({ at: [left, page_top] }))
+          page_top -= line[:height] + (font_opts[:leading] || 0)
         end
       end
     end
@@ -101,7 +107,7 @@ module MarkdownToPDF
     def render_page_footer(footer, style, opts)
       return if footer.nil? || footer.empty?
 
-      top = @pdf.bounds.bottom + (style['position-bottom'] || 0)
+      top = @pdf.bounds.bottom + (style['offset'] || 0)
       render_page_repeat_multiline(footer, top, style, opts)
     end
 
@@ -109,7 +115,7 @@ module MarkdownToPDF
     def render_page_header(header, style, opts)
       return if header.nil? || header.empty?
 
-      top = @pdf.bounds.top - (style['position-top'] || 0)
+      top = @pdf.bounds.top - (style['offset'] || 0)
       render_page_repeat_multiline(header, top, style, opts)
     end
 
@@ -123,7 +129,7 @@ module MarkdownToPDF
       image_file = validate_image(logo, node)
       image_obj, image_info = @pdf.build_image_object(image_file)
 
-      top = @pdf.bounds.top - (style['position-top'] || 0)
+      top = @pdf.bounds.top - (style['offset'] || 0)
 
       width = @pdf.bounds.width
       if style['max-width-mm']

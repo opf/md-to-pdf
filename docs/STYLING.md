@@ -32,7 +32,7 @@ They must be placed relative to the styling yml as shown here:
 
 A yml config file is used to set the pdf styling
 
-see a reference file at [demo/demo.yml](demo/demo.yml)
+see a reference file at [demo/demo.yml](../demo/demo.yml)
 
 ### Fonts
 
@@ -72,12 +72,22 @@ page:
 
 ### Document Header
 
+Up to three header sections are supported:
+
+use page-header as key for the first footer
+
+use page-header-2 as key for the second footer
+
+use page-header-3 as key for the third footer
+
+The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file 
+
 ```yml
 page-header:
   disabled: false # set true to disable page headers
   filter-pages: [ ] # e.g. [ 1 ] = no header on first page 
   align: left # left or center or right
-  position-top: -30 # offset position from page.top
+  offset: -30 # offset position from page.top
   #  ...: see #font-settings
 ```
 
@@ -90,35 +100,31 @@ page-logo:
   disabled: false # set true to disable page logos
   filter-pages: [ ] # e.g. [ 1 ] = no logo on first page 
   align: left # left or center or right
-  position-top: -30 # offset position from page.top
+  offset: -30 # offset position from page.top
   max-width-mm: 40 # maximum image width in millimeter
 ```
 
+The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file
+
 ### Document Footer
+
+Up to three footer sections are supported:
+
+use page-footer as key for the first footer
+
+use page-footer-2 as key for the second footer
+
+use page-footer-3 as key for the third footer
+
+The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file
 
 ```yml
 page-footer:
   disabled: false # set true to disable page footers
   filter-pages: [ ] # e.g. [ 1 ] = no footer on first page 
   align: left # left or center or right
-  position-bottom: -30 # offset position from page.bottom
+  offset: -30 # offset position from page.bottom
   #  ...: see #font-settings
-```
-
-[font-settings](#font-settings)
-
-### Page Numbers
-
-```yml
-page-numbers:
-  disabled: false # set true to disable page numbers
-  template: '<page> / <total>' # page = current page; total = total pages
-  start-count-at: 1 # start counting page numbers
-  filter-pages: [ ] # e.g. [ 1 ] = no page number on first page 
-  align: right # left or center or right
-  position-bottom: -10 # offset the bottom position
-  position-right: 50 # offset right (or "position-left: 50" but not both)
-#  ...: see #font-settings
 ```
 
 [font-settings](#font-settings)

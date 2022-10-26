@@ -27,7 +27,9 @@ module MarkdownToPDF
         footer: parsed['pdf_footer'] || '',
         header: parsed['pdf_header'] || '',
         footer2: parsed['pdf_footer_2'] || '',
-        header2: parsed['pdf_header_2'] || ''
+        footer3: parsed['pdf_footer_3'] || '',
+        header2: parsed['pdf_header_2'] || '',
+        header3: parsed['pdf_header_3'] || ''
       }
       fields = parsed['pdf_fields'] || {}
       fields.each_key do |key|
@@ -43,6 +45,7 @@ module MarkdownToPDF
         fields: fields,
         logo: parsed['pdf_header_logo'],
         language: parsed['pdf_language'],
+        hyphenation: parsed['pdf_hyphenation'] != false, # default: true
         page_number_template: page_number_template
       }.merge(header_footer)
     end

@@ -57,4 +57,10 @@ Currently **not** supported:
 
 A yml config file is used to set the pdf styling
 
-Please have a look at [STYLING.md](./STYLING.md) for description.
+Please have a look at [docs/STYLING.md](docs/STYLING.md) for description.
+
+## Frontmatter
+
+Meta Information and header/footer content is defined in a head section of the markdown file
+
+Please have a look at [docs/FRONTMATTER.md](docs/FRONTMATTER.md) for description.

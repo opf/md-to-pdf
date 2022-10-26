@@ -16,6 +16,10 @@ module MarkdownToPDF
       get_style('page-footer-2')
     end
 
+    def page_footer3
+      get_style('page-footer-3')
+    end
+
     def page_logo
       get_style('page-logo')
     end
@@ -28,8 +32,8 @@ module MarkdownToPDF
       get_style('page-header-2')
     end
 
-    def page_numbers
-      get_style('page-numbers')
+    def page_header3
+      get_style('page-header-3')
     end
 
     def page

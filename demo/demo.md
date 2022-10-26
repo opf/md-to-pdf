@@ -3,13 +3,14 @@ pdf_header: |
   Multiline Header
   with variable %variable-demo-1%
 pdf_header_2: Another header
+pdf_header_3: Behind Logo
 pdf_footer: Some static footer
 pdf_footer_2: Another footer
+pdf_footer_3: "Page <page> of <total>"
 pdf_header_logo: logo.png
-pdf_page_number_template: "Page <page> of <total>"
 pdf_fields:
-variable-demo-1: "one"
-variable-demo-2: "two"
+  variable-demo-1: "one"
+  variable-demo-2: "two"
 ---
 
 # DEMO
@@ -90,14 +91,14 @@ Start numbering with offset:
 ### Custom ordered point format
 
 1. Level 1
-  1. Level 2
-  3. Level 2
-    1. Level 3 uses alphabetical points
-    2. Level 3
-    3. Level 3
-      1. Level 4 uses a brackets template
-      2. Level 4
-      3. Level 4
+   1. Level 2
+   2. Level 2
+      1. Level 3 uses alphabetical points
+      2. Level 3
+      3. Level 3
+          1. Level 4 uses a brackets template
+          2. Level 4
+          3. Level 4
 
 <br page/>
 
@@ -220,20 +221,25 @@ Frontmatter YML is supported:
 ```md
 ---
 pdf_header: |
-Multiline Header
-with variable %variable-demo-1%
+  Multiline Header
+  with variable %variable-demo-1%
+pdf_header_2: Another header
+pdf_header_3: Behind Logo
 pdf_footer: Some static footer
+pdf_footer_2: Another footer
+pdf_footer_3: "Page <page> of <total>"
 pdf_header_logo: logo.png
-pdf_page_number_template: "Page <page> of <total>"
+pdf_hyphenation: true
+pdf_language: "en"
 pdf_fields:
-variable-demo-1: "one"
-variable-demo-2: "two"
+  variable-demo-1: "one"
+  variable-demo-2: "two"
 ---
 ```
 
 ## Variable replacement
 
-Add key-value pairs to the frontmatter header node `fields:`, use `%key%` to have them replaced.
+Add key-value pairs to the frontmatter header node `pdf_fields:`, use `%key%` to have them replaced.
 
 `This is replaced: % variable-demo-1 % and this is replaced: % variable-demo-2 %.`
 

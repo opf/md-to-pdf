@@ -29,14 +29,21 @@ page:
 page-header:
   filter-pages: [ 1 ]
   align: "left"
-  position-top: -30
+  offset: -30
   size: 8
   leading: 4
 
 page-header-2:
   filter-pages: [ 1 ]
   align: "center"
-  position-top: -30
+  offset: -30
+  size: 8
+  leading: 4
+
+page-header-3:
+  filter-pages: [ 1 ]
+  align: "right"
+  offset: -30
   size: 8
   leading: 4
 
@@ -44,33 +51,25 @@ page-logo:
   filter-pages: [ 1 ]
   align: "right"
   max-width-mm: 40
-  position-top: -50
-
-page-numbers:
-  disabled: false
-  template: '<page> / <total>'
-  start-count-at: 1
-  filter-pages: [ ]
-  align: right
-  position-bottom: -16
-  #  position-left: 0
-  #  position-from-right: 50
-  #  font: 'Helvetica'
-  size: 8
-#  character-spacing: 0
-#  styles: []
-#  color: '000000'
+  offset: -50
 
 page-footer:
   filter-pages: [ ]
   align: "left"
-  position-bottom: -21
+  offset: -21
   size: 8
 
 page-footer-2:
+  start-count-at: 1
   filter-pages: [ ]
   align: "center"
-  position-bottom: -21
+  offset: -21
+  size: 8
+
+page-footer-3:
+  filter-pages: [ ]
+  align: "right"
+  offset: -21
   size: 8
 
 paragraph:
