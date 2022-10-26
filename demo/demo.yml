@@ -259,3 +259,6 @@ footnote-reference:
   #  character-spacing: 0
   styles: [ 'superscript' ]
   color: '000088'
+
+fields-default:
+  pdf_language: 'en'

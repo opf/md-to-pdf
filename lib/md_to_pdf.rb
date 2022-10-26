@@ -31,7 +31,7 @@ module MarkdownToPDF
     def markdown_to_pdf(markdown_string, pdf_destination, images_path)
       pdf_setup_document
       @images_path = images_path
-      doc = Parser.new.parse_markdown(markdown_string)
+      doc = Parser.new.parse_markdown(markdown_string, @styles.default_fields)
       @hyphens = Hyphenate.new(doc[:language], doc[:hyphenation])
       render_doc(doc)
       @pdf.render_file(pdf_destination)

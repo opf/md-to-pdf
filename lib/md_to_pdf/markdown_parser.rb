@@ -19,11 +19,32 @@ CM_PARSE_OPTIONS = %i[
 
 module MarkdownToPDF
   class Parser
-    def parse_markdown(markdown)
+    def parse_markdown(markdown, default_fields)
       parsed = FrontMatterParser::Parser.new(:md).call(markdown)
       content = parsed.content
-      page_number_template = parsed['pdf_page_number_template'] || ''
-      header_footer = {
+      matter = (default_fields || {}).merge(parsed.front_matter)
+      header_footer = parse_header_footer(parsed)
+      fields = matter['pdf_fields'] || {}
+      fields.each_key do |key|
+        content = content.gsub("%#{key}%", fields[key])
+        header_footer.each_key do |part|
+          header_footer[part] = header_footer[part].gsub("%#{key}%", fields[key])
+        end
+      end
+      {
+        root: CommonMarker.render_doc(content, CM_PARSE_OPTIONS, CM_EXTENSIONS),
+        frontmatter: parsed.front_matter,
+        fields: fields,
+        logo: matter['pdf_header_logo'],
+        language: matter['pdf_language'],
+        hyphenation: matter['pdf_hyphenation'] != false # default: true
+      }.merge(header_footer)
+    end
+
+    private
+
+    def parse_header_footer(parsed)
+      {
         footer: parsed['pdf_footer'] || '',
         header: parsed['pdf_header'] || '',
         footer2: parsed['pdf_footer_2'] || '',
@@ -31,23 +52,6 @@ module MarkdownToPDF
         header2: parsed['pdf_header_2'] || '',
         header3: parsed['pdf_header_3'] || ''
       }
-      fields = parsed['pdf_fields'] || {}
-      fields.each_key do |key|
-        content = content.gsub("%#{key}%", fields[key])
-        header_footer.each_key do |part|
-          header_footer[part] = header_footer[part].gsub("%#{key}%", fields[key])
-        end
-        page_number_template = page_number_template.gsub("%#{key}%", fields[key])
-      end
-      {
-        root: CommonMarker.render_doc(content, CM_PARSE_OPTIONS, CM_EXTENSIONS),
-        frontmatter: parsed.front_matter,
-        fields: fields,
-        logo: parsed['pdf_header_logo'],
-        language: parsed['pdf_language'],
-        hyphenation: parsed['pdf_hyphenation'] != false, # default: true
-        page_number_template: page_number_template
-      }.merge(header_footer)
     end
   end
 end

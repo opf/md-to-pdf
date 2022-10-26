@@ -4,6 +4,10 @@ module MarkdownToPDF
       @styling = styling
     end
 
+    def default_fields
+      get_style('fields-default')
+    end
+
     def fonts
       @styling['fonts'] || []
     end
