@@ -6,29 +6,27 @@ module MarkdownToPDF
     include Prawn::Measurements
 
     def opts_padding(style)
+      padding = parse_pt(style['padding'])
       {
-        left_padding: first_number_mm(style['padding-left-mm'], style['padding-mm'], 0),
-        right_padding: first_number_mm(style['padding-right-mm'], style['padding-mm'], 0),
-        bottom_padding: first_number_mm(style['padding-bottom-mm'], style['padding-mm'], 0),
-        top_padding: first_number_mm(style['padding-top-mm'], style['padding-mm'], 0)
+        left_padding: first_number(parse_pt(style['padding-left']), padding, 0),
+        right_padding: first_number(parse_pt(style['padding-right']), padding, 0),
+        bottom_padding: first_number(parse_pt(style['padding-bottom']), padding, 0),
+        top_padding: first_number(parse_pt(style['padding-top']), padding, 0)
       }
     end
 
     def opts_margin(style)
+      margin = parse_pt(style['margin'])
       {
-        left_margin: first_number_mm(style['margin-left-mm'], style['margin-mm'], 0),
-        right_margin: first_number_mm(style['margin-right-mm'], style['margin-mm'], 0),
-        bottom_margin: first_number_mm(style['margin-bottom-mm'], style['margin-mm'], 0),
-        top_margin: first_number_mm(style['margin-top-mm'], style['margin-mm'], 0)
+        left_margin: first_number(parse_pt(style['margin-left']), margin, 0),
+        right_margin: first_number(parse_pt(style['margin-right']), margin, 0),
+        bottom_margin: first_number(parse_pt(style['margin-bottom']), margin, 0),
+        top_margin: first_number(parse_pt(style['margin-top']), margin, 0)
       }
     end
 
     def first_number(*args)
       args.find { |value| !value.nil? }
-    end
-
-    def first_number_mm(*args)
-      mm2pt(args.find { |value| !value.nil? })
     end
 
     def merge_opts(*args)
@@ -48,11 +46,12 @@ module MarkdownToPDF
     end
 
     def opts_table_cell_padding(style)
+      padding = parse_pt(style['padding'])
       {
-        padding_left: first_number_mm(style['padding-left-mm'], style['padding-mm'], 0),
-        padding_right: first_number_mm(style['padding-right-mm'], style['padding-mm'], 0),
-        padding_bottom: first_number_mm(style['padding-bottom-mm'], style['padding-mm'], 0),
-        padding_top: first_number_mm(style['padding-top-mm'], style['padding-mm'], 0)
+        padding_left: first_number(parse_pt(style['padding-left']), padding, 0),
+        padding_right: first_number(parse_pt(style['padding-right']), padding, 0),
+        padding_bottom: first_number(parse_pt(style['padding-bottom']), padding, 0),
+        padding_top: first_number(parse_pt(style['padding-top']), padding, 0)
       }
     end
 
@@ -66,11 +65,12 @@ module MarkdownToPDF
     end
 
     def opts_borders_width(style)
+      border = parse_pt(style['border-width'])
       [
-        first_number_mm(style['border-width-top-mm'], 0.25),
-        first_number_mm(style['border-width-right-mm'], 0.25),
-        first_number_mm(style['border-width-bottom-mm'], 0.25),
-        first_number_mm(style['border-width-left-mm'], 0.25)
+        first_number(parse_pt(style['border-width-top']), border, 0.25),
+        first_number(parse_pt(style['border-width-right']), border, 0.25),
+        first_number(parse_pt(style['border-width-bottom']), border, 0.25),
+        first_number(parse_pt(style['border-width-left']), border, 0.25)
       ]
     end
 
@@ -96,20 +96,6 @@ module MarkdownToPDF
         size: first_number(style['size'], opts[:size]),
         color: style['color'] || opts[:color]
       }.compact
-    end
-
-    def opts_page_numbers(style, opts, bounds_right)
-      filter_page = style['filter-pages'] || []
-      x = style['position-right'].nil? ? (style['position-left'] || 0) : (bounds_right - style['position-right'])
-      merge_opts(
-        {
-          start_count_at: first_number(style['start-count-at'], 1),
-          page_filter: lambda { |pg| !filter_page.include?(pg) },
-          at: [x, style['position-bottom'] || 0],
-          align: (style['align'] || 'right').to_sym
-        },
-        opts_font(style, opts)
-      )
     end
 
     def list_point_alphabetically(int)
@@ -225,5 +211,39 @@ module MarkdownToPDF
         { leading: style['leading'] }
       )
     end
+
+    # measurements
+
+    def parse_pt(something)
+      return nil if something.nil?
+
+      parsed = number_unit(something.to_s)
+      value = parsed[:value]
+      case parsed[:unit]
+      when 'mm'
+        mm2pt(value)
+      when 'cm'
+        cm2pt(value)
+      when 'dm'
+        dm2pt(value)
+      when 'm'
+        m2pt(value)
+      when 'yd'
+        yd2pt(value)
+      when 'ft'
+        ft2pt(value)
+      when 'in'
+        in2pt(value)
+      else
+        value
+      end
+    end
+
+    def number_unit(string)
+      value = string.to_f # => -123.45
+      unit = string[/[a-zA-Z]+/] # => "min"
+      { value: value, unit: unit }
+    end
+
   end
 end

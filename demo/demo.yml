@@ -20,10 +20,11 @@ page:
   color: '000000'
   page-size: 'A4'
   page-layout: 'portrait'
-  margin-left-mm: 20
-  margin-right-mm: 20
-  margin-top-mm: 20
-  margin-bottom-mm: 20
+  margin: 20mm
+  #  margin-left: 20mm
+  #  margin-right: 20mm
+  #  margin-top: 20mm
+  #  margin-bottom: 20mm
   leading: 2
 
 page-header:
@@ -50,7 +51,7 @@ page-header-3:
 page-logo:
   filter-pages: [ 1 ]
   align: "right"
-  max-width-mm: 40
+  max-width: 40mm
   offset: -50
 
 page-footer:
@@ -60,7 +61,6 @@ page-footer:
   size: 8
 
 page-footer-2:
-  start-count-at: 1
   filter-pages: [ ]
   align: "center"
   offset: -21
@@ -74,11 +74,11 @@ page-footer-3:
 
 paragraph:
   align: 'justify'
-  #  padding-mm: 2
-  #  padding-left-mm: 2
-  #  padding-right-mm: 2
-  #  padding-top-mm: 2
-  padding-bottom-mm: 2
+  #  padding: 2mm
+  #  padding-left: 2mm
+  #  padding-right: 2mm
+  #  padding-top: 2mm
+  padding-bottom: 2mm
 #  font: 'Helvetica'
 #  size: 10
 #  character-spacing: 0
@@ -115,8 +115,8 @@ ordered-list-point-4:
   template: '(<number>)'
 
 hrule:
-  margin-top-mm: 2
-  margin-bottom-mm: 4
+  margin-top: 2mm
+  margin-bottom: 4mm
   line-width: 1
 
 header:
@@ -125,24 +125,24 @@ header:
   #  character-spacing: 0
   styles: [ 'bold' ]
   #  color: '000000'
-  #  padding-mm: 2
-  #  padding-left-mm: 2
-  #  padding-right-mm: 2
-  padding-top-mm: 2
-  padding-bottom-mm: 2
+  #  padding: 2mm
+  #  padding-left: 2mm
+  #  padding-right: 2mm
+  padding-top: 2mm
+  padding-bottom: 2mm
 
 header-1:
   size: 18
-  padding-top-mm: 6
+  padding-top: 6mm
 header-2:
   size: 16
-  padding-top-mm: 5
+  padding-top: 5mm
 header-3:
   size: 14
-  padding-top-mm: 4
+  padding-top: 4mm
 header-4:
   size: 12
-  padding-top-mm: 3
+  padding-top: 3mm
 header-5:
   size: 11
 header-6:
@@ -153,11 +153,11 @@ header-8:
   size: 10
 
 table:
-  #  margin-mm: 2
-  #  margin-left-mm: 2
-  #  margin-right-mm: 2
-  margin-top-mm: 2
-  margin-bottom-mm: 4
+  #  margin: 2mm
+  #  margin-left: 2mm
+  #  margin-right: 2mm
+  margin-top: 2mm
+  margin-bottom: 4mm
   header:
     style: 'bold'
     background-color: 'F0F0F0'
@@ -172,15 +172,16 @@ table:
     #    no-border-left: false
     #    no-border-bottom: false
     #    no-border-top: false
-    border-width-top-mm: 0.25
-    border-width-left-mm: 0.25
-    border-width-right-mm: 0.25
-    border-width-bottom-mm: 0.25
-    #    padding-mm: 3
-    padding-left-mm: 3
-    padding-right-mm: 3
-    padding-top-mm: 1
-    padding-bottom-mm: 2
+    border-width: 0.25mm
+#    border-width-top: 0.25mm
+#    border-width-left: 0.25mm
+#    border-width-right: 0.25mm
+#    border-width-bottom: 0.25mm
+    #    padding: 3mm
+    padding-left: 3mm
+    padding-right: 3mm
+    padding-top: 1mm
+    padding-bottom: 2mm
     #    font: 'Helvetica'
     size: 9
 #    character-spacing: 0
@@ -193,11 +194,11 @@ blockquote:
   #    character-spacing: 0
   styles: [ 'italic' ]
   color: '008800'
-  #  margin-mm: 2
-  #  margin-left-mm: 2
-  #  margin-right-mm: 2
-  margin-top-mm: 2
-  margin-bottom-mm: 2
+  #  margin: 2mm
+  #  margin-left: 2mm
+  #  margin-right: 2mm
+  margin-top: 2mm
+  margin-bottom: 2mm
 
 code:
   font: 'Consolas'
@@ -212,37 +213,37 @@ codeblock:
   size: 8
   #  character-spacing: 0
   color: '880000'
-  padding-mm: 3
-  #  padding-left-mm: 3
-  #  padding-right-mm: 3
-  #  padding-top-mm: 3
-  #  padding-bottom-mm: 3
-  #  margin-mm: 2
-  #  margin-left-mm: 2
-  #  margin-right-mm: 2
-  margin-top-mm: 2
-  margin-bottom-mm: 2
+  padding: 3mm
+  #  padding-left: 3mm
+  #  padding-right: 3mm
+  #  padding-top: 3mm
+  #  padding-bottom: 3mm
+  #  margin: 2mm
+  #  margin-left: 2mm
+  #  margin-right: 2mm
+  margin-top: 2mm
+  margin-bottom: 2mm
 
 image:
-  max-width-mm: 50
-  margin-mm: 2
-  #  margin-left-mm: 2
-  #  margin-right-mm: 2
-  #  margin-top-mm: 2
-  margin-bottom-mm: 3
+  max-width: 50mm
+  margin: 2mm
+  #  margin-left: 2mm
+  #  margin-right: 2mm
+  #  margin-top: 2mm
+  margin-bottom: 3mm
   align: "center"
 
 image-classes:
   small:
-    max-width-mm: 10
+    max-width: 10mm
   left:
-    margin-mm: 0
+    margin: 0
     align: "left"
   center:
-    margin-mm: 0
+    margin: 0
     align: "center"
   right:
-    margin-mm: 0
+    margin: 0
     align: "right"
 
 footnote-definition:

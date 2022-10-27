@@ -101,8 +101,10 @@ page-logo:
   filter-pages: [ ] # e.g. [ 1 ] = no logo on first page 
   align: left # left or center or right
   offset: -30 # offset position from page.top
-  max-width-mm: 40 # maximum image width in millimeter
+  max-width: 40mm # maximum image width in units
 ```
+
+[units](#units)
 
 The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file
 
@@ -305,11 +307,12 @@ codeblock:
 
 ```yml
 image:
-  max-width-mm: 100 # maximum image width in millimeter
+  max-width: 100mm # maximum image width in units
 #  ...: see #margin
 ```
 
-[margin](#margin)
+[margin](#margin), [units](#units)
+
 
 ### Footnotes
 
@@ -345,27 +348,31 @@ footnote-definition:
 
 ### Margin
 
-in millimeter, default: 0
+default: 0
 
 ```yml
-  margin-mm: 20 # on all sides 
-  margin-left-mm: 20 # left margin
-  margin-right-mm: 20 # right margin
-  margin-top-mm: 20 # top margin
-  margin-bottom-mm: 20 # bottom margin
+  margin: 20mm # on all sides in units
+  margin-left: 20mm # left margin in units
+  margin-right: 20mm # right margin in units
+  margin-top: 20mm # top margin in units
+  margin-bottom: 20mm # bottom margin in units
 ```
+
+[units](#units)
 
 ### Padding
 
-in millimeter, default: 0
+default: 0
 
 ```yml
-  padding-mm: 20 # on all sides 
-  padding-left-mm: 20 # left padding
-  padding-right-mm: 20 # right padding
-  padding-top-mm: 20 # top padding
-  padding-bottom-mm: 20 # bottom padding
+  padding: 20mm # on all sides 
+  padding-left: 20mm # left padding
+  padding-right: 20mm # right padding
+  padding-top: 20mm # top padding
+  padding-bottom: 20mm # bottom padding
 ```
+
+[units](#units)
 
 ### Borders
 
@@ -378,8 +385,21 @@ in millimeter, default: 0
     no-border-right: false # disable right border with true
     no-border-top: false # disable top border with true
     no-border-bottom: false # disable bottom border with true
-    border-width-left-mm: 0.25 # left width
-    border-width-right-mm: 0.25 # right width
-    border-width-top-mm: 0.25  # top width
-    border-width-bottom-mm: 0.25 # bottom width
+    border-width: 0.25mm # border width
+    border-width-left: 0.25mm # left width
+    border-width-right: 0.25mm # right width
+    border-width-top: 0.25mm  # top width
+    border-width-bottom: 0.25mm # bottom width
 ```
+
+[units](#units)
+
+## Values
+
+### Units
+
+available units are 
+
+mm - Millimeter, cm - Centimeter, dm - Decimeter, m - Meter
+in - Inch, ft - Feet, yr - Yard
+pt - PostscriptPoint (default)

@@ -132,8 +132,8 @@ module MarkdownToPDF
       top = @pdf.bounds.top - (style['offset'] || 0)
 
       width = @pdf.bounds.width
-      if style['max-width-mm']
-        max_width = @convert.mm2pt(style['max-width-mm'])
+      max_width = @convert.parse_pt(style['max-width'])
+      unless max_width.nil?
         width = [max_width, width].min
       end
 
@@ -668,8 +668,8 @@ module MarkdownToPDF
       image_obj, image_info = @pdf.build_image_object(image_file)
       options = { position: align }
       width = @pdf.bounds.width - (image_opts[:left_margin] || 0) - (image_opts[:right_margin] || 0)
-      if style['max-width-mm']
-        max_width = @convert.mm2pt(style['max-width-mm'])
+      max_width = @convert.parse_pt(style['max-width'])
+      unless max_width.nil?
         width = [max_width, width].min
       end
 
@@ -858,13 +858,13 @@ module MarkdownToPDF
 
     def with_block_padding_all(opts, &block)
       with_block_padding(opts) do
-        @pdf.indent(@convert.first_number_mm(opts[:left_padding], 0), @convert.first_number_mm(opts[:right_padding], 0), &block)
+        @pdf.indent(opts[:left_padding] || 0, opts[:right_padding] || 0, &block)
       end
     end
 
     def with_block_margin_all(opts, &block)
       with_block_margin(opts) do
-        @pdf.indent(@convert.first_number_mm(opts[:left_margin], 0), @convert.first_number_mm(opts[:right_margin], 0), &block)
+        @pdf.indent(opts[:left_margin] || 0, opts[:right_margin] || 0, &block)
       end
     end
   end
