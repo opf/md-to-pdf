@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    md_to_pdf (0.0.1)
+    md_to_pdf (0.0.2)
       commonmarker (~> 0.23.6)
       front_matter_parser (~> 1.0)
       matrix (~> 0.4.2)
@@ -22,6 +22,8 @@ GEM
     mini_portile2 (2.8.0)
     nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.1.2.1)
