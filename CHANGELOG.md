@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## [0.0.3] - 2022-10-27
+- 
+- feat(styling): uses css-ish values with unit
+
+BREAKING: 
+
+- *-mm specific keys removed
+
 ## [0.0.2] - 2022-10-27
 
 - fix(header/footer): apply font to repeated elements; 
