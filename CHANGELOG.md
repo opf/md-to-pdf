@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## [0.0.5] - 2022-11-01
+
+- feat(pdf): support rendering into result string
+
+BREAKING:
+
+- style_filename - markdown parameters switched
+
 ## [0.0.4] - 2022-11-01
 
 - feat(blockcode): support background color and border

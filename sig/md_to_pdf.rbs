@@ -8,10 +8,18 @@ module MarkdownPDF
 
     def file_to_pdf: (markdown_file: String, pdf_destination_file: String, images_path: String | nil) -> void
 
+    def file_to_pdf_bin: (markdown_file: String, images_path: String | nil) -> String
+
     def markdown_to_pdf: (markdown_string: String, pdf_destination_file: String, images_path: String | nil) -> void
+
+    def markdown_to_pdf_bin: (markdown_string: String, images_path: String | nil) -> String
   end
 
-  def generate_markdown_pdf: (styling_yml_filename: String, markdown_file: String, pdf_destination_file: String) -> void
+  def render_markdown: (markdown_file: String, styling_yml_filename: String, images_path: String) -> String
 
-  def generate_markdown_string_pdf: (styling_yml_filename: String, markdown_string: String, images_path: String, destination_filename: String) -> void
+  def render_markdown_string: (markdown_string: String, styling_yml_filename: String, images_path: String) -> String
+
+  def generate_markdown_pdf: (markdown_file: String, styling_yml_filename: String, pdf_destination_file: String) -> void
+
+  def generate_markdown_string_pdf: (markdown_string: String, styling_yml_filename: String, images_path: String, pdf_destination_file: String) -> void
 end

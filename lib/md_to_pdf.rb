@@ -23,21 +23,35 @@ module MarkdownToPDF
     end
 
     def file_to_pdf(markdown_file, pdf_destination, images_path = nil)
-      FileUtils.mkdir_p File.dirname(pdf_destination)
       markdown = File.read(markdown_file)
       markdown_to_pdf(markdown, pdf_destination, images_path || File.dirname(markdown_file))
     end
 
+    def file_to_pdf_bin(markdown_file, images_path = nil)
+      markdown = File.read(markdown_file)
+      markdown_to_pdf_bin(markdown, images_path || File.dirname(markdown_file))
+    end
+
     def markdown_to_pdf(markdown_string, pdf_destination, images_path)
+      FileUtils.mkdir_p File.dirname(pdf_destination)
+      render_markdown(markdown_string, images_path)
+      @pdf.render_file(pdf_destination)
+    end
+
+    def markdown_to_pdf_bin(markdown_string, images_path)
+      render_markdown(markdown_string, images_path)
+      @pdf.render
+    end
+
+    private
+
+    def render_markdown(markdown_string, images_path)
       pdf_setup_document
       @images_path = images_path
       doc = Parser.new.parse_markdown(markdown_string, @styles.default_fields)
       @hyphens = Hyphenate.new(doc[:language], doc[:hyphenation])
       render_doc(doc)
-      @pdf.render_file(pdf_destination)
     end
-
-    private
 
     def render_doc(doc)
       opts = @convert.pdf_root_options(@styles.page)
@@ -909,21 +923,31 @@ module MarkdownToPDF
     end
   end
 
-  def self.generate_markdown_pdf(styling_yml_filename, markdown_file, destination_filename)
-    renderer = MarkdownToPDF::Generator.new(
+  def self.init_generator(styling_yml_filename)
+    MarkdownToPDF::Generator.new(
       styling_yml_filename: styling_yml_filename,
       styling_image_path: File.join(File.dirname(styling_yml_filename), 'images'),
       fonts_path: File.join(File.dirname(styling_yml_filename), 'fonts')
     )
+  end
+
+  def self.generate_markdown_pdf(markdown_file, styling_yml_filename, destination_filename)
+    renderer = init_generator(styling_yml_filename)
     renderer.file_to_pdf(markdown_file, destination_filename)
   end
 
-  def self.generate_markdown_string_pdf(styling_yml_filename, markdown_string, images_path, destination_filename)
-    renderer = MarkdownToPDF::Generator.new(
-      styling_yml_filename: styling_yml_filename,
-      styling_image_path: File.join(File.dirname(styling_yml_filename), 'images'),
-      fonts_path: File.join(File.dirname(styling_yml_filename), 'fonts')
-    )
+  def self.render_markdown(markdown_file, styling_yml_filename)
+    renderer = init_generator(styling_yml_filename)
+    renderer.file_to_pdf_bin(markdown_file)
+  end
+
+  def self.generate_markdown_string_pdf(markdown_string, styling_yml_filename, images_path, destination_filename)
+    renderer = init_generator(styling_yml_filename)
     renderer.markdown_to_pdf(markdown_string, destination_filename, images_path)
+  end
+
+  def self.render_markdown_string(markdown_string, styling_yml_filename, images_path)
+    renderer = init_generator(styling_yml_filename)
+    renderer.markdown_to_pdf_bin(markdown_string, images_path)
   end
 end

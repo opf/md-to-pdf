@@ -34,13 +34,13 @@ require 'md_to_pdf'
 styling_filename = './demo/demo.yml'
 source_filename = './demo/demo.md'
 dest_filename = './demo/generated/demo.pdf'
-MarkdownToPDF.generate_markdown_pdf(styling_filename, source_filename, dest_filename)
+MarkdownToPDF.generate_markdown_pdf(source_filename, styling_filename, dest_filename)
 
 # example with raw markdown pre-processing
 markdown_string = File.read(source_filename)
 markdown_string += 'An additional text at the bottom'
 images_path = File.dirname(source_filename)
-MarkdownToPDF.generate_markdown_string_pdf(styling_filename, markdown_string, images_path, dest_filename)
+MarkdownToPDF.generate_markdown_string_pdf(markdown_string, styling_filename, images_path, dest_filename)
 ```
 
 ## Markdown

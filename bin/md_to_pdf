@@ -7,8 +7,8 @@ if ARGV.length < 3
   exit
 end
 
-styling_filename = File.expand_path(ARGV[0])
-source_filename = File.expand_path(ARGV[1])
+source_filename = File.expand_path(ARGV[0])
+styling_filename = File.expand_path(ARGV[1])
 dest_filename = File.expand_path(ARGV[2])
 
 unless File.file?(source_filename)
@@ -24,6 +24,6 @@ puts "Styling: #{styling_filename}"
 puts "Source: #{source_filename}"
 puts "Destination: #{dest_filename}"
 
-MarkdownToPDF.generate_markdown_pdf(styling_filename, source_filename, dest_filename)
+MarkdownToPDF.generate_markdown_pdf(source_filename, styling_filename, dest_filename)
 
 puts 'Done.'
