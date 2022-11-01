@@ -1,7 +1,15 @@
 ## [Unreleased]
 
+## [0.0.4] - 2022-11-01
+
+- feat(blockcode): support background color and border
+
+BREAKING:
+
+- use `<br-page/>` instead of `<br page>` to avoid having an unwanted break in html
+
 ## [0.0.3] - 2022-10-27
-- 
+ 
 - feat(styling): uses css-ish values with unit
 
 BREAKING: 

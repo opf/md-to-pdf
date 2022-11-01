@@ -15,7 +15,7 @@ pdf_fields:
 
 # DEMO
 
-<br page/>
+<br-page/>
 
 # h1 Heading
 
@@ -57,7 +57,7 @@ _This is italic text_
 >> ...by using additional greater-than signs right next to each other...
 > > > ...or with spaces between arrows.
 
-<br page/>
+<br-page/>
 
 # Lists
 
@@ -100,7 +100,7 @@ Start numbering with offset:
           2. Level 4
           3. Level 4
 
-<br page/>
+<br-page/>
 
 ## Links
 
@@ -144,7 +144,7 @@ var foo = function (bar) {
 }
 ```
 
-<br page/>
+<br-page/>
 
 # Tables
 
@@ -170,7 +170,7 @@ var foo = function (bar) {
 | text around a ![Dummy image](demo.jpg) cell image | Links [ipsum](dolor)      | f**or**m*at*ting ~~strikethrough~~ |
 |                      # test                       | <u>underline</u>          | ---                                |
 
-<br page/>
+<br-page/>
 
 # Images
 
@@ -204,11 +204,11 @@ With a reference later in the document defining the URL location.
 
 [image-id]: demo.jpg  "The demo image"
 
-<br page>
+<br-page/>
 
 # HTML Specials
 
-`<br page>` start a new page
+`<br-page/>` start a new page
 
 `<u>...</u>` to <u>underline</u> text
 

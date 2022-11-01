@@ -189,11 +189,22 @@ table:
 #    color: '000088'
 
 blockquote:
+  background-color: 'f4f9ff'
   #    font: 'Helvetica'
-  size: 14
+  #    border-width: 0
   #    character-spacing: 0
+  size: 14
   styles: [ 'italic' ]
-  color: '008800'
+  color: '0f3b66'
+  border-color: 'b8d6f4'
+  border-width: 1
+  no-border-right: true
+  no-border-left: false
+  no-border-bottom: true
+  no-border-top: true
+  padding: 8mm
+  padding-left: 4mm
+  padding-right: 4mm
   #  margin: 2mm
   #  margin-left: 2mm
   #  margin-right: 2mm

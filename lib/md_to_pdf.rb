@@ -450,10 +450,51 @@ module MarkdownToPDF
 
     # type: blockquote
 
+    def data_blockquote(node, opts)
+      result = []
+      case node.type
+      when :paragraph
+        cell_data = inner_data(node, opts)
+        cell = make_table_cell_or_subtable(cell_data, opts, :left, @pdf.bounds.right)
+        result.push([cell])
+      when :blockquote
+        subtable_rows = []
+        node.each do |child|
+          subtable_data = data_blockquote(child, opts)
+          subtable_rows.concat(subtable_data)
+        end
+        subtable = @pdf.make_table(subtable_rows, cell_style: opts) do
+          (0..(row_length)).each do |i|
+            rows(i).padding_left = 20
+            rows(i).padding_top = 0
+            rows(i).padding_bottom = 0
+            rows(i).padding_right = 0
+          end
+        end
+        result.push([subtable])
+      else
+        warn("Unsupported node.type #{node.type} in data_blockquote()", node.type, node)
+      end
+      result
+    end
+
     def render_blockquote(node, opts)
       style = @styles.blockquote
+      cell_style_opts = @convert.opts_table_cell(style, opts)
+      data_rows = []
+      node.each do |row|
+        data_rows.concat(data_blockquote(row, cell_style_opts))
+      end
+      data = data_rows
       with_block_margin_all(@convert.opts_margin(style)) do
-        render_node(node, opts.merge(@convert.opts_font(style, opts)))
+        @pdf.table(data, width: @pdf.bounds.right, cell_style: cell_style_opts) do
+          (0..(row_length - 2)).each do |i|
+            rows(i).padding_bottom = cell_style_opts[:leading] || 0
+          end
+          (1..(row_length)).each do |i|
+            rows(i).padding_top = cell_style_opts[:leading] || 0
+          end
+        end
       end
     end
 
@@ -529,11 +570,9 @@ module MarkdownToPDF
         when 'comment'
           # ignore html comments
         when 'br'
-          if tag.attr('page') == ''
-            @pdf.start_new_page
-          else
-            @pdf.formatted_text([@convert.text_hash("\n", opts, false)])
-          end
+          @pdf.formatted_text([@convert.text_hash("\n", opts, false)])
+        when 'br-page'
+          @pdf.start_new_page
         else
           warn("WARNING: render_html; Html tag on root level currently unsupported.", tag.name, node)
         end
@@ -704,6 +743,7 @@ module MarkdownToPDF
         content: merge_cell_data(cell_data),
         font: opts[:font],
         size: opts[:size],
+        padding: opts[:cell_padding],
         inline_format: true
       )
     end

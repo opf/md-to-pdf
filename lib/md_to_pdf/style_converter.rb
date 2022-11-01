@@ -56,11 +56,12 @@ module MarkdownToPDF
     end
 
     def opts_borders_colors(style)
+      color = style['border-color']
       [
-        style['border-color-top'] || '000000',
-        style['border-color-right'] || '000000',
-        style['border-color-bottom'] || '000000',
-        style['border-color-left'] || '000000'
+        style['border-color-top'] || color || '000000',
+        style['border-color-right'] || color || '000000',
+        style['border-color-bottom'] || color || '000000',
+        style['border-color-left'] || color || '000000'
       ]
     end
 
