@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.0.6] - 2022-11-02
+
+- fix(prawn): caching of text fragment measurement did fail for same text in different sizes
+- fix(pdf): ignore image if missing 
+
 ## [0.0.5] - 2022-11-01
 
 - feat(pdf): support rendering into result string

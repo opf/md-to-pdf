@@ -10,6 +10,7 @@ require 'md_to_pdf/styles'
 require 'md_to_pdf/style_converter'
 require 'md_to_pdf/pdf_document'
 require 'md_to_pdf/hyphenate'
+require 'md_to_pdf/prawn_fix'
 
 module MarkdownToPDF
   class Generator
@@ -141,6 +142,8 @@ module MarkdownToPDF
       return if style['disabled']
 
       image_file = validate_image(logo, node)
+      return if image_file.nil? || logo.empty?
+
       image_obj, image_info = @pdf.build_image_object(image_file)
 
       top = @pdf.bounds.top - (style['offset'] || 0)

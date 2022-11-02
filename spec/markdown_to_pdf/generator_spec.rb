@@ -18,7 +18,7 @@ describe MarkdownToPDF::Generator do
 
   it "generate the demo binary via module" do
     content = MarkdownToPDF.render_markdown(source_filename, styling_filename)
-    expect(content).to start_with "%PDF-1.4\n"
+    expect(content).to start_with "%PDF-1"
   end
 
   it "generate the demo via cmdline" do
