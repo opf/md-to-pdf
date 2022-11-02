@@ -74,16 +74,16 @@ page-footer-3:
 
 paragraph:
   align: 'justify'
+  #  font: 'Helvetica'
+  #  size: 10
+  #  character-spacing: 0
+  #  styles: []
+  #  color: '000000'
   #  padding: 2mm
   #  padding-left: 2mm
   #  padding-right: 2mm
   #  padding-top: 2mm
   padding-bottom: 2mm
-#  font: 'Helvetica'
-#  size: 10
-#  character-spacing: 0
-#  styles: []
-#  color: '000000'
 
 link:
   #  font: 'Helvetica'
@@ -92,20 +92,26 @@ link:
   #  styles: []
   color: '000088'
 
+unordered-list:
+  spacing: 1.5mm
+
 unordered-list-point:
-  sign: "•"
 #    font: 'Helvetica'
 #    size: 10
 #    character-spacing: 0
 #    styles: []
 #    color: '000000'
+  sign: "•"
+
+ordered-list:
+  spacing: 1.5mm
 
 ordered-list-point:
 #    font: 'Helvetica'
 #    size: 10
-#    character-spacing: 0
 #    styles: []
 #    color: '000000'
+  character-spacing: 0
 
 ordered-list-point-3:
   template: '<number>)'
@@ -173,10 +179,10 @@ table:
     #    no-border-bottom: false
     #    no-border-top: false
     border-width: 0.25mm
-#    border-width-top: 0.25mm
-#    border-width-left: 0.25mm
-#    border-width-right: 0.25mm
-#    border-width-bottom: 0.25mm
+    #    border-width-top: 0.25mm
+    #    border-width-left: 0.25mm
+    #    border-width-right: 0.25mm
+    #    border-width-bottom: 0.25mm
     #    padding: 3mm
     padding-left: 3mm
     padding-right: 3mm
@@ -184,9 +190,9 @@ table:
     padding-bottom: 2mm
     #    font: 'Helvetica'
     size: 9
-#    character-spacing: 0
-#    styles: []
-#    color: '000088'
+    #    character-spacing: 0
+    #    styles: []
+    #    color: '000088'
 
 blockquote:
   background-color: 'f4f9ff'

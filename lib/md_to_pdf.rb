@@ -229,8 +229,10 @@ module MarkdownToPDF
         { align: (style['align'] || 'justify').to_sym },
         @convert.opts_font(style, opts)
       )
-
       p_padding_opts = @convert.opts_padding(style)
+      if opts[:force_paragraph]
+        p_padding_opts = opts[:force_paragraph]
+      end
       with_block_padding_all(p_padding_opts) do
         nodes = []
         until n.nil?
@@ -368,6 +370,12 @@ module MarkdownToPDF
 
       list_start = is_ordered ? (node.list_start || 0) : 0
 
+      list_paragraph_marker = {
+        force_paragraph: {
+          bottom_padding: style['spacing'].nil? ? 0 : @convert.parse_pt(style['spacing'])
+        }
+      }
+
       # node.list_tight unused here
       with_block_padding_all(@convert.opts_padding(style)) do
         node.each_with_index do |li, index|
@@ -386,7 +394,7 @@ module MarkdownToPDF
               else
                 child.insert_before(text_node)
               end
-              list_opts = @convert.opts_font(style, opts)
+              list_opts = @convert.opts_font(style, opts).merge(list_paragraph_marker)
               li.each do |inner_node|
                 if inner_node.type == :paragraph
                   convert(inner_node, list_opts)
@@ -397,7 +405,7 @@ module MarkdownToPDF
             end
           else
             @pdf.float { @pdf.formatted_text([@convert.text_hash(bullet, bullet_opts)]) }
-            @pdf.indent(bullet_width) { convert(li, @convert.opts_font(style, opts)) }
+            @pdf.indent(bullet_width) { convert(li, @convert.opts_font(style, opts).merge(list_paragraph_marker)) }
           end
         end
       end

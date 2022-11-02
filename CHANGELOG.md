@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.7] - 2022-11-03
+
+- fix(lists): allow defining spacing between list items
+
 ## [0.0.6] - 2022-11-02
 
 - fix(prawn): caching of text fragment measurement did fail for same text in different sizes

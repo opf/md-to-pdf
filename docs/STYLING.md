@@ -203,6 +203,7 @@ table:
 
 ```yml
 unordered-list:
+  spacing: 2mm # space between list items
   #  ...: see #font-settings
   #  ...: see #padding
 ```
@@ -223,6 +224,7 @@ unordered-list-point:
 
 ```yml
 ordered-list:
+  spacing: 2mm # space between list items
   point-inline: false # do not indent paragraph text, but include the point into the first paragraph
   #  ...: see #font-settings
   #  ...: see #padding
