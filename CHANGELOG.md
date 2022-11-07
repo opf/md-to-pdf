@@ -1,8 +1,12 @@
 ## [Unreleased]
 
+## [0.0.8] - 2022-11-07
+
+- feat(lists): allow defining spacing between bullet and list item content
+
 ## [0.0.7] - 2022-11-03
 
-- fix(lists): allow defining spacing between list items
+- feat(lists): allow defining spacing between list items
 
 ## [0.0.6] - 2022-11-02
 
