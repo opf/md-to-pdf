@@ -215,6 +215,7 @@ unordered-list:
 ```yml
 unordered-list-point:
   sign: "•" # the bullet point sign
+  spacing: 0.75mm # space between point and list item content
   #  ...: see #font-settings
 ```
 
@@ -238,6 +239,7 @@ ordered-list:
 ordered-list-point:
   template: '<number>.' # customize what the prefix should contain, eg. '(<number>)'
   alphabetical: false # convert the number to a char, eg. 'a. b. c.'
+  spacing: 0.75mm # space between point and list item content
   #  ...: see #font-settings (number point)
 ```
 

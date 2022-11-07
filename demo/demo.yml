@@ -102,6 +102,7 @@ unordered-list-point:
 #    styles: []
 #    color: '000000'
   sign: "•"
+  spacing: 0.75mm
 
 ordered-list:
   spacing: 1.5mm
@@ -112,6 +113,7 @@ ordered-list-point:
 #    styles: []
 #    color: '000000'
   character-spacing: 0
+  spacing: 0.75mm
 
 ordered-list-point-3:
   template: '<number>)'

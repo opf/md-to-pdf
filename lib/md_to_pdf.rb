@@ -381,7 +381,7 @@ module MarkdownToPDF
         node.each_with_index do |li, index|
           bullet = @convert.list_point(point_style, is_ordered, index + list_start)
           bullet_opts = @convert.opts_font(point_style, opts)
-          bullet_width = @pdf.width_of("#{bullet} ", bullet_opts)
+          bullet_width = @pdf.width_of("#{bullet} ", bullet_opts) + (@convert.parse_pt(point_style['spacing']) || 0)
           if style['point-inline']
             child = li.first_child
             text_node = CommonMarker::Node.new(:text)
