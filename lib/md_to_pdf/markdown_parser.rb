@@ -26,9 +26,9 @@ module MarkdownToPDF
       header_footer = parse_header_footer(parsed)
       fields = matter['pdf_fields'] || {}
       fields.each_key do |key|
-        content = content.gsub("%#{key}%", fields[key])
+        content = content.gsub("%#{key}%", fields[key].to_s)
         header_footer.each_key do |part|
-          header_footer[part] = header_footer[part].gsub("%#{key}%", fields[key])
+          header_footer[part] = header_footer[part].gsub("%#{key}%", fields[key].to_s)
         end
       end
       {
