@@ -415,12 +415,8 @@ module MarkdownToPDF
 
     def render_table(node, opts)
       column_widths = Array.new(node.table_alignments.length, @pdf.bounds.right / node.table_alignments.length)
-      table_style = @styles.table
-      cell_style = table_style['cell'] || {}
-      header_style = table_style['header'] || {}
-      table_cell_style_opts = @convert.opts_table_cell(cell_style, opts)
 
-      data = []
+      data_rows = []
       header = 0
       node.each do |row|
         data_row = []
@@ -434,6 +430,24 @@ module MarkdownToPDF
 
           header += 1
         end
+        data_rows.push(data_row)
+      end
+      return if data_rows.empty?
+
+      table_style = @styles.table
+      cell_style = table_style['cell'] || {}
+      header_style = table_style['header'] || {}
+
+      if header == 0
+        headless_table_style = @styles.headless_table
+        cell_style = headless_table_style['cell'] || {}
+        header_style = headless_table_style['header'] || {}
+      end
+
+      table_cell_style_opts = @convert.opts_table_cell(cell_style, opts)
+
+      data = []
+      data_rows.each do |data_row|
         cells_row = []
         padding_left = table_cell_style_opts[:padding_left] || 0
         padding_right = table_cell_style_opts[:padding_right] || 0

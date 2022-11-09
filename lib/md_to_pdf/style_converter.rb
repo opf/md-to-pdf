@@ -77,10 +77,13 @@ module MarkdownToPDF
 
     def opts_borders(style)
       borders = []
-      borders.push(:left) unless style['no-border-left']
-      borders.push(:right) unless style['no-border-right']
-      borders.push(:top) unless style['no-border-top']
-      borders.push(:bottom) unless style['no-border-bottom']
+      no_borders = style['no-border'] == true
+      unless no_borders
+        borders.push(:left) unless style['no-border-left']
+        borders.push(:right) unless style['no-border-right']
+        borders.push(:top) unless style['no-border-top']
+        borders.push(:bottom) unless style['no-border-bottom']
+      end
       {
         border_colors: opts_borders_colors(style),
         border_widths: opts_borders_width(style),

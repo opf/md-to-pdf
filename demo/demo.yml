@@ -196,6 +196,11 @@ table:
     #    styles: []
     #    color: '000088'
 
+headless-table:
+  cell:
+    border-color: '0000FF'
+    padding: 5mm
+
 blockquote:
   background-color: 'f4f9ff'
   #    font: 'Helvetica'

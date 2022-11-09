@@ -105,6 +105,12 @@ module MarkdownToPDF
       get_style('table')
     end
 
+    def headless_table
+      return table if @styling['headless-table'].nil?
+
+      get_style('headless-table')
+    end
+
     def codeblock
       get_style('codeblock')
     end

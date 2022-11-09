@@ -162,6 +162,14 @@ var foo = function (bar) {
 | 2a   |   2b   |    2c |
 | 3a   |   3b   |    3c |
 
+## Headerless Tables
+
+|                              |                              |
+|:-----------------------------|:----------------------------:|
+| Leave the header cells empty | to create a headerless table |
+| which can be styled          |         differently          |
+
+
 ## Images and Formatting in Cells
 
 |                        One                        | Two                       | Three                              |
