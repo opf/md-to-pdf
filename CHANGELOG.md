@@ -1,8 +1,16 @@
 ## [Unreleased]
 
+## [0.0.11] - 2022-11-24
+
+- feat(tables): allow individual styling of headless tables
+
+## [0.0.10] - 2022-11-09
+
+- feat(tables): allow individual styling of headless tables
+
 ## [0.0.9] - 2022-11-08
 
-- fix(fields): add to_s for yml fields parsed as non-string as-op 2 minutes ago
+- fix(fields): add to_s for yml fields parsed as non-string
 
 ## [0.0.8] - 2022-11-07
 
