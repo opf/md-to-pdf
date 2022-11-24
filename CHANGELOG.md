@@ -2,7 +2,7 @@
 
 ## [0.0.11] - 2022-11-24
 
-- feat(tables): allow individual styling of headless tables
+- feat(tables): allow disabling repeating header if table is split on pages
 
 ## [0.0.10] - 2022-11-09
 
