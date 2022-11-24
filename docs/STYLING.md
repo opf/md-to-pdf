@@ -186,6 +186,7 @@ table:
   header:
     style: 'bold' # table header only allows one default font style (use markup for more)
     background-color: 'F0F0F0'
+    no-repeating: true # if table headers should be repeated if table spawns over pages
     #  ...: see #font-settings
   cell:
     style: 'underline' # table cell only allows one default font style (use markup for more)

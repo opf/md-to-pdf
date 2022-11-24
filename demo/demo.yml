@@ -170,6 +170,7 @@ table:
     style: 'bold'
     background-color: 'F0F0F0'
     size: 10
+    # no-repeating: true
   cell:
     #    background-color: '000FFF'
     #    border-color-top: '000FFF'

@@ -458,11 +458,15 @@ module MarkdownToPDF
         data.push(cells_row)
       end
 
+      no_repeating_header = header_style['no-repeating'] == true
+
+      repeating_header = header == 0 || no_repeating_header ? false : header
+
       with_block_margin_all(@convert.opts_margin(table_style)) do
         @pdf.table(
           data,
           width: @pdf.bounds.right,
-          header: header == 0 ? false : header,
+          header: repeating_header,
           cell_style: table_cell_style_opts,
           column_widths: column_widths
         ) do
