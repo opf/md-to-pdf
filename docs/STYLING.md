@@ -241,6 +241,7 @@ ordered-list-point:
   template: '<number>.' # customize what the prefix should contain, eg. '(<number>)'
   alphabetical: false # convert the number to a char, eg. 'a. b. c.'
   spacing: 0.75mm # space between point and list item content
+  spanning: true # use the width of the largest bullet width
   #  ...: see #font-settings (number point)
 ```
 

@@ -376,12 +376,24 @@ module MarkdownToPDF
         }
       }
 
+      spacing = (@convert.parse_pt(point_style['spacing']) || 0)
+      auto_span = point_style['spanning'] == true
+      bullet_opts = @convert.opts_font(point_style, opts)
+
+      if auto_span
+        max_span = 0
+        node.each_with_index do |li, index|
+          bullet = @convert.list_point(point_style, is_ordered, index + list_start)
+          bullet_width = @pdf.width_of("#{bullet} ", bullet_opts)
+          max_span = [max_span, bullet_width].max
+        end
+      end
+
       # node.list_tight unused here
       with_block_padding_all(@convert.opts_padding(style)) do
         node.each_with_index do |li, index|
-          bullet = @convert.list_point(point_style, is_ordered, index + list_start)
-          bullet_opts = @convert.opts_font(point_style, opts)
-          bullet_width = @pdf.width_of("#{bullet} ", bullet_opts) + (@convert.parse_pt(point_style['spacing']) || 0)
+          bullet =  @convert.list_point(point_style, is_ordered, index + list_start)
+          bullet_width = (auto_span ? max_span : @pdf.width_of("#{bullet} ", bullet_opts)) + spacing
           if style['point-inline']
             child = li.first_child
             text_node = CommonMarker::Node.new(:text)

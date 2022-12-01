@@ -65,19 +65,20 @@ _This is italic text_
 
 + Create a list by starting a line with `+`, `-`, or `*`
 + Sub-lists are made by indenting 2 spaces:
-  - Marker character change forces new list start:
     * Ac tristique libero volutpat at
-
-    + Facilisis in pretium nisl aliquet
-
-    - Nulla volutpat aliquam velit
-+ Very easy!
 
 ## Ordered
 
 1. Lorem ipsum dolor sit amet
 2. Consectetur adipiscing elit
 3. Integer molestie lorem at massa
+4. Four
+5. Five
+6. Six
+7. Seven
+8. Eight
+9. Nine
+10. Ten
 
 
 1. You can use sequential numbers...
@@ -106,7 +107,7 @@ Start numbering with offset:
 
 [link text](https://www.openproject.com)
 
-Autoconverted link https://www.openproject.com
+Auto-converted link https://www.openproject.com
 
 [Anchor links in document](#links) (to headline "Links")
 
@@ -255,7 +256,7 @@ This is replaced: %variable-demo-1% and this is replaced: %variable-demo-2%.
 
 # Footnotes
 
-Currently footnotes are placed at the end of the document, not on a page.
+Currently, footnotes are placed at the end of the document, not on a page.
 
 Footnote 1 link[^first].
 

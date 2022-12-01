@@ -114,6 +114,7 @@ ordered-list-point:
 #    color: '000000'
   character-spacing: 0
   spacing: 0.75mm
+  spanning: true
 
 ordered-list-point-3:
   template: '<number>)'
