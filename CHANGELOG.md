@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.12] - 2022-12-07
+
+- feat(ordered list): optional spanning to the most width bullet point
+
 ## [0.0.11] - 2022-11-24
 
 - feat(tables): allow disabling repeating header if table is split on pages
