@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.13] - 2022-12-08
+
+- feat(table): prevent single table header rows on the bottom of the page
+
 ## [0.0.12] - 2022-12-07
 
 - feat(ordered list): optional spanning to the most width bullet point
