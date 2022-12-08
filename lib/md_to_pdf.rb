@@ -392,7 +392,7 @@ module MarkdownToPDF
       # node.list_tight unused here
       with_block_padding_all(@convert.opts_padding(style)) do
         node.each_with_index do |li, index|
-          bullet =  @convert.list_point(point_style, is_ordered, index + list_start)
+          bullet = @convert.list_point(point_style, is_ordered, index + list_start)
           bullet_width = (auto_span ? max_span : @pdf.width_of("#{bullet} ", bullet_opts)) + spacing
           if style['point-inline']
             child = li.first_child
@@ -474,32 +474,46 @@ module MarkdownToPDF
 
       repeating_header = header == 0 || no_repeating_header ? false : header
 
-      with_block_margin_all(@convert.opts_margin(table_style)) do
-        @pdf.table(
-          data,
-          width: @pdf.bounds.right,
-          header: repeating_header,
-          cell_style: table_cell_style_opts,
-          column_widths: column_widths
-        ) do
-          node.table_alignments.each_with_index do |alignment, index|
-            columns(index).align = alignment unless alignment == nil
-          end
-          if header > 0
-            header_background_color = header_style['background-color']
-            header_font_style = header_style['style'] ? header_style['style'].to_sym : nil
-            header_font_size = header_style['size'] || cell_style['size'] || opts[:size]
-            header_font_color = header_style['color']
+      table = @pdf.make_table(
+        data,
+        width: @pdf.bounds.right,
+        header: repeating_header,
+        cell_style: table_cell_style_opts,
+        column_widths: column_widths
+      ) do
+        node.table_alignments.each_with_index do |alignment, index|
+          columns(index).align = alignment unless alignment == nil
+        end
+        if header > 0
+          header_background_color = header_style['background-color']
+          header_font_style = header_style['style'] ? header_style['style'].to_sym : nil
+          header_font_size = header_style['size'] || cell_style['size'] || opts[:size]
+          header_font_color = header_style['color']
 
-            header_cells = cells.columns(0..-1).rows(0..(header - 1))
-            header_cells.each do |cell|
-              cell.background_color = header_background_color
-              cell.font_style = header_font_style
-              cell.text_color = header_font_color
-              cell.size = header_font_size
-            end
+          header_cells = cells.columns(0..-1).rows(0..(header - 1))
+          header_cells.each do |cell|
+            cell.background_color = header_background_color
+            cell.font_style = header_font_style
+            cell.text_color = header_font_color
+            cell.size = header_font_size
           end
         end
+      end
+
+      margins = @convert.opts_margin(table_style)
+
+      if header > 0
+        header_cells = table.cells.columns(0..-1).rows(0..header) # header AND the first row
+        height = header_cells.height + margins[:top_margin]
+        threshold = 80
+        space_from_bottom = @pdf.y - @pdf.bounds.bottom - height
+        if space_from_bottom < threshold
+          @pdf.start_new_page
+        end
+      end
+
+      with_block_margin_all(margins) do
+        table.draw
       end
     end
 
