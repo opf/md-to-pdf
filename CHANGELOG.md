@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.14] - 2023-01-11
+
+- chore(deps): update nokogiri dependency
+
 ## [0.0.13] - 2022-12-08
 
 - feat(table): prevent single table header rows on the bottom of the page

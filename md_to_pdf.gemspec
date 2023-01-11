@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "commonmarker", ["~> 0.23.6"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
   s.add_runtime_dependency "matrix", ["~> 0.4.2"]
-  s.add_runtime_dependency "nokogiri", ["~> 1.13.9"]
+  s.add_runtime_dependency "nokogiri", ["~> 1.14.0.rc1"]
   s.add_runtime_dependency "prawn", ["~> 2.4"]
   s.add_runtime_dependency "prawn-table", ["~> 0.2.2"]
   s.add_runtime_dependency "text-hyphen", ["~> 1.4.1"]
