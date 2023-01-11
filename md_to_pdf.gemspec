@@ -19,17 +19,17 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "commonmarker", ["~> 0.23.6"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
-  s.add_runtime_dependency "matrix", ["~> 0.4.2"]
-  s.add_runtime_dependency "nokogiri", ["~> 1.14.0.rc1"]
+  s.add_runtime_dependency "matrix", ["~> 0.4"]
+  s.add_runtime_dependency "nokogiri", ["~> 1.13"]
   s.add_runtime_dependency "prawn", ["~> 2.4"]
-  s.add_runtime_dependency "prawn-table", ["~> 0.2.2"]
-  s.add_runtime_dependency "text-hyphen", ["~> 1.4.1"]
+  s.add_runtime_dependency "prawn-table", ["~> 0.2"]
+  s.add_runtime_dependency "text-hyphen", ["~> 1.4"]
 
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rspec", "~> 3.2"
-  s.add_development_dependency 'rubocop', '~> 1.37.1'
-  s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.14.1'
+  s.add_development_dependency 'rubocop', '~> 1.43'
+  s.add_development_dependency 'rubocop-rake', '~> 0.6'
+  s.add_development_dependency 'rubocop-rspec', '~> 2.16'
 
   s.metadata['rubygems_mfa_required'] = 'true'
   s.metadata["homepage_uri"] = s.homepage
