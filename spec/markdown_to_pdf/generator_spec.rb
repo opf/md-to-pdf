@@ -11,7 +11,7 @@ dest_filename = File.join(demo_dir, 'generated', 'demo.pdf')
 
 describe MarkdownToPDF::Generator do
   it "generate the demo file via module" do
-    File.delete(dest_filename) if File.exist?(dest_filename)
+    FileUtils.rm_f(dest_filename)
     MarkdownToPDF.generate_markdown_pdf(source_filename, styling_filename, dest_filename)
     expect(File.exist?(dest_filename)).to be(true)
   end
@@ -22,7 +22,7 @@ describe MarkdownToPDF::Generator do
   end
 
   it "generate the demo via cmdline" do
-    File.delete(dest_filename) if File.exist?(dest_filename)
+    FileUtils.rm_f(dest_filename)
     system("bundle exec md_to_pdf #{source_filename} #{styling_filename} #{dest_filename} >/dev/null 2>&1")
     expect(File.exist?(dest_filename)).to be(true)
   end

@@ -22,7 +22,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module MarkdownToPDF
-  class AttributesParser
+  module AttributesParser
     OPT_SPACE = / {0,3}/
     IAL_CLASS_ATTR = 'class'
     ALD_ID_CHARS = /[\w-]/
@@ -37,8 +37,13 @@ module MarkdownToPDF
     ALD_TYPE_REF = /(#{ALD_ID_NAME})/
     ALD_TYPE_ANY = /(?:\A|\s)(?:#{ALD_TYPE_KEY_VALUE_PAIR}|#{ALD_TYPE_REF}|#{ALD_TYPE_ID_OR_CLASS_MULTI})(?=\s|\Z)/
 
-    # Parse the string +str+ and extract all attributes and returns all found attributes to the hash +opts+.
+    def parse_attribute_class(str)
+      attribs = parse_attribute_list(str)
+      attribs['class'] if attribs
+    end
+
     def parse_attribute_list(str)
+      # Parse the string +str+ and extract all attributes and returns all found attributes to the hash +opts+.
       opts = {}
       return opts if str.strip.empty? || str.strip == ':'
 

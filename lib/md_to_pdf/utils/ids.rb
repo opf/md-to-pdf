@@ -1,17 +1,19 @@
 module MarkdownToPDF
-  class IdGenerator
-    def initialize
-      @used_ids = {}
+  module IDs
+    def generate_id(str)
+      id = basic_generate_id(str)
+      if used_ids.key?(id)
+        id += "-#{used_ids[id] += 1}"
+      else
+        used_ids[id] = 0
+      end
+      id
     end
 
-    def generate_id(str)
-      gen_id = basic_generate_id(str)
-      if @used_ids.key?(gen_id)
-        gen_id += "-#{@used_ids[gen_id] += 1}"
-      else
-        @used_ids[gen_id] = 0
-      end
-      gen_id
+    private
+
+    def used_ids
+      @used_ids ||= {}
     end
 
     def basic_generate_id(str)

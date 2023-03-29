@@ -18,8 +18,8 @@ CM_PARSE_OPTIONS = %i[
 ].freeze
 
 module MarkdownToPDF
-  class Parser
-    def parse_markdown(markdown, default_fields)
+  module Parser
+    def parse_frontmatter_markdown(markdown, default_fields)
       parsed = FrontMatterParser::Parser.new(:md).call(markdown)
       content = parsed.content
       matter = (default_fields || {}).merge(parsed.front_matter)

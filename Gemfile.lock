@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    md_to_pdf (0.0.13)
+    md_to_pdf (0.0.15)
       commonmarker (~> 0.23.6)
       front_matter_parser (~> 1.0)
       matrix (~> 0.4)
@@ -14,13 +14,13 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    commonmarker (0.23.6)
+    commonmarker (0.23.8)
     diff-lcs (1.5.0)
     front_matter_parser (1.0.1)
     json (2.6.3)
     matrix (0.4.2)
     mini_portile2 (2.8.1)
-    nokogiri (1.13.10)
+    nokogiri (1.14.2)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parallel (1.22.1)

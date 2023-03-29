@@ -85,6 +85,10 @@ module MarkdownToPDF
       get_style('footnote-definition')
     end
 
+    def footnote_definition_point
+      get_style('footnote-definition')['point'] || {}
+    end
+
     def list(is_ordered)
       get_style(is_ordered ? 'ordered-list' : 'unordered-list')
     end
@@ -105,10 +109,26 @@ module MarkdownToPDF
       get_style('table')
     end
 
+    def table_cell
+      table['cell'] || {}
+    end
+
+    def table_header
+      table['header'] || {}
+    end
+
     def headless_table
       return table if @styling['headless-table'].nil?
 
       get_style('headless-table')
+    end
+
+    def headless_table_cell
+      headless_table['cell'] || {}
+    end
+
+    def headless_table_header
+      headless_table['header'] || {}
     end
 
     def codeblock

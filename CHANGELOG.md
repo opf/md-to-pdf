@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- refactor(generator): split monolithic generator class into modules
+
 ## [0.0.14] - 2023-01-11
 
 - chore(deps): update nokogiri dependency
@@ -47,7 +49,7 @@ BREAKING:
 
 ## [0.0.4] - 2022-11-01
 
-- feat(blockcode): support background color and border
+- feat(blockquote): support background color and border
 
 BREAKING:
 
