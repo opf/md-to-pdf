@@ -43,7 +43,7 @@ module MarkdownToPDF
       pdf_setup_document
       @images_path = images_path
       doc = parse_frontmatter_markdown(markdown_string, @styles.default_fields)
-      init_hyphenation(doc[:language], doc[:hyphenation])
+      @hyphens = Hyphen.new(doc[:language], doc[:hyphenation])
       render_doc(doc)
     end
 

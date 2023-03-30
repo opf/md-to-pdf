@@ -10,10 +10,6 @@ module MarkdownToPDF
       @hyphens.hyphenate(text)
     end
 
-    def init_hyphenation(language, enabled)
-      @hyphens = Hyphen.new(language, enabled)
-    end
-
     def auto_generate_header_ids?
       true
     end
