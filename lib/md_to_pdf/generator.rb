@@ -1,52 +1,11 @@
-require 'md_to_pdf/elements/blockquote'
-require 'md_to_pdf/elements/break'
-require 'md_to_pdf/elements/code'
-require 'md_to_pdf/elements/codeblock'
-require 'md_to_pdf/elements/footnotes'
-require 'md_to_pdf/elements/header'
-require 'md_to_pdf/elements/hrule'
-require 'md_to_pdf/elements/html'
-require 'md_to_pdf/elements/image'
-require 'md_to_pdf/elements/link'
-require 'md_to_pdf/elements/list'
-require 'md_to_pdf/elements/page'
-require 'md_to_pdf/elements/paragraph'
-require 'md_to_pdf/elements/table'
-require 'md_to_pdf/elements/text'
-require 'md_to_pdf/utils/attributes_parser'
-require 'md_to_pdf/utils/common'
-require 'md_to_pdf/utils/fonts'
-require 'md_to_pdf/utils/ids'
-require 'md_to_pdf/utils/markdown_ast_node'
-require 'md_to_pdf/utils/style_helper'
-require 'md_to_pdf/utils/styles'
+require 'md_to_pdf/core'
 require 'md_to_pdf/external'
 require 'md_to_pdf/hyphen'
 require 'md_to_pdf/markdown_parser'
 
 module MarkdownToPDF
   class Generator
-    include MarkdownToPDF::Blockquote
-    include MarkdownToPDF::Break
-    include MarkdownToPDF::Code
-    include MarkdownToPDF::Codeblock
-    include MarkdownToPDF::Footnotes
-    include MarkdownToPDF::Header
-    include MarkdownToPDF::HRule
-    include MarkdownToPDF::HTML
-    include MarkdownToPDF::Image
-    include MarkdownToPDF::Link
-    include MarkdownToPDF::List
-    include MarkdownToPDF::MarkdownASTNode
-    include MarkdownToPDF::Page
-    include MarkdownToPDF::Paragraph
-    include MarkdownToPDF::Table
-    include MarkdownToPDF::Text
-    include MarkdownToPDF::AttributesParser
-    include MarkdownToPDF::Common
-    include MarkdownToPDF::Fonts
-    include MarkdownToPDF::IDs
-    include MarkdownToPDF::StyleHelper
+    include MarkdownToPDF::Core
     include MarkdownToPDF::External
     include MarkdownToPDF::Parser
 
