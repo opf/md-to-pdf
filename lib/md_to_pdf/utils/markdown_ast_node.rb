@@ -1,7 +1,7 @@
 module MarkdownToPDF
   module MarkdownASTNode
     def draw_node(node, opts)
-      draw_node_list(node_children(node), opts)
+      draw_node_list(node.to_a, opts)
     end
 
     def draw_node_list(list, opts)
@@ -45,7 +45,7 @@ module MarkdownToPDF
     end
 
     def data_node_children(node, opts)
-      data_node_list(node_children(node), opts)
+      data_node_list(node.to_a, opts)
     end
 
     def data_node_list(list, opts)
@@ -60,10 +60,6 @@ module MarkdownToPDF
         end
       end
       result.flatten.compact
-    end
-
-    def node_children(node)
-      node.to_a
     end
 
     private
