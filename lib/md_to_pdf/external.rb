@@ -14,6 +14,10 @@ module MarkdownToPDF
       true
     end
 
+    def warn(text, element, node)
+      puts "WARNING: #{text}\nGot #{element} at #{node.sourcepos.inspect}\n\n"
+    end
+
     private
 
     def validate_image(url, node)
@@ -41,8 +45,5 @@ module MarkdownToPDF
       image_file
     end
 
-    def warn(text, element, node)
-      puts "WARNING: #{text}\nGot #{element} at #{node.sourcepos.inspect}\n\n"
-    end
   end
 end
