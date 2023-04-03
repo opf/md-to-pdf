@@ -51,12 +51,8 @@ module MarkdownToPDF
         image_opts[:image_classes] = image_classes if image_classes
         nn.delete
       end
-      nn = n.next
-      if nn
-        draw_standalone_image(n, image_opts)
-        return true
-      end
-      false
+      draw_standalone_image(n, image_opts)
+      true
     end
   end
 end

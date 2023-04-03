@@ -13,7 +13,7 @@ module MarkdownToPDF
       @fonts_path = fonts_path || '.'
       @styling_images_path = styling_image_path || '.'
       yml = styling_yml_filename ? YAML.load_file(styling_yml_filename) : {}
-      @styles = Styles.new(yml)
+      @styles = Styles.new(symbolize(yml))
     end
 
     def file_to_pdf(markdown_file, pdf_destination, images_path = nil)
@@ -38,6 +38,14 @@ module MarkdownToPDF
     end
 
     private
+
+    def symbolize(obj)
+      return obj.inject({}) { |memo, (k, v)| memo[k.gsub('-', '_').to_sym] = symbolize(v); memo } if obj.is_a? Hash
+
+      return obj.inject([]) { |memo, v| memo << symbolize(v); memo } if obj.is_a? Array
+
+      obj
+    end
 
     def render_markdown(markdown_string, images_path)
       pdf_setup_document

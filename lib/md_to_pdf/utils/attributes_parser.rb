@@ -56,7 +56,7 @@ module MarkdownToPDF
             if class_attr
               opts[IAL_CLASS_ATTR] = "#{opts[IAL_CLASS_ATTR]} #{class_attr}".lstrip
             else
-              opts['id'] = id_attr
+              opts[:id] = id_attr
             end
           end
         else

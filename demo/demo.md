@@ -31,25 +31,33 @@ pdf_fields:
 
 # Horizontal Rules
 
+`___`
+
 ___
+
+`---`
 
 ---
 
+`***`
+
 ***
+
+`_________________`
 
 _________________
 
 # Emphasis
 
-**This is bold text**
+**This is bold text** with `**`
 
-__This is bold text__
+__This is bold text__ with `__`
 
-*This is italic text*
+*This is italic text* with `*`
 
-_This is italic text_
+_This is italic text_ with `_`
 
-~~Strikethrough~~
+~~Strikethrough~~ with `~~`
 
 # Blockquotes
 
