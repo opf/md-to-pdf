@@ -14,6 +14,18 @@ module MarkdownToPDF
       true
     end
 
+    def handle_unknown_inline_html_tag(tag, node, opts)
+      warn("data_inlinehtml; Html tag currently unsupported.", tag.name, node)
+      # [array of pdf data, options]
+      [[], opts]
+    end
+
+    def handle_unknown_html_tag(tag, node, opts)
+      warn("draw_html; Html tag on root level currently unsupported.", tag.name, node)
+      # [continue walking the html children, options]
+      [true, opts]
+    end
+
     def warn(text, element, node)
       puts "WARNING: #{text}\nGot #{element} at #{node.sourcepos.inspect}\n\n"
     end

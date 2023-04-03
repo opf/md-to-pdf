@@ -26,50 +26,87 @@ module MarkdownToPDF
         add_font_style(opts, :strikethrough)
       when '</strikethrough>'
         remove_font_style(opts, :strikethrough)
+      when '</a>'
+        result = remove_link_opts(opts)
+        result[:original_opts] || result
+      else
+        node = Nokogiri::HTML.fragment(tag).children[0]
+        if node && node.name == 'a' && node.attr('href')
+          result = link_opts(node.attr('href'), opts)
+          result[:original_opts] = opts
+          result
+        end
       end
     end
 
     def draw_html(node, opts)
       html = node.string_content.gsub("\n", '').strip
       parsed_data = Nokogiri::HTML.fragment(html)
-      parsed_data.children.each do |tag|
-        case tag.name
-        when 'img'
-          embed_image(tag.attr('src'), node, opts.merge({ image_classes: tag.attr('class') }))
-        when 'text'
-          @pdf.formatted_text([text_hash(tag.text, opts)])
-        when 'comment'
-          # ignore html comments
-        when 'br'
-          @pdf.formatted_text([text_hash_raw("\n", opts)])
-        when 'br-page'
-          @pdf.start_new_page
-        else
-          warn("WARNING: draw_html; Html tag on root level currently unsupported.", tag.name, node)
-        end
-      end
+      draw_html_tag(parsed_data, node, opts)
     end
 
     def data_inlinehtml(node, opts)
       html = node.string_content
+      if html.downcase == '</a>'
+        remove_link_opts(opts)
+        return []
+      end
       parsed_data = Nokogiri::HTML.fragment(html)
+      data_inlinehtml_tag(parsed_data, node, opts)
+    end
+
+    private
+
+    def data_inlinehtml_tag(tag, node, opts)
       result = []
-      parsed_data.children.each do |tag|
-        case tag.name
+      current_opts = opts
+      tag.children.each do |sub|
+        case sub.name
         when 'text'
-          result.push(text_hash(tag.text, opts))
+          result.push(text_hash(sub.text, current_opts))
+        when 'a'
+          url = sub.attr('href')
+          unless url.nil?
+            if url.start_with?('#')
+              opts[:anchor] = url.sub(/\A#/, '')
+            else
+              opts[:link] = url
+            end
+          end
         when 'comment'
           # ignore html comments
         when 'br'
-          result.push(text_hash_raw("\n", opts))
+          result.push(text_hash_raw("\n", current_opts))
         else
-          warn("WARNING: data_inlinehtml; Html tag currently unsupported.", tag.name, node)
+          data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
+          result.concat(data_array)
         end
       end
       result
     end
 
-    private
+    def draw_html_tag(tag, node, opts)
+      current_opts = opts
+      tag.children.each do |sub|
+        case sub.name
+        when 'img'
+          embed_image(sub.attr('src'), node, current_opts.merge({ image_classes: sub.attr('class') }))
+        when 'text'
+          @pdf.formatted_text([text_hash(sub.text, current_opts)])
+        when 'a'
+          draw_html_tag(sub, node, link_opts(sub.attr('href'), current_opts))
+        when 'comment'
+          # ignore html comments
+        when 'br'
+          @pdf.formatted_text([text_hash_raw("\n", current_opts)])
+        when 'br-page'
+          @pdf.start_new_page
+        else
+          process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
+          draw_html_tag(sub, node, opts) if process_children
+        end
+      end
+    end
 
     def cell_inline_formatting(cell_data_part)
       # https://prawnpdf.org/docs/0.11.1/Prawn/Text.html internal format

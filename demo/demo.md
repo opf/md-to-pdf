@@ -103,13 +103,17 @@ Start numbering with offset:
 
 <br-page/>
 
-## Links
+# Links
 
 [link text](https://www.openproject.com)
 
 Auto-converted link https://www.openproject.com
 
 [Anchor links in document](#links) (to headline "Links")
+
+HTML tag `<a href="https://www.openproject.com">link text</a>`
+
+Inline <a href="https://www.openproject.com">link text</a> HTML tag
 
 # Code
 
