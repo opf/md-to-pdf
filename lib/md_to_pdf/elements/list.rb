@@ -2,7 +2,7 @@ module MarkdownToPDF
   module List
     def draw_list(node, opts)
       list = list_settings(node, opts)
-      points = point_settings(node, list, opts)
+      points = point_settings(node, list)
       with_block_padding_all(list[:opts_padding]) do
         node.each_with_index do |li, index|
           convert_list_entry(li, index + list[:list_start], points, list)
@@ -50,10 +50,10 @@ module MarkdownToPDF
       }
     end
 
-    def point_settings(node, list, opts)
+    def point_settings(node, list)
       point_style = list_point_style(list[:level], list[:is_ordered])
       auto_span = opt_list_point_spanning?(point_style)
-      bullet_opts = opts_font(point_style, opts)
+      bullet_opts = opts_font(point_style, list[:content_opts])
       {
         spacing: opt_list_point_spacing(point_style),
         auto_span: auto_span,
