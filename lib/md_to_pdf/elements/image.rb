@@ -6,8 +6,7 @@ module MarkdownToPDF
     end
 
     def data_image(node, _opts)
-      filename = image_url_to_local_file(node.url, node)
-      { image: filename } if filename
+      { image: node.url } if node.url
     end
 
     def draw_standalone_image(node, opts)

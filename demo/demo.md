@@ -59,11 +59,16 @@ _This is italic text_ with `_`
 
 ~~Strikethrough~~ with `~~`
 
+<br-page/>
+
 # Blockquotes
 
 > Blockquotes can also be nested...
 >> ...by using additional greater-than signs right next to each other...
 > > > ...or with spaces between arrows.
+
+> Blockquotes can also contain images...
+>> ...before image ![](demo.jpg) after image...
 
 <br-page/>
 

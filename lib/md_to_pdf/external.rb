@@ -1,6 +1,6 @@
 module MarkdownToPDF
   module External
-    def image_url_to_local_file(url, node)
+    def image_url_to_local_file(url, node = nil)
       return nil if url.nil? || url.empty?
 
       validate_image(url, node)
@@ -27,7 +27,7 @@ module MarkdownToPDF
     end
 
     def warn(text, element, node)
-      puts "WARNING: #{text}\nGot #{element} at #{node.sourcepos.inspect}\n\n"
+      puts "WARNING: #{text}\nGot #{element} at #{node ? node.sourcepos.inspect : '?'}\n\n"
     end
 
     private

@@ -75,6 +75,8 @@ module MarkdownToPDF
           end
         when 'comment'
           # ignore html comments
+        when 'img'
+          result.push({ image: sub.attr('src') })
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
         else

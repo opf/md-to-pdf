@@ -148,9 +148,10 @@ module MarkdownToPDF
       rows = []
       row = []
       cell_data.each do |elem|
-        if elem[:image]
+        if elem.key?(:image)
           rows.push([make_subtable_cell(row, opts)]) unless row.empty?
-          rows.push([image_in_table_column(elem, alignment).merge({ borders: [] })])
+          image_file = image_url_to_local_file(elem[:image])
+          rows.push([image_in_table_column(image_file, alignment).merge({ borders: [] })]) unless image_file.nil?
           row = []
         else
           row.push(elem)
@@ -162,13 +163,13 @@ module MarkdownToPDF
       end
     end
 
-    def image_in_table_column(image_data, alignment)
-      image_data.merge({ fit: [100, 100], position: alignment, vposition: :center })
+    def image_in_table_column(image_file, alignment)
+      { image: image_file, fit: [100, 100], position: alignment, vposition: :center }
     end
 
     def build_table_data(data_rows, column_alignments, opts)
       data = []
-      data_rows.each_with_index do |data_row|
+      data_rows.each do |data_row|
         cells_row = []
         data_row.each_with_index do |cell_data, index|
           cells_row.push(make_table_cell_or_subtable(cell_data, opts, column_alignments[index]))
@@ -179,9 +180,10 @@ module MarkdownToPDF
     end
 
     def make_table_cell_or_subtable(cell_data, opts, alignment)
-      image_data = cell_data.find { |elem| elem[:image] }
+      image_data = cell_data.find { |elem| elem.key?(:image) }
       if image_data
-        return image_in_table_column(image_data, alignment) if cell_data.length === 1
+        image_file = image_url_to_local_file(image_data[:image])
+        return image_in_table_column(image_file, alignment) if !image_file.nil? && cell_data.length === 1
 
         return make_subtable(cell_data, opts, alignment)
       end
