@@ -162,16 +162,20 @@ header-8:
   size: 10
 
 table:
+  auto-width: true
   #  margin: 2mm
   #  margin-left: 2mm
   #  margin-right: 2mm
   margin-top: 2mm
   margin-bottom: 4mm
   header:
-    style: 'bold'
+    # no-repeating: true
+    styles: ['bold']
     background-color: 'F0F0F0'
     size: 10
-    # no-repeating: true
+    #    character-spacing: 0
+    #    color: '000088'
+    #    font: 'Helvetica'
   cell:
     #    background-color: '000FFF'
     #    border-color-top: '000FFF'
@@ -199,6 +203,7 @@ table:
     #    color: '000088'
 
 headless-table:
+  auto-width: false
   cell:
     border-color: '0000FF'
     padding: 5mm

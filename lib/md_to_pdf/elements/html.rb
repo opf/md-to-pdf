@@ -85,6 +85,44 @@ module MarkdownToPDF
       result
     end
 
+    def collect_html_table_tag_rows(tag, table_font_opts, opts)
+      rows = []
+      tag.children.each do |sub|
+        case sub.name
+        when 'tbody', 'thead'
+          rows.concat(collect_html_table_tag_rows(sub, table_font_opts, opts))
+        when 'tr'
+          rows.push(collect_html_table_tag_row(sub, table_font_opts, opts))
+        end
+      end
+      rows
+    end
+
+    def draw_html_table_tag(tag, opts)
+      table_font_opts = build_table_font_opts(opts)
+      rows = collect_html_table_tag_rows(tag, table_font_opts, opts)
+      column_count = 0
+      rows.each do |row|
+        column_count = [column_count, row.length].max
+      end
+      column_alignments = Array.new(column_count, :left)
+      header_row_count = count_html_header_rows(tag)
+      table = build_table_settings(header_row_count, opts)
+      draw_table_data(table, rows, column_alignments, opts)
+    end
+
+    def count_html_header_rows(tag, header_count = 0)
+      tag.children.each do |sub|
+        case sub.name
+        when 'thead'
+          header_count = count_html_header_rows(sub, header_count)
+        when 'tr'
+          header_count += 1
+        end
+      end
+      header_count
+    end
+
     def draw_html_tag(tag, node, opts)
       current_opts = opts
       tag.children.each do |sub|
@@ -95,6 +133,8 @@ module MarkdownToPDF
           @pdf.formatted_text([text_hash(sub.text, current_opts)])
         when 'a'
           draw_html_tag(sub, node, link_opts(sub.attr('href'), current_opts))
+        when 'table'
+          draw_html_table_tag(sub, current_opts)
         when 'comment'
           # ignore html comments
         when 'br'
@@ -147,5 +187,22 @@ module MarkdownToPDF
     def remove_font_style(opts, style)
       merge_opts(opts, { styles: (opts[:styles] || []) - [style] })
     end
+
+    def collect_html_table_tag_row(tag, table_font_opts, opts)
+      cells = []
+      tag.children.each do |sub|
+        case sub.name
+        when 'th'
+          cell_data = [text_hash(hyphenate(sub.text), opts.merge(table_font_opts[:header]))]
+          cells.push(cell_data)
+        when 'td'
+          cell_data = [text_hash(hyphenate(sub.text), opts.merge(table_font_opts[:cell]))]
+          cells.push(cell_data)
+        end
+      end
+
+      cells
+    end
   end
+
 end

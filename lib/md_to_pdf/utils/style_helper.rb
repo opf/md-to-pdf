@@ -86,10 +86,19 @@ module MarkdownToPDF
       style[:no_repeating] == true
     end
 
+    def opt_table_auto_column_width(style)
+      style[:auto_width] == true
+    end
+
+    def opts_header_font(style, opts)
+      result = opts_font(style, opts)
+      result[:styles] = [style[:style].to_sym] if style[:style]
+      result
+    end
+
     def opts_table_header(style)
       {
         background_color: style[:background_color],
-        style: style[:style]&.to_sym,
         size: style[:size],
         color: style[:color]
       }

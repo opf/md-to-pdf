@@ -5,7 +5,7 @@ module MarkdownToPDF
       case node.type
       when :paragraph
         cell_data = data_node_children(node, opts)
-        cell = make_table_cell_or_subtable(cell_data, opts, :left, @pdf.bounds.right)
+        cell = make_table_cell_or_subtable(cell_data, opts, :left)
         result.push([cell])
       when :blockquote
         subtable_rows = []
