@@ -20,7 +20,7 @@ module MarkdownToPDF
         n = n.next
         if test.type == :image
           unless nodes.empty?
-            @pdf.formatted_text(data_node_list(nodes, p_opts), filter_block_hash(p_opts))
+            draw_formatted_text(data_node_list(nodes, p_opts), p_opts, node)
             nodes = []
           end
           draw_standalone_image(test, opts)
@@ -28,7 +28,7 @@ module MarkdownToPDF
           nodes.push(test)
         end
       end
-      @pdf.formatted_text(data_node_list(nodes, p_opts), filter_block_hash(p_opts)) unless nodes.empty?
+      draw_formatted_text(data_node_list(nodes, p_opts), p_opts, node) unless nodes.empty?
     end
 
     def build_paragraph_opts(opts)

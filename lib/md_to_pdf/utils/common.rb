@@ -102,5 +102,14 @@ module MarkdownToPDF
       pdf_dest = @pdf.dest_xyz(0, @pdf.y)
       @pdf.add_dest(id, pdf_dest)
     end
+
+    def draw_formatted_text(data_list, opts, node)
+      image_list = data_list.select { |item| item.key?(:image) }
+      text_list = data_list.reject { |item| item.key?(:image) }
+      @pdf.formatted_text(text_list, filter_block_hash(opts)) unless text_list.empty?
+      image_list.each do |item|
+        embed_image(item[:image], node, opts.merge({ image_classes: item[:image_classes] }))
+      end
+    end
   end
 end
