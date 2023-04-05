@@ -75,8 +75,7 @@ module MarkdownToPDF
     end
 
     def tasklist?(node)
-      list_item = node.first
-      list_item&.type_string == 'tasklist'
+      !node.to_a.select { |list_item| list_item.type_string == 'tasklist' }.empty?
     end
 
     def task_list_checked?(node)
