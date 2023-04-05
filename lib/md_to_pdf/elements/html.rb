@@ -22,9 +22,9 @@ module MarkdownToPDF
         add_font_style(opts, :sup)
       when '</sup>'
         remove_font_style(opts, :sup)
-      when '<strikethrough>'
+      when '<strikethrough>', '<s>'
         add_font_style(opts, :strikethrough)
-      when '</strikethrough>'
+      when '</strikethrough>', '</s>'
         remove_font_style(opts, :strikethrough)
       when '</a>'
         result = remove_link_opts(opts)
