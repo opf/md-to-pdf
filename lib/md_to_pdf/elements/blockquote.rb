@@ -22,6 +22,16 @@ module MarkdownToPDF
           end
         end
         result.push([subtable])
+      when :list
+        node.to_a.select { |sub| sub.type == :list_item }.each do |sub|
+          sub.to_a.each do |paragraph|
+            cell_data = data_node_children(paragraph, opts)
+            unless cell_data.empty?
+              cell = make_table_cell_or_subtable(cell_data, opts, :left)
+              result.push([cell])
+            end
+          end
+        end
       else
         warn("Unsupported node.type #{node.type} in data_blockquote()", node.type, node)
       end
@@ -32,6 +42,8 @@ module MarkdownToPDF
       cell_style_opts = blockquote_opts(opts)
       margin_opts = blockquote_margins_opts(opts)
       data = blockquote_data_rows(node, cell_style_opts)
+      return if data.empty?
+
       with_block_margin_all(margin_opts) do
         draw_blockquote_table(data, cell_style_opts)
       end

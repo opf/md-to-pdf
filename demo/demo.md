@@ -70,6 +70,11 @@ _This is italic text_ with `_`
 > Blockquotes can also contain images...
 >> ...before image ![](demo.jpg) after image...
 
+> Lists in Blockquotes are currently only partly supported
+> - entry 1
+> - entry 2
+> - entry 3
+
 <br-page/>
 
 # Lists
