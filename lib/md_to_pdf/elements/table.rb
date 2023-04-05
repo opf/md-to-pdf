@@ -79,12 +79,14 @@ module MarkdownToPDF
 
     def build_split_tables(table, data, column_alignments)
       range = 4
+      header_row_count = table[:header_row_count]
       pdf_tables = []
       (0..(column_alignments.length - 1)).step(range) do |start|
         new_rows = []
         data.each_with_index do |row, index|
           new_row = row.slice(start, range)
-          new_row.unshift make_table_cell([{ text: (index + 1).to_s }], {})
+          text = index >= header_row_count ? (index - header_row_count + 1).to_s : ''
+          new_row.unshift make_table_cell([{ text: text }], {})
           new_rows.push(new_row)
         end
         new_column_alignments = column_alignments.slice(start, range)
