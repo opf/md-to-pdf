@@ -2,9 +2,9 @@ module MarkdownToPDF
   module HTML
     def html_tag_to_font_style(tag, opts)
       case tag.downcase
-      when '<u>'
+      when '<u>', '<ins>'
         add_font_style(opts, :underline)
-      when '</u>'
+      when '</u>', '</ins>'
         remove_font_style(opts, :underline)
       when '<b>'
         add_font_style(opts, :bold)
@@ -22,9 +22,9 @@ module MarkdownToPDF
         add_font_style(opts, :sup)
       when '</sup>'
         remove_font_style(opts, :sup)
-      when '<strikethrough>', '<s>'
+      when '<strikethrough>', '<s>', '<del>'
         add_font_style(opts, :strikethrough)
-      when '</strikethrough>', '</s>'
+      when '</strikethrough>', '</s>', '</del>'
         remove_font_style(opts, :strikethrough)
       when '</a>'
         result = remove_link_opts(opts)
