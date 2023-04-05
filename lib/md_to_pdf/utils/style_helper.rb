@@ -74,6 +74,10 @@ module MarkdownToPDF
       style[:spanning] == true
     end
 
+    def opt_task_list_point_sign(style, is_checked)
+      (is_checked ? (style[:checked] || '[x]') : (style[:unchecked] || '[ ]')).to_s
+    end
+
     def opt_list_point_sign(style)
       ((style[:sign] || '•')).to_s
     end

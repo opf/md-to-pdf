@@ -8,7 +8,7 @@ module MarkdownToPDF
     def draw_footnotes(opts)
       footnote_anchor_opts = build_footnote_anchor_opts(opts)
       footnotes.each_with_index do |node, index|
-        footnote_anchor_width = @pdf.width_of((index + 1).to_s, footnote_anchor_opts)
+        footnote_anchor_width = measure_text_width((index + 1).to_s, footnote_anchor_opts)
         add_link_destination("ft_#{index + 1}")
         @pdf.float { @pdf.formatted_text([text_hash((index + 1).to_s, footnote_anchor_opts)]) }
         @pdf.indent(footnote_anchor_width) do

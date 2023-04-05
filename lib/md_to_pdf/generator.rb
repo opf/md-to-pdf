@@ -69,7 +69,7 @@ module MarkdownToPDF
     def pdf_setup_document
       style = @styles.page
       @pdf = Prawn::Document.new(pdf_document_options(style))
-      pdf_init_fonts(@pdf, @styles.fonts, @fonts_path)
+      pdf_init_fonts(@pdf, @styles.fonts, @styles.fallback_font, @fonts_path)
     end
   end
 end

@@ -111,5 +111,13 @@ module MarkdownToPDF
         embed_image(item[:image], node, opts.merge({ image_classes: item[:image_classes] }))
       end
     end
+
+    def measure_text_width(text, opts)
+      @pdf.save_font do
+        @pdf.font(opts[:font], opts)
+        @pdf.width_of(text, opts)
+      end
+    end
+
   end
 end

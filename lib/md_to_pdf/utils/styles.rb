@@ -12,6 +12,10 @@ module MarkdownToPDF
       @styling[:fonts] || []
     end
 
+    def fallback_font
+      @styling[:fallback_font] || {}
+    end
+
     def page_footer
       get_style(:page_footer)
     end
@@ -89,6 +93,22 @@ module MarkdownToPDF
       get_style(footnote_definition)[:point] || {}
     end
 
+    def task_list
+      get_style(:task_list)
+    end
+
+    def task_list_level(level)
+      get_style("task_list_#{level}")
+    end
+
+    def task_list_point
+      get_style(:task_list_point)
+    end
+
+    def task_list_point_level(level)
+      get_style("task_list_point_#{level}")
+    end
+
     def list(is_ordered)
       get_style(is_ordered ? :ordered_list : :unordered_list)
     end
@@ -97,11 +117,11 @@ module MarkdownToPDF
       get_style("#{(is_ordered ? :ordered_list : :unordered_list)}_#{level}".to_sym)
     end
 
-    def list_prefix(is_ordered)
+    def list_point(is_ordered)
       get_style(is_ordered ? :ordered_list_point : :unordered_list_point)
     end
 
-    def list_prefix_level(is_ordered, level)
+    def list_point_level(is_ordered, level)
       get_style(("#{(is_ordered ? :ordered_list : :unordered_list)}_point_#{level}").to_sym)
     end
 

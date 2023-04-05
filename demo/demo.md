@@ -77,6 +77,18 @@ _This is italic text_ with `_`
 
 <br-page/>
 
+# Links
+
+[link text](https://www.openproject.com)
+
+Auto-converted link https://www.openproject.com
+
+[Anchor links in document](#links) (to headline "Links")
+
+HTML tag `<a href="https://www.openproject.com">link text</a>`
+
+Inline <a href="https://www.openproject.com">link text</a> HTML tag
+
 # Lists
 
 ## Unordered
@@ -119,19 +131,15 @@ Start numbering with offset:
           2. Level 4
           3. Level 4
 
+
+### Task List
+
+* [ ] A
+* [x] Task
+* [ ] List
+
+
 <br-page/>
-
-# Links
-
-[link text](https://www.openproject.com)
-
-Auto-converted link https://www.openproject.com
-
-[Anchor links in document](#links) (to headline "Links")
-
-HTML tag `<a href="https://www.openproject.com">link text</a>`
-
-Inline <a href="https://www.openproject.com">link text</a> HTML tag
 
 # Code
 

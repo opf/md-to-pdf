@@ -88,7 +88,7 @@ module MarkdownToPDF
           {
             text: line,
             height: @pdf.height_of(line, font_opts.merge({ final_gap: false })),
-            width: @pdf.width_of(line, font_opts)
+            width: measure_text_width(line, font_opts)
           }
         end
         lines.each do |line|

@@ -12,6 +12,11 @@ fonts:
     italic: 'Consolas-Italic.ttf'
     bold-italic: 'Consolas-BoldItalic.ttf'
 
+fallback-font:
+    name: 'NotoSansSymbols2'
+    pathname: 'NotoSansSymbols2'
+    filename: 'NotoSansSymbols2-Regular.ttf'
+
 page:
   font: 'Vollkorn'
   size: 10
@@ -106,6 +111,15 @@ unordered-list-point:
 
 ordered-list:
   spacing: 1.5mm
+
+task-list:
+  spacing: 1.5mm
+
+task-list-point:
+  checked: '☑'
+  unchecked: '☐'
+  spacing: 2mm
+  size: 9
 
 ordered-list-point:
 #    font: 'Helvetica'

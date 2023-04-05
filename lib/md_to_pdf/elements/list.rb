@@ -30,12 +30,14 @@ module MarkdownToPDF
     end
 
     def list_settings(node, opts)
+      is_task_list = tasklist?(node)
       is_ordered = node.list_type == :ordered_list
       list_start = is_ordered ? (node.list_start || 0) : 0
       level = count_list_level(node)
-      style = list_style(level, is_ordered)
+      style = list_style(level, is_ordered, is_task_list)
       {
-        is_ordered: is_ordered,
+        is_ordered: is_task_list ? false : is_ordered,
+        is_task_list: is_task_list,
         list_start: list_start,
         level: level,
         point_inline: opt_list_point_inline?(style),
@@ -51,7 +53,7 @@ module MarkdownToPDF
     end
 
     def point_settings(node, list)
-      point_style = list_point_style(list[:level], list[:is_ordered])
+      point_style = list_point_style(list[:level], list[:is_ordered], list[:is_task_list])
       auto_span = opt_list_point_spanning?(point_style)
       bullet_opts = opts_font(point_style, list[:content_opts])
       {
@@ -63,12 +65,22 @@ module MarkdownToPDF
       }
     end
 
-    def list_bullet(style, is_ordered, number)
+    def list_bullet(node, style, is_ordered, is_task_list, number)
+      return opt_task_list_point_sign(style, task_list_checked?(node)) if is_task_list
       return opt_list_point_sign(style) unless is_ordered
 
       bullet = opt_list_point_alphabetical?(style) ? list_point_alphabetically(number) : number
       template = opt_list_point_template(style)
       template.gsub('<number>', bullet.to_s)
+    end
+
+    def tasklist?(node)
+      list_item = node.first
+      list_item&.type_string == 'tasklist'
+    end
+
+    def task_list_checked?(node)
+      node.tasklist_item_checked?
     end
 
     def list_point_alphabetically(int)
@@ -79,33 +91,43 @@ module MarkdownToPDF
 
     def measure_max_span(node, style, bullet_opts, list)
       max_span = 0
-      node.each_with_index do |_, index|
-        bullet = list_bullet(style, list[:is_ordered], index + list[:list_start])
-        bullet_width = @pdf.width_of("#{bullet} ", bullet_opts)
+      node.each_with_index do |sub, index|
+        bullet = list_bullet(sub, style, list[:is_ordered], list[:is_task_list], index + list[:list_start])
+        bullet_width = measure_text_width("#{bullet} ", bullet_opts)
         max_span = [max_span, bullet_width].max
       end
       max_span
     end
 
-    def list_point_style(level, is_ordered)
-      point_style = @styles.list_prefix(is_ordered)
-      point_style_level = @styles.list_prefix_level(is_ordered, level)
+    def list_point_style(level, is_ordered, is_task_list)
+      if is_task_list
+        point_style = @styles.task_list_point
+        point_style_level = @styles.task_list_point_level(level)
+      else
+        point_style = @styles.list_point(is_ordered)
+        point_style_level = @styles.list_point_level(is_ordered, level)
+      end
       point_style.merge(point_style_level)
     end
 
-    def list_style(level, is_ordered)
-      style = @styles.list(is_ordered)
-      style_level = @styles.list_level(is_ordered, level)
+    def list_style(level, is_ordered, is_task_list)
+      if is_task_list
+        style = @styles.task_list
+        style_level = @styles.task_list_level(level)
+      else
+        style = @styles.list(is_ordered)
+        style_level = @styles.list_level(is_ordered, level)
+      end
       style.merge(style_level)
     end
 
-    def build_bullet(points, index, is_ordered)
-      bullet = list_bullet(points[:style], is_ordered, index)
+    def build_bullet(node, points, index, is_ordered, is_task_list)
+      bullet = list_bullet(node, points[:style], is_ordered, is_task_list, index)
       bullet_width =
         if points[:auto_span]
           points[:max_span]
         else
-          @pdf.width_of("#{bullet} ", points[:bullet_opts])
+          measure_text_width("#{bullet} ", points[:bullet_opts])
         end
       [bullet, bullet_width + points[:spacing]]
     end
@@ -119,13 +141,13 @@ module MarkdownToPDF
     end
 
     def convert_list_entry_float(node, index, points, list)
-      bullet, bullet_width = build_bullet(points, index, list[:is_ordered])
-      @pdf.float { @pdf.formatted_text([text_hash(bullet, points[:bullet_opts])]) }
+      bullet, bullet_width = build_bullet(node, points, index, list[:is_ordered], list[:is_task_list])
+      @pdf.float { @pdf.formatted_text([text_hash("#{bullet} ", points[:bullet_opts])]) }
       @pdf.indent(bullet_width) { draw_node(node, list[:content_opts]) }
     end
 
     def convert_list_entry_inline(node, index, points, list)
-      bullet, bullet_width = build_bullet(points, index, list[:is_ordered])
+      bullet, bullet_width = build_bullet(node, points, index, list[:is_ordered], list[:is_task_list])
       child = node.first_child
       text_node = CommonMarker::Node.new(:text)
       text_node.string_content = "#{bullet} "
