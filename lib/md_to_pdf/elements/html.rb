@@ -15,13 +15,13 @@ module MarkdownToPDF
       when '</i>'
         remove_font_style(opts, :italic)
       when '<sub>'
-        add_font_style(opts, :sub)
+        add_font_style(opts, :subscript)
       when '</sub>'
-        remove_font_style(opts, :sub)
+        remove_font_style(opts, :subscript)
       when '<sup>'
-        add_font_style(opts, :sup)
+        add_font_style(opts, :superscript)
       when '</sup>'
-        remove_font_style(opts, :sup)
+        remove_font_style(opts, :superscript)
       when '<strikethrough>', '<s>', '<del>'
         add_font_style(opts, :strikethrough)
       when '</strikethrough>', '</s>', '</del>'

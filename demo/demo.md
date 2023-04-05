@@ -241,7 +241,21 @@ With a reference later in the document defining the URL location.
 
 `<br-page/>` start a new page
 
-`<u>...</u>` to <u>underline</u> text
+# Inline HTML
+
+`<s>...</s>` for <s>strikethrough</s> text
+
+`<strikethrough>...</strikethrough>` for <strikethrough>strikethrough</strikethrough> text
+
+`<b>...</b>` for <b>bold</b> text
+
+`<strong>...</strong>` for <b>bold</b> text
+
+`<i>...</i>` for <i>italic</i> text
+
+`<sub>...</sub>` for <sub>subscript</sub> text
+
+`<sup>...</sup>` for <sup>superscript</sup> text
 
 ---
 
