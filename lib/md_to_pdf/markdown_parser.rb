@@ -32,13 +32,17 @@ module MarkdownToPDF
         end
       end
       {
-        root: CommonMarker.render_doc(content, CM_PARSE_OPTIONS, CM_EXTENSIONS),
+        root: parse_markdown(content),
         frontmatter: parsed.front_matter,
         fields: fields,
         logo: matter['pdf_header_logo'],
         language: matter['pdf_language'],
         hyphenation: matter['pdf_hyphenation'] != false # default: true
       }.merge(header_footer)
+    end
+
+    def parse_markdown(markdown)
+      CommonMarker.render_doc(markdown, CM_PARSE_OPTIONS, CM_EXTENSIONS)
     end
 
     private

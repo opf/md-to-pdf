@@ -49,15 +49,31 @@ _________________
 
 # Emphasis
 
-**This is bold text** with `**`
+This is **bold** text with `**`
 
-__This is bold text__ with `__`
+This is __bold__ text with `__`
 
-*This is italic text* with `*`
+This is *italic* text with `*`
 
-_This is italic text_ with `_`
+This is _italic_ text with `_`
 
 ~~Strikethrough~~ with `~~`
+
+`<s>...</s>` for <s>strikethrough</s> text
+
+`<strikethrough>...</strikethrough>` for <strikethrough>strikethrough</strikethrough> text
+
+`<strong>...</strong>` for <b>bold</b> text
+
+`<b>...</b>` for <b>bold</b> text
+
+`<strong>...</strong>` for <b>bold</b> text
+
+`<i>...</i>` for <i>italic</i> text
+
+`<sub>...</sub>` for <sub>subscript</sub> text
+
+`<sup>...</sup>` for <sup>superscript</sup> text
 
 <br-page/>
 
@@ -74,6 +90,8 @@ _This is italic text_ with `_`
 > - entry 1
 > - entry 2
 > - entry 3
+
+> Blockquotes can be f**or**m*att*ed ~~strikethrough~~ <u>underline</u>
 
 <br-page/>
 
@@ -248,22 +266,6 @@ With a reference later in the document defining the URL location.
 # HTML Specials
 
 `<br-page/>` start a new page
-
-# Inline HTML
-
-`<s>...</s>` for <s>strikethrough</s> text
-
-`<strikethrough>...</strikethrough>` for <strikethrough>strikethrough</strikethrough> text
-
-`<b>...</b>` for <b>bold</b> text
-
-`<strong>...</strong>` for <b>bold</b> text
-
-`<i>...</i>` for <i>italic</i> text
-
-`<sub>...</sub>` for <sub>subscript</sub> text
-
-`<sup>...</sup>` for <sup>superscript</sup> text
 
 ---
 
