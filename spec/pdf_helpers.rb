@@ -15,6 +15,7 @@ class TestGenerator
 
   def initialize
     @pdf = Prawn::Document.new({})
+    init_options({ auto_generate_header_ids: false })
   end
 
   def parse_file(filepath, styling = {})
@@ -25,7 +26,7 @@ class TestGenerator
     @styles = MarkdownToPDF::Styles.new(styling)
     @images_path = 'demo/'
     root = parse_markdown(markdown)
-    draw_node(root, {})
+    draw_node(root, {}, true)
     draw_footnotes({})
   end
 
@@ -35,10 +36,6 @@ class TestGenerator
 
   def hyphenate(text)
     text # @hyphens.hyphenate(text)
-  end
-
-  def auto_generate_header_ids?
-    false
   end
 end
 

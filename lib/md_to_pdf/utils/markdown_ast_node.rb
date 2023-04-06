@@ -1,12 +1,12 @@
 module MarkdownToPDF
   module MarkdownASTNode
-    def draw_node(node, opts, avoid_dangling_headers = false)
-      draw_node_list(node.to_a, opts, avoid_dangling_headers)
+    def draw_node(node, opts, smart_headers = false)
+      draw_node_list(node.to_a, opts, smart_headers)
     end
 
-    def draw_node_list(list, opts, avoid_dangling_headers = false)
+    def draw_node_list(list, opts, smart_headers = false)
       list_opts = opts.dup
-      return smart_render_node_list(list, list_opts) if avoid_dangling_headers
+      return smart_render_node_list(list, list_opts) if smart_headers
 
       list.each { |inner_node| draw_node_by_type(inner_node, list_opts) }
     end
@@ -88,7 +88,7 @@ module MarkdownToPDF
       # 4. render headers
       # 5. render items
       # 6. goto 1.
-      threshold = 150
+      threshold = option_smart_header_threshold
       header_nodes = []
       list.each do |inner_node|
         if inner_node.type == :header

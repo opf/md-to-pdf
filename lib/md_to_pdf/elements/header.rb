@@ -10,7 +10,7 @@ module MarkdownToPDF
     def draw_header(node, opts)
       header_opts = build_header_opts(node.header_level, opts)
       header_opts[:top_padding] = 0 if is_first_on_page?
-      generate_header_id(node) if auto_generate_header_ids?
+      generate_header_id(node) if option_auto_generate_header_ids?
       with_block_padding(header_opts) do
         draw_formatted_text(data_node_children(node, header_opts), header_opts, node)
       end

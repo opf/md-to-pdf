@@ -112,7 +112,7 @@ module MarkdownToPDF
       if header_row_count > 0
         header_cells = pdf_table.cells.columns(0..-1).rows(0..header_row_count) # header AND the first row
         height = header_cells.height + table[:margins][:top_margin]
-        threshold = 80
+        threshold = option_table_page_break_threshold
         space_from_bottom = @pdf.y - @pdf.bounds.bottom - height
         if space_from_bottom < threshold
           @pdf.start_new_page

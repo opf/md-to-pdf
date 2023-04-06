@@ -10,10 +10,6 @@ module MarkdownToPDF
       @hyphens.hyphenate(text)
     end
 
-    def auto_generate_header_ids?
-      true
-    end
-
     def handle_unknown_inline_html_tag(tag, node, opts)
       warn("data_inlinehtml; Html tag currently unsupported.", tag.name, node)
       # [array of pdf data, options]

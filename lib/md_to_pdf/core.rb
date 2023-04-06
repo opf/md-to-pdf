@@ -20,6 +20,7 @@ require 'md_to_pdf/utils/ids'
 require 'md_to_pdf/utils/markdown_ast_node'
 require 'md_to_pdf/utils/style_helper'
 require 'md_to_pdf/utils/styles'
+require 'md_to_pdf/utils/options'
 
 module MarkdownToPDF
   module Core
@@ -44,5 +45,6 @@ module MarkdownToPDF
     include MarkdownToPDF::Fonts
     include MarkdownToPDF::IDs
     include MarkdownToPDF::StyleHelper
+    include MarkdownToPDF::Options
   end
 end
