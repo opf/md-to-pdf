@@ -6,9 +6,9 @@ module MarkdownToPDF
         add_font_style(opts, :underline)
       when '</u>', '</ins>'
         remove_font_style(opts, :underline)
-      when '<b>'
+      when '<b>', '<strong>'
         add_font_style(opts, :bold)
-      when '</b>'
+      when '</b>', '</strong>'
         remove_font_style(opts, :bold)
       when '<i>'
         add_font_style(opts, :italic)
