@@ -82,6 +82,18 @@ module MarkdownToPDF
       ((style[:sign] || '•')).to_s
     end
 
+    def list_point_alphabetically(int)
+      name = 'a'
+      (int - 1).times { name.succ! }
+      name
+    end
+
+    def opt_list_point_number(number, style)
+      bullet = opt_list_point_alphabetical?(style) ? list_point_alphabetically(number) : number
+      template = opt_list_point_template(style)
+      template.gsub('<number>', bullet.to_s)
+    end
+
     def opt_list_point_alphabetical?(style)
       style[:alphabetical] == true
     end

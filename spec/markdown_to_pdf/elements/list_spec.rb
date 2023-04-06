@@ -50,4 +50,26 @@ describe MarkdownToPDF::List do
     expect(text.strings).to eq(["[ ]", "unchecked", "[x]", "checked", "[ ]", "unchecked", "[ ]", "unchecked"])
   end
 
+  it 'creates lists by html' do
+    generator.parse_file('list/html.md')
+    puts text.strings.inspect.to_s
+    expect(text.strings).to eq([
+                                 "•", "one",
+                                 "•", "two",
+                                 "•", "three",
+                                 "1.", "one",
+                                 "2.", "two",
+                                 "3.", "three",
+                                 "1.", "one",
+                                 "2.", "two",
+                                 "3.", "three",
+                                 "1.", "one",
+                                 "2.", "two",
+                                 "3.", "three",
+                                 "1.", "one",
+                                 "2.", "two",
+                                 "3.", "three"]
+                            )
+  end
+
 end

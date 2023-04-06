@@ -1,11 +1,10 @@
 module MarkdownToPDF
   module MarkdownASTNode
-    def draw_node(node, opts)
-      draw_node_list(node.to_a, opts)
+    def draw_node(node, opts, avoid_dangling_headers = false)
+      draw_node_list(node.to_a, opts, avoid_dangling_headers)
     end
 
-    def draw_node_list(list, opts)
-      avoid_dangling_headers = true
+    def draw_node_list(list, opts, avoid_dangling_headers = false)
       list_opts = opts.dup
       return smart_render_node_list(list, list_opts) if avoid_dangling_headers
 

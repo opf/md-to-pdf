@@ -1,13 +1,135 @@
 module MarkdownToPDF
   module List
     def draw_list(node, opts)
-      list = list_settings(node, opts)
-      points = point_settings(node, list)
-      with_block_padding_all(list[:opts_padding]) do
-        node.each_with_index do |li, index|
-          convert_list_entry(li, index + list[:list_start], points, list)
+      level = count_list_level(node)
+      is_task_list = tasklist?(node)
+      is_ordered = node.list_type == :ordered_list
+      list_start = is_ordered ? (node.list_start || 0) : 0
+      list_style = list_style(level, is_ordered, is_task_list)
+      padding = level == 1 ? opts_padding(list_style) : {}
+      point_inline = opt_list_point_inline?(list_style)
+      content_opts = opts_font(list_style, opts).merge(
+        {
+          force_paragraph: {
+            bottom_padding: opt_list_point_spacing(list_style)
+          }
+        }
+      )
+      points = collect_points(node, level, is_ordered, is_task_list, list_start, content_opts)
+      with_block_padding_all(padding) do
+        if point_inline
+          draw_inline_points(points, content_opts)
+        else
+          draw_points(points, content_opts)
         end
       end
+    end
+
+
+    def draw_html_list_tag(tag, node, opts)
+      level = count_list_level_html(tag)
+      is_ordered = tag.name.downcase == 'ol'
+      list_style = list_style(level, is_ordered, false)
+      padding = level == 1 ? opts_padding(list_style) : {}
+      # point_inline = opt_list_point_inline?(list_style)
+      content_opts = opts_font(list_style, opts).merge(
+        {
+          force_paragraph: {
+            bottom_padding: opt_list_point_spacing(list_style)
+          }
+        }
+      )
+      points = collect_points_html(tag, level, is_ordered, content_opts)
+      with_block_padding_all(padding) do
+        draw_points_html(points, node, content_opts)
+      end
+    end
+
+    private
+
+    def draw_points(points, opts)
+      points.each do |point|
+        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])]) }
+        @pdf.indent(point[:width]) { draw_node(point[:node], opts) }
+      end
+    end
+
+    def draw_points_html(points, node, opts)
+      points.each do |point|
+        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])]) }
+        @pdf.indent(point[:width]) { draw_html_tag(point[:tag], node, opts) }
+      end
+    end
+
+    def draw_inline_points(points, opts)
+      points.each do |point|
+        node = point[:node]
+        bullet = point[:bullet]
+        child = node.first_child
+        return @pdf.formatted_text([text_hash(bullet, point[:opts])]) if child.nil?
+
+        # insert into paragraph
+        text_node = CommonMarker::Node.new(:text).tap { |n| n.string_content = bullet }
+        insert_parent = child.type == :paragraph && child.first_child ? child.first_child : child
+        insert_parent.insert_before(text_node)
+
+        node.to_a.each do |inner_node|
+          if inner_node.type == :paragraph
+            draw_node_list([inner_node], opts)
+          else
+            @pdf.indent(point[:width]) {
+              draw_node([inner_node], opts)
+            }
+          end
+        end
+      end
+    end
+
+    def collect_points_html(tag, level, is_ordered, content_opts)
+      point_style = list_point_style(level, is_ordered, false)
+      auto_span = opt_list_point_spanning?(point_style)
+      bullet_opts = opts_font(point_style, content_opts)
+      spacing = opt_list_point_spacing(point_style)
+      points = []
+      index = 1
+      tag.children.each do |sub|
+        if sub.name.downcase == 'li'
+          bullet = list_bullet(point_style, is_ordered, false, index, false)
+          bullet_width = measure_text_width(bullet, bullet_opts) + spacing
+          points.push({ tag: sub, bullet: bullet, width: bullet_width, opts: bullet_opts })
+          index += 1
+        end
+      end
+      if auto_span
+        max_span = max_point_width(points)
+        points.each { |point| point[:width] = max_span }
+      end
+      points
+    end
+
+    def collect_points(node, level, is_ordered, is_task_list, list_start, content_opts)
+      point_style = list_point_style(level, is_ordered, is_task_list)
+      auto_span = opt_list_point_spanning?(point_style)
+      bullet_opts = opts_font(point_style, content_opts)
+      spacing = opt_list_point_spacing(point_style)
+      points = []
+      node.each_with_index do |li, index|
+        number = list_start + index
+        bullet = list_bullet(point_style, is_ordered, is_task_list, number, task_list_checked?(li))
+        bullet_width = measure_text_width(bullet, bullet_opts) + spacing
+        points.push({ node: li, bullet: bullet, width: bullet_width, opts: bullet_opts })
+      end
+      if auto_span
+        max_span = max_point_width(points)
+        points.each { |point| point[:width] = max_span }
+      end
+      points
+    end
+
+    def max_point_width(points)
+      max_span = 0
+      points.each { |point| max_span = [max_span, point[:width]].max }
+      max_span
     end
 
     def draw_listitem(node, opts)
@@ -15,7 +137,17 @@ module MarkdownToPDF
       draw_node(node, opts)
     end
 
-    private
+    def count_list_level_html(tag)
+      level = 1
+      parent = tag.parent
+      until parent.nil?
+        if %w[ul ol].include?(parent.name.downcase)
+          level += 1
+        end
+        parent = parent.parent
+      end
+      level
+    end
 
     def count_list_level(node)
       level = 1
@@ -29,49 +161,15 @@ module MarkdownToPDF
       level
     end
 
-    def list_settings(node, opts)
-      is_task_list = tasklist?(node)
-      is_ordered = node.list_type == :ordered_list
-      list_start = is_ordered ? (node.list_start || 0) : 0
-      level = count_list_level(node)
-      style = list_style(level, is_ordered, is_task_list)
-      {
-        is_ordered: is_task_list ? false : is_ordered,
-        is_task_list: is_task_list,
-        list_start: list_start,
-        level: level,
-        point_inline: opt_list_point_inline?(style),
-        opts_padding: opts_padding(style),
-        content_opts: opts_font(style, opts).merge(
-          {
-            force_paragraph: {
-              bottom_padding: opt_list_point_spacing(style)
-            }
-          }
-        )
-      }
-    end
-
-    def point_settings(node, list)
-      point_style = list_point_style(list[:level], list[:is_ordered], list[:is_task_list])
-      auto_span = opt_list_point_spanning?(point_style)
-      bullet_opts = opts_font(point_style, list[:content_opts])
-      {
-        spacing: opt_list_point_spacing(point_style),
-        auto_span: auto_span,
-        max_span: auto_span ? measure_max_span(node, point_style, bullet_opts, list) : 0,
-        bullet_opts: bullet_opts,
-        style: point_style
-      }
-    end
-
-    def list_bullet(node, style, is_ordered, is_task_list, number)
-      return opt_task_list_point_sign(style, task_list_checked?(node)) if is_task_list
-      return opt_list_point_sign(style) unless is_ordered
-
-      bullet = opt_list_point_alphabetical?(style) ? list_point_alphabetically(number) : number
-      template = opt_list_point_template(style)
-      template.gsub('<number>', bullet.to_s)
+    def list_bullet(style, is_ordered, is_task_list, number, is_checked)
+      bullet_sign = if is_task_list
+                      opt_task_list_point_sign(style, is_checked)
+                    elsif is_ordered
+                      opt_list_point_number(number, style)
+                    else
+                      opt_list_point_sign(style)
+                    end
+      "#{bullet_sign} "
     end
 
     def tasklist?(node)
@@ -80,22 +178,6 @@ module MarkdownToPDF
 
     def task_list_checked?(node)
       node.tasklist_item_checked?
-    end
-
-    def list_point_alphabetically(int)
-      name = 'a'
-      (int - 1).times { name.succ! }
-      name
-    end
-
-    def measure_max_span(node, style, bullet_opts, list)
-      max_span = 0
-      node.each_with_index do |sub, index|
-        bullet = list_bullet(sub, style, list[:is_ordered], list[:is_task_list], index + list[:list_start])
-        bullet_width = measure_text_width("#{bullet} ", bullet_opts)
-        max_span = [max_span, bullet_width].max
-      end
-      max_span
     end
 
     def list_point_style(level, is_ordered, is_task_list)
@@ -120,47 +202,5 @@ module MarkdownToPDF
       style.merge(style_level)
     end
 
-    def build_bullet(node, points, index, is_ordered, is_task_list)
-      bullet = list_bullet(node, points[:style], is_ordered, is_task_list, index)
-      bullet_width =
-        if points[:auto_span]
-          points[:max_span]
-        else
-          measure_text_width("#{bullet} ", points[:bullet_opts])
-        end
-      [bullet, bullet_width + points[:spacing]]
-    end
-
-    def convert_list_entry(node, index, points, list)
-      if list[:point_inline]
-        convert_list_entry_inline(node, index, points, list)
-      else
-        convert_list_entry_float(node, index, points, list)
-      end
-    end
-
-    def convert_list_entry_float(node, index, points, list)
-      bullet, bullet_width = build_bullet(node, points, index, list[:is_ordered], list[:is_task_list])
-      @pdf.float { @pdf.formatted_text([text_hash("#{bullet} ", points[:bullet_opts])]) }
-      @pdf.indent(bullet_width) { draw_node(node, list[:content_opts]) }
-    end
-
-    def convert_list_entry_inline(node, index, points, list)
-      bullet, bullet_width = build_bullet(node, points, index, list[:is_ordered], list[:is_task_list])
-      child = node.first_child
-      text_node = CommonMarker::Node.new(:text)
-      text_node.string_content = "#{bullet} "
-      return @pdf.formatted_text([text_hash(bullet, points[:bullet_opts])]) if child.nil?
-
-      insert_parent = child.type == :paragraph && child.first_child ? child.first_child : child
-      insert_parent.insert_before(text_node)
-      node.each do |inner_node|
-        if inner_node.type == :paragraph
-          draw_node(inner_node, list[:content_opts])
-        else
-          @pdf.indent(bullet_width) { draw_node(inner_node, list[:content_opts]) }
-        end
-      end
-    end
   end
 end

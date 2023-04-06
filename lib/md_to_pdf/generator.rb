@@ -59,7 +59,7 @@ module MarkdownToPDF
       style = @styles.page
       opts = pdf_root_options(style)
       root = doc[:root]
-      draw_node(root, opts)
+      draw_node(root, opts, true)
       draw_footnotes(opts)
       repeating_page_footer(doc, opts)
       repeating_page_header(doc, opts)

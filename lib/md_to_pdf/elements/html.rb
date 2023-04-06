@@ -100,6 +100,7 @@ module MarkdownToPDF
       rows
     end
 
+
     def draw_html_table_tag(tag, opts)
       table_font_opts = build_table_font_opts(opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, opts)
@@ -137,12 +138,16 @@ module MarkdownToPDF
           draw_html_tag(sub, node, link_opts(sub.attr('href'), current_opts))
         when 'table'
           draw_html_table_tag(sub, current_opts)
+        when 'ul', 'ol'
+          draw_html_list_tag(sub, node, current_opts)
         when 'comment'
           # ignore html comments
         when 'br'
           @pdf.formatted_text([text_hash_raw("\n", current_opts)])
         when 'br-page'
           @pdf.start_new_page
+        when 'p'
+          draw_html_tag(sub, node, opts)
         else
           process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
           draw_html_tag(sub, node, opts) if process_children

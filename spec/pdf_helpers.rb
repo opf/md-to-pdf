@@ -40,16 +40,6 @@ class TestGenerator
   def auto_generate_header_ids?
     false
   end
-
-  def handle_unknown_inline_html_tag(tag, node, opts)
-    [[], opts]
-  end
-
-  def handle_unknown_html_tag(tag, node, opts)
-    [true, opts]
-  end
-
-  def warn(text, element, node) end
 end
 
 # use an own context for Prawn::Markup, as this might be extracted at some point

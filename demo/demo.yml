@@ -99,6 +99,8 @@ link:
 
 unordered-list:
   spacing: 1.5mm
+  padding-top: 2mm
+  padding-bottom: 2mm
 
 unordered-list-point:
 #    font: 'Helvetica'
@@ -111,9 +113,13 @@ unordered-list-point:
 
 ordered-list:
   spacing: 1.5mm
+  padding-top: 2mm
+  padding-bottom: 2mm
 
 task-list:
   spacing: 1.5mm
+  padding-top: 2mm
+  padding-bottom: 2mm
 
 task-list-point:
   checked: '☑'
