@@ -34,6 +34,10 @@ class TestGenerator
     @pdf.render
   end
 
+  def render_file(filename)
+    @pdf.render_file(filename)
+  end
+
   def hyphenate(text)
     text # @hyphens.hyphenate(text)
   end
@@ -43,6 +47,33 @@ end
 RSpec.shared_context 'pdf_helpers' do
   let(:generator) { TestGenerator.new }
   let(:pdf) { generator.render }
-  let(:text) { PDF::Inspector::Text.analyze(pdf) }
 
+  def page
+    inspect = PDF::Inspector::Text.analyze(pdf)
+    positions = inspect.positions
+    strings = inspect.strings
+    result = []
+    strings.each_with_index do |text, index|
+      result.push({ x: positions[index][0], y: positions[index][1], text: text })
+    end
+    result
+  end
+
+  def out
+    puts 'expect_pdf(' + page.to_s
+                             .gsub('{:x=>', "\n{x:")
+                             .gsub(':y=>', "y:")
+                             .gsub(':text=>', "text:") + ')'
+  end
+
+  def show
+    file = Tempfile.new(['test', '.pdf'])
+    generator.render_file(file.path)
+    cmd = "open #{file.path}"
+    `#{cmd}`
+  end
+
+  def expect_pdf(data)
+    expect(page).to eq(data)
+  end
 end

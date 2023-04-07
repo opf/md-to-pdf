@@ -28,7 +28,9 @@ Layout/DotPosition:
   EnforcedStyle: leading
 
 Layout/LineLength:
-  Max: 130
+  Max: 200
+  Exclude:
+    - 'spec/**/*'
 
 Layout/MultilineMethodCallIndentation:
   Enabled: false
@@ -299,3 +301,17 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+RSpec/ExampleLength:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Layout/MultilineArrayBraceLayout:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/FirstArrayElementIndentation:
+  Exclude:
+    - 'spec/**/*'

@@ -75,7 +75,7 @@ module MarkdownToPDF
     end
 
     def opt_task_list_point_sign(style, is_checked)
-      (is_checked ? (style[:checked] || '[x]') : (style[:unchecked] || '[ ]')).to_s
+      (is_checked ? (style[:checked] || '[x]') : (style[:unchecked] || "[#{Prawn::Text::NBSP}]")).to_s
     end
 
     def opt_list_point_sign(style)
