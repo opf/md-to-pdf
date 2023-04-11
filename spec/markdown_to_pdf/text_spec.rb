@@ -1,7 +1,7 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Text do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates formatting' do
     generator.parse_file('text/formatting.md')
@@ -89,5 +89,4 @@ describe MarkdownToPDF::Text do
                  { x: 36.0, y: 677.616, text: "2" },
                  { x: 42.672, y: 677.616, text: "Footnote text." }])
   end
-
 end

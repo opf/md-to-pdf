@@ -1,7 +1,7 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Paragraph do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates two paragraphs' do
     generator.parse_file('paragraph/paragraph.md')

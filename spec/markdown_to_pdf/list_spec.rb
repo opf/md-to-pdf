@@ -1,17 +1,17 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::List do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates an unordered list' do
     generator.parse_file('list/unordered.md')
     expect_pdf([
-                 {x:36.0, y:747.384, text:"•"},
-                 {x:43.536, y:747.384, text:"first"},
-                 {x:36.0, y:733.512, text:"•"},
-                 {x:43.536, y:733.512, text:"second"},
-                 {x:43.536, y:719.64, text:"•"},
-                 {x:51.072, y:719.64, text:"third"}])
+                 { x: 36.0, y: 747.384, text: "•" },
+                 { x: 43.536, y: 747.384, text: "first" },
+                 { x: 36.0, y: 733.512, text: "•" },
+                 { x: 43.536, y: 733.512, text: "second" },
+                 { x: 43.536, y: 719.64, text: "•" },
+                 { x: 51.072, y: 719.64, text: "third" }])
   end
 
   it 'creates an ordered list' do

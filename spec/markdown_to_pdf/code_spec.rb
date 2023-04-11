@@ -1,7 +1,7 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Code do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates inlined code' do
     generator.parse_file('code/inline.md')

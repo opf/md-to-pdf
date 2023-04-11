@@ -100,7 +100,6 @@ module MarkdownToPDF
       rows
     end
 
-
     def draw_html_table_tag(tag, opts)
       table_font_opts = build_table_font_opts(opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, opts)
@@ -211,5 +210,4 @@ module MarkdownToPDF
       cells
     end
   end
-
 end

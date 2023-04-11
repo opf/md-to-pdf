@@ -25,6 +25,5 @@ module MarkdownToPDF
         }
       )
     end
-
   end
 end

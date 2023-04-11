@@ -19,7 +19,7 @@ class TestGenerator
   end
 
   def parse_file(filepath, styling = {})
-    parse File.read('spec/fixtures/' + filepath).to_s, styling
+    parse File.read("spec/fixtures/#{filepath}").to_s, styling
   end
 
   def parse(markdown, styling = {})
@@ -43,8 +43,7 @@ class TestGenerator
   end
 end
 
-# use an own context for Prawn::Markup, as this might be extracted at some point
-RSpec.shared_context 'pdf_helpers' do
+RSpec.shared_context 'with pdf' do
   let(:generator) { TestGenerator.new }
   let(:pdf) { generator.render }
 
@@ -60,14 +59,14 @@ RSpec.shared_context 'pdf_helpers' do
   end
 
   def out
-    puts 'expect_pdf(' + page.to_s
-                             .gsub('{:x=>', "\n{x:")
-                             .gsub(':y=>', "y:")
-                             .gsub(':text=>', "text:") + ')'
+    puts "expect_pdf(#{page.to_s
+                           .gsub('{:x=>', "\n{x:")
+                           .gsub(':y=>', 'y:')
+                           .gsub(':text=>', 'text:')})"
   end
 
   def show
-    file = Tempfile.new(['test', '.pdf'])
+    file = Tempfile.new(%w[test .pdf])
     generator.render_file(file.path)
     cmd = "open #{file.path}"
     `#{cmd}`

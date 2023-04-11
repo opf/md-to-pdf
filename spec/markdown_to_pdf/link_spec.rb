@@ -1,12 +1,12 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Link do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates a link by markdown' do
     generator.parse_file('link/link.md')
     expect_pdf([
-                 {x:36.0, y:747.384, text:"link text"}])
+                 { x: 36.0, y: 747.384, text: "link text" }])
   end
 
   it 'creates an automatic link' do

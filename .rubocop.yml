@@ -100,9 +100,6 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   Enabled: false
 
-Metrics/AbcSize:
-  Enabled: true
-
 Naming/AccessorMethodName:
   Enabled: false
 
@@ -283,6 +280,9 @@ Style/WhileUntilModifier:
 Style/WordArray:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -315,3 +315,13 @@ Layout/MultilineArrayBraceLayout:
 Layout/FirstArrayElementIndentation:
   Exclude:
     - 'spec/**/*'
+
+Metrics/AbcSize:
+  Enabled: false # temp disable
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/PerceivedComplexity:
+  Enabled: false # temp disable
+  Exclude:
+    - 'spec/**/*.rb'

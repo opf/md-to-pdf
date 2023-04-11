@@ -1,7 +1,7 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Blockquote do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates a blockquote' do
     generator.parse_file('blockquote/blockquote.md')

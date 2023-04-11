@@ -1,7 +1,7 @@
 require 'pdf_helpers'
 
 describe MarkdownToPDF::Table do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates a table' do
     generator.parse_file('table/table.md')

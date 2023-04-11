@@ -118,6 +118,5 @@ module MarkdownToPDF
         @pdf.width_of(text, opts)
       end
     end
-
   end
 end

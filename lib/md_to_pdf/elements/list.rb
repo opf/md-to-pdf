@@ -25,7 +25,6 @@ module MarkdownToPDF
       end
     end
 
-
     def draw_html_list_tag(tag, node, opts)
       level = count_list_level_html(tag)
       is_ordered = tag.name.downcase == 'ol'
@@ -77,9 +76,7 @@ module MarkdownToPDF
           if inner_node.type == :paragraph
             draw_node_list([inner_node], opts)
           else
-            @pdf.indent(point[:width]) {
-              draw_node([inner_node], opts)
-            }
+            @pdf.indent(point[:width]) { draw_node([inner_node], opts) }
           end
         end
       end
@@ -201,6 +198,5 @@ module MarkdownToPDF
       end
       style.merge(style_level)
     end
-
   end
 end

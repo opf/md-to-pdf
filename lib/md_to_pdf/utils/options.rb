@@ -1,6 +1,5 @@
 module MarkdownToPDF
   module Options
-
     def init_options(options)
       @options = def_options.merge(options)
     end
@@ -28,6 +27,5 @@ module MarkdownToPDF
     def option_auto_generate_header_ids?
       options[:auto_generate_header_ids]
     end
-
   end
 end

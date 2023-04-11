@@ -40,9 +40,19 @@ module MarkdownToPDF
     private
 
     def symbolize(obj)
-      return obj.inject({}) { |memo, (k, v)| memo[k.gsub('-', '_').to_sym] = symbolize(v); memo } if obj.is_a? Hash
+      if obj.is_a? Hash
+        return obj.inject({}) do |memo, (k, v)|
+          memo[k.gsub('-', '_').to_sym] = symbolize(v)
+          memo
+        end
+      end
 
-      return obj.inject([]) { |memo, v| memo << symbolize(v); memo } if obj.is_a? Array
+      if obj.is_a? Array
+        return obj.inject([]) do |memo, v|
+          memo << symbolize(v)
+          memo
+        end
+      end
 
       obj
     end

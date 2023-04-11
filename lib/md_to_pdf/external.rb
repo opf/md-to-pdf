@@ -52,6 +52,5 @@ module MarkdownToPDF
       end
       image_file
     end
-
   end
 end

@@ -3,7 +3,7 @@ require 'pdf_helpers'
 # TODO: test image objects in pdf
 
 describe MarkdownToPDF::Image do
-  include_context 'pdf_helpers'
+  include_context 'with pdf'
 
   it 'creates image' do
     generator.parse_file('image/image.md')
