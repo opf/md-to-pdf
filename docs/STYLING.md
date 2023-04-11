@@ -9,7 +9,7 @@ All cuts of a font are needed:
 * italic
 * bolditalic
 
-They must be placed relative to the styling yml as shown here:
+They must be placed relative to the styling yml as the example shown here:
 
 ```
 /
@@ -54,7 +54,7 @@ fonts:
     regular: 'Vollkorn-Regular.ttf' # font file for regular text
     bold: 'Vollkorn-Bold.ttf' # font file for bold text
     italic: 'Vollkorn-Italic.ttf' # font file for italic text
-    bold-italic: 'Vollkorn-BoldItalic.ttf'  # font file for bold-italic text
+    bold_italic: 'Vollkorn-BoldItalic.ttf'  # font file for bold-italic text
   - ...
 ```
 
@@ -62,8 +62,8 @@ fonts:
 
 ```yml
 page:
-  page-size: 'A4'
-  page-layout: 'portrait'
+  page_size: 'A4'
+  page_layout: 'portrait'
 #  ...: see #font-settings
 #  ...: see #margin
 ```
@@ -74,18 +74,18 @@ page:
 
 Up to three header sections are supported:
 
-use page-header as key for the first footer
+use page_header as key for the first footer
 
-use page-header-2 as key for the second footer
+use page_header_2 as key for the second footer
 
-use page-header-3 as key for the third footer
+use page_header_3 as key for the third footer
 
 The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file 
 
 ```yml
-page-header:
+page_header:
   disabled: false # set true to disable page headers
-  filter-pages: [ ] # e.g. [ 1 ] = no header on first page 
+  filter_pages: [ ] # e.g. [ 1 ] = no header on first page 
   align: left # left or center or right
   offset: -30 # offset position from page.top
   #  ...: see #font-settings
@@ -96,12 +96,12 @@ page-header:
 ### Document Logo
 
 ```yml
-page-logo:
+page_logo:
   disabled: false # set true to disable page logos
-  filter-pages: [ ] # e.g. [ 1 ] = no logo on first page 
+  filter_pages: [ ] # e.g. [ 1 ] = no logo on first page 
   align: left # left or center or right
   offset: -30 # offset position from page.top
-  max-width: 40mm # maximum image width in units
+  max_width: 40mm # maximum image width in units
 ```
 
 [units](#units)
@@ -112,18 +112,18 @@ The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of
 
 Up to three footer sections are supported:
 
-use page-footer as key for the first footer
+use page_footer as key for the first footer
 
-use page-footer-2 as key for the second footer
+use page_footer_2 as key for the second footer
 
-use page-footer-3 as key for the third footer
+use page_footer_3 as key for the third footer
 
 The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file
 
 ```yml
-page-footer:
+page_footer:
   disabled: false # set true to disable page footers
-  filter-pages: [ ] # e.g. [ 1 ] = no footer on first page 
+  filter_pages: [ ] # e.g. [ 1 ] = no footer on first page 
   align: left # left or center or right
   offset: -30 # offset position from page.bottom
   #  ...: see #font-settings
@@ -165,13 +165,13 @@ header:
 
 #### Header levels
 
-use header-`x` as key for header level `x`
+use header_`x` as key for header level `x`
 
 ```yml
-header-1:
+header_1:
   #  ...: see #font-settings
   #  ...: see #padding
-header-2:
+header_2:
   #  ...: see #font-settings
   #  ...: see #padding
 ```
@@ -182,15 +182,15 @@ header-2:
 
 ```yml
 table:
-  auto-width: true # table columns should fit the content, equal spacing otherwise
+  auto_width: true # table columns should fit the content, equal spacing otherwise
   #  ...: see #margin
   header:
-    background-color: 'F0F0F0'
-    no-repeating: true # if table headers should be repeated if table spawns over pages
+    background_color: 'F0F0F0'
+    no_repeating: true # if table headers should be repeated if table spawns over pages
     #  ...: see #font-settings
   cell:
     style: 'underline' # table cell only allows one default font style (use markup for more)
-    background-color: '000FFF'
+    background_color: '000FFF'
     #  ...: see #font-settings
     #  ...: see #padding
     #  ...: see #borders
@@ -203,7 +203,7 @@ table:
 #### Unordered list
 
 ```yml
-unordered-list:
+unordered_list:
   spacing: 2mm # space between list items
   #  ...: see #font-settings
   #  ...: see #padding
@@ -214,7 +214,7 @@ unordered-list:
 #### Unordered list bullet point
 
 ```yml
-unordered-list-point:
+unordered_list_point:
   sign: "•" # the bullet point sign
   spacing: 0.75mm # space between point and list item content
   #  ...: see #font-settings
@@ -225,9 +225,9 @@ unordered-list-point:
 #### Ordered list
 
 ```yml
-ordered-list:
+ordered_list:
   spacing: 2mm # space between list items
-  point-inline: false # do not indent paragraph text, but include the point into the first paragraph
+  point_inline: false # do not indent paragraph text, but include the point into the first paragraph
   #  ...: see #font-settings
   #  ...: see #padding
 ```
@@ -237,7 +237,7 @@ ordered-list:
 #### Ordered list prefix
 
 ```yml
-ordered-list-point:
+ordered_list_point:
   template: '<number>.' # customize what the prefix should contain, eg. '(<number>)'
   alphabetical: false # convert the number to a char, eg. 'a. b. c.'
   spacing: 0.75mm # space between point and list item content
@@ -247,24 +247,24 @@ ordered-list-point:
 
 #### List levels
 
-use unordered-list-`x` as key for unordered list level `x`
+use unordered_list_`x` as key for unordered list level `x`
 
-use unordered-list-point-`x` as key for unordered list point level `x`
+use unordered_list_point_`x` as key for unordered list point level `x`
 
-use ordered-list-`x` as key for ordered list level `x`
+use ordered_list_`x` as key for ordered list level `x`
 
-use ordered-list-point-`x` as key for ordered list point level `x`
+use ordered_list_point_`x` as key for ordered list point level `x`
 
 ```yml
-ordered-list-1:
+ordered_list_1:
   #  ...: see #font-settings
   #  ...: see #padding
-ordered-list-point-1:
+ordered_list_point_1:
   #  ...: see #font-settings
-ordered-list-2:
+ordered_list_2:
   #  ...: see #font-settings
   #  ...: see #padding
-ordered-list-point-2:
+ordered_list_point_2:
   #  ...: see #font-settings
 ```
 
@@ -272,7 +272,7 @@ ordered-list-point-2:
 
 ```yml
 hrule:
-  line-width: 1 # sets the stroke width of the h-rule
+  line_width: 1 # sets the stroke width of the h_rule
   #  ...: see #margin
 ```
 
@@ -301,7 +301,7 @@ code:
 
 ```yml
 codeblock:
-  background-color: 'F5F5F5'
+  background_color: 'F5F5F5'
 #  ...: see #font-settings
 #  ...: see #padding
 #  ...: see #margin
@@ -313,7 +313,7 @@ codeblock:
 
 ```yml
 image:
-  max-width: 100mm # maximum image width in units
+  max_width: 100mm # maximum image width in units
 #  ...: see #margin
 ```
 
@@ -325,14 +325,14 @@ image:
 #### Footnote Reference
 
 ```yml
-footnote-reference:
+footnote_reference:
 #  ...: see #font-settings
 ```
 
 #### Footnote Definition
 
 ```yml
-footnote-definition:
+footnote_definition:
   point:
     #  ...: see #font-settings
 ```
@@ -346,7 +346,7 @@ footnote-definition:
 ```yml
   font: 'Vollkorn' # the name of the font as declared in fonts.name
   size: 10 # The font size to use
-  character-spacing: 0 # Additional space between characters
+  character_spacing: 0 # Additional space between characters
   styles: [] # ['bold', 'italic', 'superscript', 'subscript', 'strikethrough', 'underline' ]
   color: '000000' # rgb hex color
   leading: 2 # Additional space between lines
@@ -358,10 +358,10 @@ default: 0
 
 ```yml
   margin: 20mm # on all sides in units
-  margin-left: 20mm # left margin in units
-  margin-right: 20mm # right margin in units
-  margin-top: 20mm # top margin in units
-  margin-bottom: 20mm # bottom margin in units
+  margin_left: 20mm # left margin in units
+  margin_right: 20mm # right margin in units
+  margin_top: 20mm # top margin in units
+  margin_bottom: 20mm # bottom margin in units
 ```
 
 [units](#units)
@@ -372,10 +372,10 @@ default: 0
 
 ```yml
   padding: 20mm # on all sides 
-  padding-left: 20mm # left padding
-  padding-right: 20mm # right padding
-  padding-top: 20mm # top padding
-  padding-bottom: 20mm # bottom padding
+  padding_left: 20mm # left padding
+  padding_right: 20mm # right padding
+  padding_top: 20mm # top padding
+  padding_bottom: 20mm # bottom padding
 ```
 
 [units](#units)
@@ -383,19 +383,19 @@ default: 0
 ### Borders
 
 ```yml
-    border-color-left: 'F000FF' # left color 
-    border-color-right: '00FFF0' # right color
-    border-color-top: '000FFF' # top color 
-    border-color-bottom: 'FFF000' # bottom color
-    no-border-left: false # disable left border with true
-    no-border-right: false # disable right border with true
-    no-border-top: false # disable top border with true
-    no-border-bottom: false # disable bottom border with true
-    border-width: 0.25mm # border width
-    border-width-left: 0.25mm # left width
-    border-width-right: 0.25mm # right width
-    border-width-top: 0.25mm  # top width
-    border-width-bottom: 0.25mm # bottom width
+    border_color_left: 'F000FF' # left color 
+    border_color_right: '00FFF0' # right color
+    border_color_top: '000FFF' # top color 
+    border_color_bottom: 'FFF000' # bottom color
+    no_border_left: false # disable left border with true
+    no_border_right: false # disable right border with true
+    no_border_top: false # disable top border with true
+    no_border_bottom: false # disable bottom border with true
+    border_width: 0.25mm # border width
+    border_width_left: 0.25mm # left width
+    border_width_right: 0.25mm # right width
+    border_width_top: 0.25mm  # top width
+    border_width_bottom: 0.25mm # bottom width
 ```
 
 [units](#units)
