@@ -39,24 +39,6 @@ module MarkdownToPDF
 
     private
 
-    def symbolize(obj)
-      if obj.is_a? Hash
-        return obj.inject({}) do |memo, (k, v)|
-          memo[k.gsub('-', '_').to_sym] = symbolize(v)
-          memo
-        end
-      end
-
-      if obj.is_a? Array
-        return obj.inject([]) do |memo, v|
-          memo << symbolize(v)
-          memo
-        end
-      end
-
-      obj
-    end
-
     def render_markdown(markdown_string, images_path)
       pdf_setup_document
       @images_path = images_path

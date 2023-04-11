@@ -94,7 +94,7 @@ PLATFORMS
 
 DEPENDENCIES
   md_to_pdf!
-  pdf-inspector
+  pdf-inspector (~> 1.3)
   rake (~> 13.0)
   rspec (~> 3.2)
   rubocop (~> 1.43)

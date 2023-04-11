@@ -23,8 +23,9 @@ module MarkdownToPDF
       parsed = FrontMatterParser::Parser.new(:md).call(markdown)
       content = parsed.content
       matter = (default_fields || {}).merge(parsed.front_matter)
-      header_footer = parse_header_footer(parsed)
-      fields = matter['pdf_fields'] || {}
+      fields = matter['pdf_fields'] || matter[:pdf_fields] || {}
+      matter = symbolize(matter)
+      header_footer = parse_header_footer(matter)
       fields.each_key do |key|
         content = content.gsub("%#{key}%", fields[key].to_s)
         header_footer.each_key do |part|
@@ -33,11 +34,9 @@ module MarkdownToPDF
       end
       {
         root: parse_markdown(content),
-        frontmatter: parsed.front_matter,
-        fields: fields,
-        logo: matter['pdf_header_logo'],
-        language: matter['pdf_language'],
-        hyphenation: matter['pdf_hyphenation'] != false # default: true
+        logo: matter[:pdf_header_logo],
+        language: matter[:pdf_language],
+        hyphenation: matter[:pdf_hyphenation] != false # default: true
       }.merge(header_footer)
     end
 
@@ -49,12 +48,12 @@ module MarkdownToPDF
 
     def parse_header_footer(parsed)
       {
-        footer: parsed['pdf_footer'] || '',
-        header: parsed['pdf_header'] || '',
-        footer2: parsed['pdf_footer_2'] || '',
-        footer3: parsed['pdf_footer_3'] || '',
-        header2: parsed['pdf_header_2'] || '',
-        header3: parsed['pdf_header_3'] || ''
+        footer: parsed[:pdf_footer] || '',
+        header: parsed[:pdf_header] || '',
+        footer2: parsed[:pdf_footer_2] || '',
+        footer3: parsed[:pdf_footer_3] || '',
+        header2: parsed[:pdf_header_2] || '',
+        header3: parsed[:pdf_header_3] || ''
       }
     end
   end

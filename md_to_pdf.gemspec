@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "prawn-table", ["~> 0.2"]
   s.add_runtime_dependency "text-hyphen", ["~> 1.5"]
 
-  s.add_development_dependency 'pdf-inspector'
+  s.add_development_dependency 'pdf-inspector', "~> 1.3"
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rspec", "~> 3.2"
   s.add_development_dependency 'rubocop', '~> 1.43'

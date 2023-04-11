@@ -118,5 +118,23 @@ module MarkdownToPDF
         @pdf.width_of(text, opts)
       end
     end
+
+    def symbolize(obj)
+      if obj.is_a? Hash
+        return obj.inject({}) do |memo, (k, v)|
+          memo[k.to_s.gsub('-', '_').to_sym] = symbolize(v)
+          memo
+        end
+      end
+
+      if obj.is_a? Array
+        return obj.inject([]) do |memo, v|
+          memo << symbolize(v)
+          memo
+        end
+      end
+
+      obj
+    end
   end
 end

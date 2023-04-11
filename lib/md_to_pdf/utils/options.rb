@@ -10,7 +10,7 @@ module MarkdownToPDF
 
     def def_options
       {
-        table_page_break_threshold: 80,
+        table_page_break_threshold: 100,
         smart_header_threshold: 150,
         auto_generate_header_ids: true
       }
