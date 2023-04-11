@@ -1,6 +1,11 @@
 ## [Unreleased]
 
 - refactor(generator): split monolithic generator class into modules
+- basic html tag support for tables, paragraphs, lists, links, images and formatting
+- add rspec testing
+- add rubocop linting
+- fix: don't scale up small images
+- fix: table.header.size has been ignored, now applied
 
 ## [0.0.14] - 2023-01-11
 
