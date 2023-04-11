@@ -16,6 +16,8 @@ describe MarkdownToPDF::Paragraph do
 
   it 'creates a paragraphs by html' do
     generator.parse_file('paragraph/html.md')
-    expect_pdf([{ x: 36.0, y: 747.384, text: "A html paragraph" }])
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "A html paragraph" },
+                 { x: 36.0, y: 733.512, text: "A second paragraph" }])
   end
 end
