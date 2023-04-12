@@ -1,22 +1,6 @@
 require 'commonmarker'
 require 'front_matter_parser'
 
-CM_EXTENSIONS = %i[
-  autolink
-  strikethrough
-  table
-  tagfilter
-  tasklist
-].freeze
-CM_PARSE_OPTIONS = %i[
-  FOOTNOTES
-  SMART
-  LIBERAL_HTML_TAG
-  STRIKETHROUGH_DOUBLE_TILDE
-  UNSAFE
-  VALIDATE_UTF8
-].freeze
-
 module MarkdownToPDF
   module Parser
     def parse_frontmatter_markdown(markdown, default_fields)
@@ -41,7 +25,9 @@ module MarkdownToPDF
     end
 
     def parse_markdown(markdown)
-      CommonMarker.render_doc(markdown, CM_PARSE_OPTIONS, CM_EXTENSIONS)
+      cm_extensions = %i[autolink strikethrough table tagfilter tasklist]
+      cm_parse_options = %i[FOOTNOTES SMART LIBERAL_HTML_TAG STRIKETHROUGH_DOUBLE_TILDE UNSAFE VALIDATE_UTF8]
+      CommonMarker.render_doc(markdown, cm_parse_options, cm_extensions)
     end
 
     private

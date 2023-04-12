@@ -26,17 +26,48 @@ module MarkdownToPDF
         add_font_style(opts, :strikethrough)
       when '</strikethrough>', '</s>', '</del>'
         remove_font_style(opts, :strikethrough)
+      when '</font>'
+        remove_font_stack_opts(opts)
       when '</a>'
-        result = remove_link_opts(opts)
-        result[:original_opts] || result
+        remove_link_stack_opts(opts)
       else
         node = Nokogiri::HTML.fragment(tag).children[0]
-        if node && node.name == 'a' && node.attr('href')
+        return opts if node.nil?
+
+        if node.name == 'a' && node.attr('href')
           result = link_opts(node.attr('href'), opts)
-          result[:original_opts] = opts
+          result[:link_stack_opts] = result[:link_stack_opts] || []
+          result[:link_stack_opts].push(opts)
+          result
+        elsif node && node.name == 'font' && node.attr('size')
+          size = (node.attr('size') || '0').to_i
+          return opts if size < 1
+
+          result = opts.dup
+          result[:font_stack_opts] = result[:font_stack_opts] || []
+          result[:font_stack_opts].push(opts)
+          result[:size] = size
           result
         end
       end
+    end
+
+    def remove_font_stack_opts(opts)
+      result = opts
+      list = opts[:font_stack_opts]
+      if list && !list.empty?
+        result = list.pop
+      end
+      result
+    end
+
+    def remove_link_stack_opts(opts)
+      result = opts
+      list = opts[:link_stack_opts]
+      if list && !list.empty?
+        result = list.pop
+      end
+      result
     end
 
     def draw_html(node, opts)
@@ -47,10 +78,8 @@ module MarkdownToPDF
 
     def data_inlinehtml(node, opts)
       html = node.string_content
-      if html.downcase == '</a>'
-        remove_link_opts(opts)
-        return []
-      end
+      return [] if html.downcase == '</a>' || html.downcase == '</font>'
+
       parsed_data = Nokogiri::HTML.fragment(html)
       data_inlinehtml_tag(parsed_data, node, opts)
     end
@@ -68,9 +97,9 @@ module MarkdownToPDF
           url = sub.attr('href')
           unless url.nil?
             if url.start_with?('#')
-              opts[:anchor] = url.sub(/\A#/, '')
+              current_opts[:anchor] = url.sub(/\A#/, '')
             else
-              opts[:link] = url
+              current_opts[:link] = url
             end
           end
         when 'comment'

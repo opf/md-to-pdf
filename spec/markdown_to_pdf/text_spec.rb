@@ -70,6 +70,15 @@ describe MarkdownToPDF::Text do
                  { x: 36.0, y: 678.024, text: "h6 Heading" }])
   end
 
+  it 'creates headings with inline formatting' do
+    generator.parse_file('text/heading_formatting.md')
+    expect_pdf([
+                 { x: 36.0, y: 744.512, text: "A special inline" },
+                 { x: 142.704, y: 744.512, text: " formatted " },
+                 { x: 200.004, y: 744.512, text: "headline" },
+                 { x: 36.0, y: 728.888, text: "A normal headline" }])
+  end
+
   it 'creates footnotes' do
     generator.parse_file('text/footnote.md')
     expect_pdf([
