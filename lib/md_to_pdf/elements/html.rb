@@ -235,7 +235,6 @@ module MarkdownToPDF
 
     def collect_html_table_tag_cell(tag, opts)
       data_inlinehtml_tag(tag, nil, opts)
-            # [text_hash(hyphenate(tag.text), opts)]
     end
 
     def collect_html_table_tag_row(tag, table_font_opts, opts)
@@ -250,7 +249,6 @@ module MarkdownToPDF
           cells.push(cell_data)
         end
       end
-
       cells
     end
   end
