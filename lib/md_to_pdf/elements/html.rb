@@ -106,6 +106,16 @@ module MarkdownToPDF
           # ignore html comments
         when 'img'
           result.push({ image: sub.attr('src') })
+        when 'input'
+          if sub.attr('type') == 'checkbox'
+            checkbox = opt_task_list_point_sign(@styles.task_list_point, sub.attributes.key?('checked'))
+            result.push(text_hash(checkbox, current_opts))
+          else
+            data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
+            result.concat(data_array)
+          end
+        when 'ul', 'ol', 'li', 'label'
+          result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
         else
@@ -174,7 +184,7 @@ module MarkdownToPDF
           @pdf.formatted_text([text_hash_raw("\n", current_opts)])
         when 'br-page'
           @pdf.start_new_page
-        when 'p'
+        when 'p', 'figure'
           draw_html_tag(sub, node, opts)
         else
           process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
@@ -223,15 +233,20 @@ module MarkdownToPDF
       merge_opts(opts, { styles: (opts[:styles] || []) - [style] })
     end
 
+    def collect_html_table_tag_cell(tag, opts)
+      data_inlinehtml_tag(tag, nil, opts)
+            # [text_hash(hyphenate(tag.text), opts)]
+    end
+
     def collect_html_table_tag_row(tag, table_font_opts, opts)
       cells = []
       tag.children.each do |sub|
         case sub.name
         when 'th'
-          cell_data = [text_hash(hyphenate(sub.text), opts.merge(table_font_opts[:header]))]
+          cell_data = collect_html_table_tag_cell(sub, opts.merge(table_font_opts[:header]))
           cells.push(cell_data)
         when 'td'
-          cell_data = [text_hash(hyphenate(sub.text), opts.merge(table_font_opts[:cell]))]
+          cell_data = collect_html_table_tag_cell(sub, opts.merge(table_font_opts[:cell]))
           cells.push(cell_data)
         end
       end

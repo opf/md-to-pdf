@@ -69,4 +69,24 @@ describe MarkdownToPDF::Table do
                  { x: 151.99, y: 612.937, text: "Image2" },
                  { x: 311.0, y: 725.884, text: "Image3" }])
   end
+
+  it 'creates a html table with checkboxes' do
+    generator.parse_file('table/html.md')
+    expect_pdf([
+                 { x: 113.14286, y: 744.756, text: "Header 1" },
+                 { x: 190.28571, y: 744.756, text: "Header 2" },
+                 { x: 267.42857, y: 744.756, text: "Header 3" },
+                 { x: 344.57143, y: 744.756, text: "Header 4" },
+                 { x: 421.71429, y: 744.756, text: "Header 5" },
+                 { x: 498.85714, y: 744.756, text: "Header 6" },
+                 { x: 36.0, y: 730.884, text: "Entry 1" },
+                 { x: 344.57143, y: 730.884, text: "[x]" },
+                 { x: 498.85714, y: 730.884, text: "[x]" },
+                 { x: 36.0, y: 717.012, text: "Entry 2" },
+                 { x: 344.57143, y: 717.012, text: "[x]" },
+                 { x: 421.71429, y: 717.012, text: "[x]" },
+                 { x: 36.0, y: 703.14, text: "Entry 3" },
+                 { x: 36.0, y: 689.268, text: "Entry 4" },
+                 { x: 113.14286, y: 689.268, text: "[x]" }])
+  end
 end
