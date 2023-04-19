@@ -136,5 +136,9 @@ module MarkdownToPDF
 
       obj
     end
+
+    def process_text(text)
+      hyphenate(text)
+    end
   end
 end

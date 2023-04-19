@@ -3,7 +3,7 @@ require 'pdf_helpers'
 describe MarkdownToPDF::Table do
   include_context 'with pdf'
 
-  it 'creates a table' do
+  it 'creates a table by markdown' do
     generator.parse_file('table/table.md')
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Description Column 1" },
@@ -88,5 +88,17 @@ describe MarkdownToPDF::Table do
                  { x: 36.0, y: 703.14, text: "Entry 3" },
                  { x: 36.0, y: 689.268, text: "Entry 4" },
                  { x: 113.14286, y: 689.268, text: "[x]" }])
+  end
+
+  it 'creates a table without bad wrapping' do
+    generator.parse_file('table/wrapping.md', { table: { auto_width: true, cell: { padding: 6 } } })
+    expect_pdf([
+                 { x: 42.0, y: 738.756, text: "A cell with long “unbreakble“ text" },
+                 { x: 464.628, y: 738.756, text: "Status" },
+                 { x: 536.64, y: 738.756, text: "ID" },
+                 { x: 42.0, y: 712.884, text: "https://example.com/example/example/blob/main/lib/md_to_pdf/elements/tabl" },
+                 { x: 42.0, y: 699.012, text: "e.rb#L3" },
+                 { x: 464.628, y: 712.884, text: "clarification" }, # clarification is not broken by char
+                 { x: 536.64, y: 712.884, text: "42958" }]) # 42958 is not broken by char
   end
 end

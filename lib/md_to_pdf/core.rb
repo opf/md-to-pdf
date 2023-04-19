@@ -21,6 +21,10 @@ require 'md_to_pdf/utils/markdown_ast_node'
 require 'md_to_pdf/utils/style_helper'
 require 'md_to_pdf/utils/styles'
 require 'md_to_pdf/utils/options'
+require 'md_to_pdf/ext/prawn-table/table/table'
+require 'md_to_pdf/ext/prawn-table/table/natural_split_generator'
+require 'md_to_pdf/ext/prawn-table/table/cell/cell'
+require 'md_to_pdf/ext/prawn-table/table/cell/cell/text'
 
 module MarkdownToPDF
   module Core
