@@ -16,7 +16,6 @@
 #     - if larger than page: apply min column widths and then shrink that with the most content
 
 Prawn::Table.prepend(Module.new do
-
   def column_widths
     return @column_widths unless @column_widths.nil?
 
@@ -74,5 +73,4 @@ Prawn::Table.prepend(Module.new do
   def natural_split_column_width
     @natural_split_column_width ||= natural_split_column_widths.inject(0, &:+)
   end
-
 end)
