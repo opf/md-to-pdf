@@ -12,7 +12,14 @@ module MarkdownToPDF
 
     def build_codeblock_cell(node, cell_style_opts)
       text = node.string_content.gsub(' ', Prawn::Text::NBSP)
-      make_subtable_cell([cell_style_opts.merge({ text: text })], cell_style_opts)
+      Prawn::Table::Cell::Text.new(
+        @pdf, [0, 0],
+        content: text,
+        font: cell_style_opts[:font],
+        size: cell_style_opts[:size],
+        text_color: cell_style_opts[:color],
+        borders: cell_style_opts[:borders]
+      )
     end
 
     def codeblock_style(opts)
