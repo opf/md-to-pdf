@@ -25,10 +25,10 @@ Prawn::Table::Cell::Text.prepend(Module.new do
     str = @content.gsub(' ', " \n ")
 
     arranger = Prawn::Text::Formatted::Arranger.new(@pdf, @text_options.compact)
-    with_font {
+    with_font do
       arranger.consumed = @pdf.text_formatter.format(str, *p)
       arranger.finalize_line
-    }
+    end
     w = 1
     arranger.fragments.each do |fragment|
       w = [w, fragment.width].max
