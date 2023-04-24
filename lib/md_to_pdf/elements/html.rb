@@ -213,7 +213,7 @@ module MarkdownToPDF
     end
 
     def cell_inline_formatting_data(cell_data_part)
-      value = hyphenate(cell_data_part[:text] || '')
+      value = cell_data_part[:text] || ''
       value = "<link href=\"#{cell_data_part[:link]}\">#{value}</link>" if cell_data_part.key?(:link)
       value = "<link anchor=\"#{cell_data_part[:anchor]}\">#{value}</link>" if cell_data_part.key?(:anchor)
       value = "<color rgb=\"#{cell_data_part[:color]}\">#{value}</color>" if cell_data_part.include?(:color)
