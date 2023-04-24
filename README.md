@@ -42,7 +42,7 @@ markdown_string += 'An additional text at the bottom'
 images_path = File.dirname(source_filename)
 MarkdownToPDF.generate_markdown_string_pdf(markdown_string, styling_filename, images_path, dest_filename)
 ```
-## Known Limitions
+## Known Limitations
 
 * Table cells that exceed the height of a single page are truncated (see [prawn-table#41](https://github.com/prawnpdf/prawn-table/issues/41)).   
 
