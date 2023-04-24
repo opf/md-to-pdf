@@ -46,7 +46,7 @@ Prawn::Table::Cell::Text.prepend(Module.new do
     longest_word = @content.split(/\s+/m).max_by(&:length)
     return 1 if longest_word.nil?
 
-    options = @text_options.reject { |k| k == :style || k == :inline_format }
+    options = @text_options.reject { |k| %i[style inline_format].include?(k) }
     with_font { @pdf.width_of(longest_word, options) }
   end
 end)
