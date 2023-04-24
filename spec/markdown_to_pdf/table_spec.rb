@@ -90,7 +90,7 @@ describe MarkdownToPDF::Table do
                  { x: 113.14286, y: 689.268, text: "[x]" }])
   end
 
-  it 'creates a table without bad wrapping' do
+  it 'creates a table without bad wrapping with doc font style' do
     generator.parse_file('table/wrapping.md', { table: { auto_width: true, cell: { padding: 6 } } })
     expect_pdf([
                  { x: 42.0, y: 738.756, text: "A cell with long “unbreakble“ text" },
@@ -100,5 +100,18 @@ describe MarkdownToPDF::Table do
                  { x: 42.0, y: 699.012, text: "e.rb#L3" },
                  { x: 464.628, y: 712.884, text: "clarification" }, # clarification is not broken by char
                  { x: 536.64, y: 712.884, text: "42958" }]) # 42958 is not broken by char
+  end
+
+  it 'creates a table without bad wrapping with cell style' do
+    generator.parse_file('table/wrapping.md', { table: { auto_width: true, header: { styles: ['bold'] }, cell: { padding: 6, size: 20 } } })
+    expect_pdf([
+                 { x: 42.0, y: 733.012, text: "A cell with long “unbreakble“ text" },
+                 { x: 402.38, y: 733.012, text: "Status" },
+                 { x: 514.4, y: 733.012, text: "ID" },
+                 { x: 42.0, y: 697.212, text: "https://example.com/example/example/" },
+                 { x: 42.0, y: 674.092, text: "blob/main/lib/md_to_pdf/elements/table" },
+                 { x: 42.0, y: 650.972, text: ".rb#L3" },
+                 { x: 402.38, y: 697.212, text: "clarification" }, # clarification is not broken by char
+                 { x: 514.4, y: 697.212, text: "42958" }]) # 42958 is not broken by char
   end
 end

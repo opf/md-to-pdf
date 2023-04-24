@@ -15,17 +15,38 @@ Prawn::Table::Cell::Text.prepend(Module.new do
 
   # new: get content width with split text (so no words are broken by char)
   def natural_split_content_width
-    @natural_split_content_width ||= [styled_width_of_longest_word, @pdf.bounds.width].min
+    [styled_width_of_longest_word, @pdf.bounds.width].min
   end
 
-  # new: get the width of the longest word in the cell
+  def styled_width_of_longest_word_formatted
+    p = @text_options[:inline_format]
+    p = [] unless p.is_a?(Array)
+
+    str = @content.gsub(' ', " \n ")
+
+    arranger = Prawn::Text::Formatted::Arranger.new(@pdf, @text_options.compact)
+    with_font {
+      arranger.consumed = @pdf.text_formatter.format(str, *p)
+      arranger.finalize_line
+    }
+    w = 1
+    arranger.fragments.each do |fragment|
+      w = [w, fragment.width].max
+    end
+    w
+  end
+
   def styled_width_of_longest_word
     return 1 if @content.nil?
 
-    # TODO: html tags are removed and not applied, so real width could be off
-    longest_word = @content.gsub(/<\/?[^>]*>/, "").split(/\s+/m).max_by(&:length)
+    if @text_options.key?(:inline_format) && @content.include?('<')
+      return styled_width_of_longest_word_formatted
+    end
+
+    longest_word = @content.split(/\s+/m).max_by(&:length)
     return 1 if longest_word.nil?
 
-    styled_width_of(longest_word)
+    options = @text_options.reject { |k| k == :style || k == :inline_format }
+    with_font { @pdf.width_of(longest_word, options) }
   end
 end)
