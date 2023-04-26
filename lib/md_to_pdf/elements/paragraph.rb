@@ -6,30 +6,11 @@ module MarkdownToPDF
       p_opts = build_paragraph_opts(opts)
       p_padding_opts = build_paragraph_padding_opts(opts)
       with_block_padding_all(p_padding_opts) do
-        convert_paragraph_nodes(node, p_opts, opts)
+        draw_formatted_text(data_node_list(node.to_a, p_opts), p_opts, node)
       end
     end
 
     private
-
-    def convert_paragraph_nodes(node, p_opts, opts)
-      nodes = []
-      n = node.first_child
-      until n.nil?
-        test = n
-        n = n.next
-        if test.type == :image
-          unless nodes.empty?
-            draw_formatted_text(data_node_list(nodes, p_opts), p_opts, node)
-            nodes = []
-          end
-          draw_standalone_image(test, opts)
-        else
-          nodes.push(test)
-        end
-      end
-      draw_formatted_text(data_node_list(nodes, p_opts), p_opts, node) unless nodes.empty?
-    end
 
     def build_paragraph_opts(opts)
       style = @styles.paragraph

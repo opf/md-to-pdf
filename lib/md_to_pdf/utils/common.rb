@@ -104,12 +104,26 @@ module MarkdownToPDF
     end
 
     def draw_formatted_text(data_list, opts, node)
-      image_list = data_list.select { |item| item.key?(:image) }
-      text_list = data_list.reject { |item| item.key?(:image) }
-      @pdf.formatted_text(text_list, filter_block_hash(opts)) unless text_list.empty?
-      image_list.each do |item|
-        embed_image(item[:image], node, opts.merge({ image_classes: item[:image_classes] }))
+      text_only = data_list.find { |item| item.key?(:image) }.nil?
+      if text_only
+        @pdf.formatted_text(data_list, filter_block_hash(opts))
+      else
+        draw_formatted_text_with_images(data_list, opts, node)
       end
+    end
+
+    def draw_formatted_text_with_images(data_list, opts, node)
+      text_items = []
+      data_list.each do |item|
+        if item[:image]
+          @pdf.formatted_text(text_items, filter_block_hash(opts)) unless text_items.empty?
+          text_items = []
+          embed_image(item[:image], node, opts.merge({ image_classes: item[:image_classes] }))
+        else
+          text_items.push(item)
+        end
+      end
+      @pdf.formatted_text(text_items, filter_block_hash(opts)) unless text_items.empty?
     end
 
     def measure_text_width(text, opts)
