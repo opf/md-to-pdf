@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.0.15] - 2023-05-09
+
 - refactor(generator): split monolithic generator class into modules
 - basic html tag support for tables, paragraphs, lists, links, images and formatting
 - add rspec testing
