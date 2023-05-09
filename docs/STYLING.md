@@ -406,6 +406,8 @@ default: 0
 
 available units are 
 
-mm - Millimeter, cm - Centimeter, dm - Decimeter, m - Meter
-in - Inch, ft - Feet, yr - Yard
-pt - PostscriptPoint (default)
+`mm` - Millimeter, `cm` - Centimeter, `dm` - Decimeter, `m` - Meter
+
+`in` - Inch, `ft` - Feet, `yr` - Yard
+
+`pt` - [Postscript point](https://en.wikipedia.org/wiki/Point_(typography)#Desktop_publishing_point) (default if no unit is used)
