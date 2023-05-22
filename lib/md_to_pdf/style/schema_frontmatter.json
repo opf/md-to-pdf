@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "pdf_language": { "type": "string" },
+    "pdf_header": { "type": "string" },
+    "pdf_header_2": { "type": "string" },
+    "pdf_header_3": { "type": "string" },
+    "pdf_footer": { "type": "string" },
+    "pdf_footer_2": { "type": "string" },
+    "pdf_footer_3": { "type": "string" },
+    "pdf_header_logo": { "type": "string" },
+    "pdf_hyphenation": { "type": "boolean" },
+    "pdf_fields": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["string", "number"] }
+      }
+    }
+  }
+}

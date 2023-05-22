@@ -4,15 +4,15 @@ fonts:
     regular: 'Vollkorn-Regular.ttf'
     bold: 'Vollkorn-Bold.ttf'
     italic: 'Vollkorn-Italic.ttf'
-    bold-italic: 'Vollkorn-BoldItalic.ttf'
+    bold_italic: 'Vollkorn-BoldItalic.ttf'
   - name: 'Consolas'
     pathname: 'Consolas'
     regular: 'Consolas-Regular.ttf'
     bold: 'Consolas-Bold.ttf'
     italic: 'Consolas-Italic.ttf'
-    bold-italic: 'Consolas-BoldItalic.ttf'
+    bold_italic: 'Consolas-BoldItalic.ttf'
 
-fallback-font:
+fallback_font:
     name: 'NotoSansSymbols2'
     pathname: 'NotoSansSymbols2'
     filename: 'NotoSansSymbols2-Regular.ttf'
@@ -20,59 +20,59 @@ fallback-font:
 page:
   font: 'Vollkorn'
   size: 10
-  character-spacing: 0
+  character_spacing: 0
   styles: [ ]
   color: '000000'
-  page-size: 'A4'
-  page-layout: 'portrait'
+  page_size: 'A4'
+  page_layout: 'portrait'
   margin: 20mm
-  #  margin-left: 20mm
-  #  margin-right: 20mm
-  #  margin-top: 20mm
-  #  margin-bottom: 20mm
+  #  margin_left: 20mm
+  #  margin_right: 20mm
+  #  margin_top: 20mm
+  #  margin_bottom: 20mm
   leading: 2
 
-page-header:
-  filter-pages: [ 1 ]
+page_header:
+  filter_pages: [ 1 ]
   align: "left"
   offset: -30
   size: 8
   leading: 4
 
-page-header-2:
-  filter-pages: [ 1 ]
-  align: "center"
+page_header_2:
+  filter_pages: [ 1 ]
+  align: "left"
   offset: -30
   size: 8
   leading: 4
 
-page-header-3:
-  filter-pages: [ 1 ]
+page_header_3:
+  filter_pages: [ 1 ]
   align: "right"
   offset: -30
   size: 8
   leading: 4
 
-page-logo:
-  filter-pages: [ 1 ]
+page_logo:
+  filter_pages: [ 1 ]
   align: "right"
-  max-width: 40mm
+  max_width: 40mm
   offset: -50
 
-page-footer:
-  filter-pages: [ ]
+page_footer:
+  filter_pages: [ ]
   align: "left"
   offset: -21
   size: 8
 
-page-footer-2:
-  filter-pages: [ ]
+page_footer_2:
+  filter_pages: [ ]
   align: "center"
   offset: -21
   size: 8
 
-page-footer-3:
-  filter-pages: [ ]
+page_footer_3:
+  filter_pages: [ ]
   align: "right"
   offset: -21
   size: 8
@@ -81,212 +81,212 @@ paragraph:
   align: 'justify'
   #  font: 'Helvetica'
   #  size: 10
-  #  character-spacing: 0
+  #  character_spacing: 0
   #  styles: []
   #  color: '000000'
   #  padding: 2mm
-  #  padding-left: 2mm
-  #  padding-right: 2mm
-  #  padding-top: 2mm
-  padding-bottom: 2mm
+  #  padding_left: 2mm
+  #  padding_right: 2mm
+  #  padding_top: 2mm
+  padding_bottom: 2mm
 
 link:
   #  font: 'Helvetica'
   #  size: 10
-  #  character-spacing: 0
+  #  character_spacing: 0
   #  styles: []
   color: '000088'
 
-unordered-list:
+unordered_list:
   spacing: 1.5mm
-  padding-top: 2mm
-  padding-bottom: 2mm
+  padding_top: 2mm
+  padding_bottom: 2mm
 
-unordered-list-point:
+unordered_list_point:
 #    font: 'Helvetica'
 #    size: 10
-#    character-spacing: 0
+#    character_spacing: 0
 #    styles: []
 #    color: '000000'
   sign: "•"
   spacing: 0.75mm
 
-ordered-list:
+ordered_list:
   spacing: 1.5mm
-  padding-top: 2mm
-  padding-bottom: 2mm
+  padding_top: 2mm
+  padding_bottom: 2mm
 
-task-list:
+task_list:
   spacing: 1.5mm
-  padding-top: 2mm
-  padding-bottom: 2mm
+  padding_top: 2mm
+  padding_bottom: 2mm
 
-task-list-point:
+task_list_point:
   checked: '☑'
   unchecked: '☐'
   spacing: 2mm
   size: 9
 
-ordered-list-point:
+ordered_list_point:
 #    font: 'Helvetica'
 #    size: 10
 #    styles: []
 #    color: '000000'
-  character-spacing: 0
+  character_spacing: 0
   spacing: 0.75mm
   spanning: true
 
-ordered-list-point-3:
+ordered_list_point_3:
   template: '<number>)'
   alphabetical: true
 
-ordered-list-point-4:
+ordered_list_point_4:
   template: '(<number>)'
 
 hrule:
-  margin-top: 2mm
-  margin-bottom: 4mm
-  line-width: 1
+  margin_top: 2mm
+  margin_bottom: 4mm
+  line_width: 1
 
 header:
   #  font: 'Helvetica'
   #  size: 10
-  #  character-spacing: 0
+  #  character_spacing: 0
   styles: [ 'bold' ]
   #  color: '000000'
   #  padding: 2mm
-  #  padding-left: 2mm
-  #  padding-right: 2mm
-  padding-top: 2mm
-  padding-bottom: 2mm
+  #  padding_left: 2mm
+  #  padding_right: 2mm
+  padding_top: 2mm
+  padding_bottom: 2mm
 
-header-1:
+header_1:
   size: 18
-  padding-top: 6mm
-header-2:
+  padding_top: 6mm
+header_2:
   size: 16
-  padding-top: 5mm
-header-3:
+  padding_top: 5mm
+header_3:
   size: 14
-  padding-top: 4mm
-header-4:
+  padding_top: 4mm
+header_4:
   size: 12
-  padding-top: 3mm
-header-5:
+  padding_top: 3mm
+header_5:
   size: 11
-header-6:
+header_6:
   size: 10
-header-7:
+header_7:
   size: 10
-header-8:
+header_8:
   size: 10
 
 table:
-  auto-width: true
+  auto_width: true
   #  margin: 2mm
-  #  margin-left: 2mm
-  #  margin-right: 2mm
-  margin-top: 2mm
-  margin-bottom: 4mm
+  #  margin_left: 2mm
+  #  margin_right: 2mm
+  margin_top: 2mm
+  margin_bottom: 4mm
   header:
-    # no-repeating: true
+    # no_repeating: true
     styles: ['bold']
-    background-color: 'F0F0F0'
+    background_color: 'F0F0F0'
     size: 10
-    #    character-spacing: 0
+    #    character_spacing: 0
     #    color: '000088'
     #    font: 'Helvetica'
   cell:
-    #    background-color: '000FFF'
-    #    border-color-top: '000FFF'
-    #    border-color-bottom: 'FFF000'
-    #    border-color-left: 'F000FF'
-    #    border-color-right: '00FFF0'
-    #    no-border-right: false
-    #    no-border-left: false
-    #    no-border-bottom: false
-    #    no-border-top: false
-    border-width: 0.25mm
-    #    border-width-top: 0.25mm
-    #    border-width-left: 0.25mm
-    #    border-width-right: 0.25mm
-    #    border-width-bottom: 0.25mm
+    #    background_color: '000FFF'
+    #    border_color_top: '000FFF'
+    #    border_color_bottom: 'FFF000'
+    #    border_color_left: 'F000FF'
+    #    border_color_right: '00FFF0'
+    #    no_border_right: false
+    #    no_border_left: false
+    #    no_border_bottom: false
+    #    no_border_top: false
+    border_width: 0.25mm
+    #    border_width_top: 0.25mm
+    #    border_width_left: 0.25mm
+    #    border_width_right: 0.25mm
+    #    border_width_bottom: 0.25mm
     #    padding: 3mm
-    padding-left: 3mm
-    padding-right: 3mm
-    padding-top: 1mm
-    padding-bottom: 2mm
+    padding_left: 3mm
+    padding_right: 3mm
+    padding_top: 1mm
+    padding_bottom: 2mm
     #    font: 'Helvetica'
     size: 9
-    #    character-spacing: 0
+    #    character_spacing: 0
     #    styles: []
     #    color: '000088'
 
-headless-table:
-  auto-width: false
+headless_table:
+  auto_width: false
   cell:
-    border-color: '0000FF'
+    border_color: '0000FF'
     padding: 5mm
 
 blockquote:
-  background-color: 'f4f9ff'
+  background_color: 'f4f9ff'
   #    font: 'Helvetica'
-  #    border-width: 0
-  #    character-spacing: 0
+  #    border_width: 0
+  #    character_spacing: 0
   size: 14
   styles: [ 'italic' ]
   color: '0f3b66'
-  border-color: 'b8d6f4'
-  border-width: 1
-  no-border-right: true
-  no-border-left: false
-  no-border-bottom: true
-  no-border-top: true
+  border_color: 'b8d6f4'
+  border_width: 1
+  no_border_right: true
+  no_border_left: false
+  no_border_bottom: true
+  no_border_top: true
   padding: 8mm
-  padding-left: 4mm
-  padding-right: 4mm
+  padding_left: 4mm
+  padding_right: 4mm
   #  margin: 2mm
-  #  margin-left: 2mm
-  #  margin-right: 2mm
-  margin-top: 2mm
-  margin-bottom: 2mm
+  #  margin_left: 2mm
+  #  margin_right: 2mm
+  margin_top: 2mm
+  margin_bottom: 2mm
 
 code:
   font: 'Consolas'
   #  size: 9
-  #  character-spacing: 0
+  #  character_spacing: 0
   #  styles: []
   color: '880000'
 
 codeblock:
-  background-color: 'F5F5F5'
+  background_color: 'F5F5F5'
   font: 'Consolas'
   size: 8
-  #  character-spacing: 0
+  #  character_spacing: 0
   color: '880000'
   padding: 3mm
-  #  padding-left: 3mm
-  #  padding-right: 3mm
-  #  padding-top: 3mm
-  #  padding-bottom: 3mm
+  #  padding_left: 3mm
+  #  padding_right: 3mm
+  #  padding_top: 3mm
+  #  padding_bottom: 3mm
   #  margin: 2mm
-  #  margin-left: 2mm
-  #  margin-right: 2mm
-  margin-top: 2mm
-  margin-bottom: 2mm
+  #  margin_left: 2mm
+  #  margin_right: 2mm
+  margin_top: 2mm
+  margin_bottom: 2mm
 
 image:
-  max-width: 50mm
+  max_width: 50mm
   margin: 2mm
-  #  margin-left: 2mm
-  #  margin-right: 2mm
-  #  margin-top: 2mm
-  margin-bottom: 3mm
+  #  margin_left: 2mm
+  #  margin_right: 2mm
+  #  margin_top: 2mm
+  margin_bottom: 3mm
   align: "center"
 
-image-classes:
+image_classes:
   small:
-    max-width: 10mm
+    max_width: 10mm
   left:
     margin: 0
     align: "left"
@@ -297,20 +297,20 @@ image-classes:
     margin: 0
     align: "right"
 
-footnote-definition:
+footnote_definition:
   point:
     #  font: 'Helvetica'
     size: 13
-    #  character-spacing: 0
+    #  character_spacing: 0
     styles: [ 'superscript' ]
     color: '000000'
 
-footnote-reference:
+footnote_reference:
   #  font: 'Helvetica'
   size: 13
-  #  character-spacing: 0
+  #  character_spacing: 0
   styles: [ 'superscript' ]
   color: '000088'
 
-fields-default:
+fields_default:
   pdf_language: 'en'

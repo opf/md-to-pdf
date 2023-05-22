@@ -49,13 +49,25 @@ If you need full UTF-8 support, please use an external font instead.
 
 ```yml
 fonts:
-  - name: 'Vollkorn' # the name of the as used later for content
+  - name: 'Vollkorn' # the name of the font as used later for content
     pathname: 'Vollkorn' # the name of the font directory where the font files are located 
     regular: 'Vollkorn-Regular.ttf' # font file for regular text
     bold: 'Vollkorn-Bold.ttf' # font file for bold text
     italic: 'Vollkorn-Italic.ttf' # font file for italic text
     bold_italic: 'Vollkorn-BoldItalic.ttf'  # font file for bold-italic text
   - ...
+```
+
+
+#### Fallback font
+
+If a sign is not found in the specified found, a fallback font can be used
+
+```yml
+fallback_font:
+  name: 'Vollkorn' # the name of the font as used later for content
+  pathname: 'Vollkorn' # the name of the font directory where the font files are located 
+  filename: 'Vollkorn-Regular.ttf' # font file for regular text
 ```
 
 ### Document
@@ -135,7 +147,7 @@ page_footer:
 
 ```yml
 paragraph:
-  align: 'justify' # left or justify or right
+  align: 'justify' # left or center or justify or right
 #  ...: see #font-settings
 #  ...: see #padding
 ```
@@ -189,9 +201,26 @@ table:
     no_repeating: true # if table headers should be repeated if table spawns over pages
     #  ...: see #font-settings
   cell:
-    style: 'underline' # table cell only allows one default font style (use markup for more)
     background_color: '000FFF'
     #  ...: see #font-settings
+    #  ...: see #padding
+    #  ...: see #borders
+```
+
+[font-settings](#font-settings), [padding](#padding), [margin](#margin), [borders](#borders)
+
+#### Headless Table
+
+Tables without header rows can be styled differently
+
+```yml
+headless_table:
+  auto_width: true # table columns should fit the content, equal spacing otherwise
+  #  ...: see #margin
+  cell:
+    style: 'underline' # table cell only allows one default font style (use markup for more)
+    background_color: '000FFF'
+    #  ...: see #font-settings (except styles)
     #  ...: see #padding
     #  ...: see #borders
 ```
@@ -245,6 +274,31 @@ ordered_list_point:
   #  ...: see #font-settings (number point)
 ```
 
+
+#### Task list
+
+```yml
+task_list:
+  spacing: 2mm # space between list items
+  #  ...: see #font-settings
+  #  ...: see #padding
+```
+
+[padding](#padding), [font-settings](#font-settings)
+
+#### Task list point
+
+```yml
+task_list_point:
+  checked: '☑' # the checked task list item sign
+  unchecked: '☐' # the unchecked task list item sign
+  spacing: 0.75mm # space between point and list item content
+  #  ...: see #font-settings
+```
+
+[font-settings](#font-settings)
+
+
 #### List levels
 
 use unordered_list_`x` as key for unordered list level `x`
@@ -284,9 +338,10 @@ hrule:
 blockquote:
 #  ...: see #font-settings
 #  ...: see #margin
+#  ...: see #borders
 ```
 
-[font-settings](#font-settings), [margin](#margin)
+[font-settings](#font-settings), [margin](#margin), [borders](#borders)
 
 ### Code
 
@@ -383,10 +438,12 @@ default: 0
 ### Borders
 
 ```yml
+    border_color: 'F000FF' # color on all sides 
     border_color_left: 'F000FF' # left color 
     border_color_right: '00FFF0' # right color
     border_color_top: '000FFF' # top color 
     border_color_bottom: 'FFF000' # bottom color
+    no_border: false # disable borders with true
     no_border_left: false # disable left border with true
     no_border_right: false # disable right border with true
     no_border_top: false # disable top border with true

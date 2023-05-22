@@ -6,6 +6,7 @@ module MarkdownToPDF
     def parse_frontmatter_markdown(markdown, default_fields)
       parsed = FrontMatterParser::Parser.new(:md).call(markdown)
       content = parsed.content
+      validate_frontmatter!(parsed.front_matter)
       matter = (default_fields || {}).merge(parsed.front_matter)
       fields = matter['pdf_fields'] || matter[:pdf_fields] || {}
       matter = symbolize(matter)

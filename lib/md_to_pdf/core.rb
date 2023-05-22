@@ -18,8 +18,9 @@ require 'md_to_pdf/utils/common'
 require 'md_to_pdf/utils/fonts'
 require 'md_to_pdf/utils/ids'
 require 'md_to_pdf/utils/markdown_ast_node'
-require 'md_to_pdf/utils/style_helper'
-require 'md_to_pdf/utils/styles'
+require 'md_to_pdf/style/validation'
+require 'md_to_pdf/style/helper'
+require 'md_to_pdf/style/styles'
 require 'md_to_pdf/utils/options'
 require 'md_to_pdf/version'
 require 'md_to_pdf/ext/prawn-table/table/table'
@@ -50,6 +51,7 @@ module MarkdownToPDF
     include MarkdownToPDF::Fonts
     include MarkdownToPDF::IDs
     include MarkdownToPDF::StyleHelper
+    include MarkdownToPDF::StyleValidation
     include MarkdownToPDF::Options
   end
 end

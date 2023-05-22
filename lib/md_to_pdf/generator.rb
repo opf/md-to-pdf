@@ -13,6 +13,8 @@ module MarkdownToPDF
       @fonts_path = fonts_path || '.'
       @styling_images_path = styling_image_path || '.'
       yml = styling_yml_filename ? YAML.load_file(styling_yml_filename) : {}
+      symbol_yml = symbolize(yml)
+      validate_styles!(symbol_yml)
       @styles = Styles.new(symbolize(yml))
     end
 
