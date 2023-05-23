@@ -29,14 +29,22 @@ module MarkdownToPDF
 
     private
 
-    def resolve_strict_property(value, defs)
-      if value.is_a?(Array)
-        value.map { |n| resolve_strict_property(n, defs) }
-      elsif value.is_a?(Hash)
-        resolve_strict_properties(value, defs)
-      else
-        value
-      end
+    def load_schema(filename)
+      schema = JSON::load_file(File.join(File.dirname(File.expand_path(__FILE__)), filename))
+      strict_schema(schema)
+    end
+
+    def strict_schema(schema)
+      # JSON schema does not properly support additionalProperties in combination with allOf[..],
+      # merge all references "inline" to be able to set additionalProperties=true
+      defs = schema["$defs"]
+      {
+        type: schema["type"],
+        required: schema["required"] || [],
+        additionalProperties: schema["additionalProperties"],
+        properties: resolve_strict_properties(schema["properties"], defs),
+        patternProperties: resolve_strict_properties(schema["patternProperties"], defs)
+      }.compact
     end
 
     def resolve_strict_properties(node, defs)
@@ -66,20 +74,14 @@ module MarkdownToPDF
       result
     end
 
-    def load_schema(filename)
-      schema = JSON::load_file(File.join(File.dirname(File.expand_path(__FILE__)), filename))
-      strict_schema(schema)
-    end
-
-    def strict_schema(schema)
-      defs = schema["$defs"]
-      {
-        type: schema["type"],
-        required: schema["required"] || [],
-        additionalProperties: schema["additionalProperties"],
-        properties: resolve_strict_properties(schema["properties"], defs),
-        patternProperties: resolve_strict_properties(schema["patternProperties"], defs)
-      }.compact
+    def resolve_strict_property(value, defs)
+      if value.is_a?(Array)
+        value.map { |n| resolve_strict_property(n, defs) }
+      elsif value.is_a?(Hash)
+        resolve_strict_properties(value, defs)
+      else
+        value
+      end
     end
   end
 end
