@@ -85,7 +85,7 @@
     },
     "font_style": {
       "type": "string",
-      "enum": ["bold", "italic", "underline", "superscript", "subscript"]
+      "enum": ["bold", "italic", "underline", "strikethrough", "superscript", "subscript"]
     },
     "page": {
       "type": "object",
