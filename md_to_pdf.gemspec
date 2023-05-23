@@ -19,12 +19,12 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "commonmarker", ["~> 0.23"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
+  s.add_runtime_dependency "json-schema", ["~> 4.0"]
   s.add_runtime_dependency "matrix", ["~> 0.4"]
-  s.add_runtime_dependency "nokogiri", ["~> 1.14"]
+  s.add_runtime_dependency "nokogiri", ["~> 1.15"]
   s.add_runtime_dependency "prawn", ["~> 2.4"]
   s.add_runtime_dependency "prawn-table", ["~> 0.2"]
   s.add_runtime_dependency "text-hyphen", ["~> 1.5"]
-  s.add_runtime_dependency "json-schema", ["~> 4.0"]
 
   s.add_development_dependency 'pdf-inspector', "~> 1.3"
   s.add_development_dependency "rake", "~> 13.0"
