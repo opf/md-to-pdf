@@ -169,6 +169,10 @@ module MarkdownToPDF
       style[:filter_pages] || []
     end
 
+    def opt_logo_height(style)
+      parse_pt(style[:height])
+    end
+
     def opt_logo_max_width(style)
       parse_pt(style[:max_width])
     end

@@ -127,6 +127,7 @@
         },
         "align": { "$ref": "#/$defs/alignment" },
         "max_width": { "$ref": "#/$defs/measurement" },
+        "height": { "$ref": "#/$defs/measurement" },
         "offset": { "type": "number" },
         "disabled": { "type": "boolean" }
       }

@@ -62,10 +62,16 @@ module MarkdownToPDF
       logo_opts = opts.dup
       top = @pdf.bounds.top - opt_header_footer_offset(style)
       width = @pdf.bounds.width
-
-      max_width = opt_logo_max_width(style)
-      width = [max_width, width].min unless max_width.nil?
-      logo_opts[:scale] = [width / image_info.width.to_f, 1].min
+      logo_height = opt_logo_height(style)
+      if logo_height.nil?
+        max_width = opt_logo_max_width(style)
+        width = [max_width, width].min unless max_width.nil?
+        scale = [width / image_info.width.to_f, 1].min
+      else
+        scale = [logo_height / image_info.height.to_f, 1].min
+        width = image_info.width.to_f * scale
+      end
+      logo_opts[:scale] = scale
       left = alignment_to_x(opt_header_footer_align(style), width)
       logo_opts[:at] = [left, top]
       [logo_opts, opt_header_footer_filter_pages(style)]
