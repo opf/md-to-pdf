@@ -1,6 +1,7 @@
 require 'md_to_pdf/core'
 require 'md_to_pdf/external'
 require 'md_to_pdf/hyphen'
+require 'md_to_pdf/style/schema'
 require 'md_to_pdf/markdown_parser'
 
 module MarkdownToPDF
@@ -8,14 +9,15 @@ module MarkdownToPDF
     include MarkdownToPDF::Core
     include MarkdownToPDF::External
     include MarkdownToPDF::Parser
+    include MarkdownToPDF::StyleSchema
 
     def initialize(fonts_path:, styling_image_path:, styling_yml_filename:)
       @fonts_path = fonts_path || '.'
       @styling_images_path = styling_image_path || '.'
       yml = styling_yml_filename ? YAML.load_file(styling_yml_filename) : {}
       symbol_yml = symbolize(yml)
-      validate_styles!(symbol_yml)
-      @styles = Styles.new(symbolize(yml))
+      validate_schema!(symbol_yml, styles_schema)
+      @styles = Styles.new(symbol_yml)
     end
 
     def file_to_pdf(markdown_file, pdf_destination, images_path = nil)

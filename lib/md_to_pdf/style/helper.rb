@@ -1,6 +1,6 @@
 module MarkdownToPDF
   module StyleHelper
-    def opts_font(style, opts)
+    def opts_font(style, opts = {})
       {
         font: style[:font] || opts[:font],
         character_spacing: first_number(style[:character_spacing], opts[:character_spacing]),
@@ -11,7 +11,7 @@ module MarkdownToPDF
       }.compact
     end
 
-    def opts_margin(style)
+    def opts_margin(style = {})
       margin = parse_pt(style[:margin])
       {
         left_margin: first_number(parse_pt(style[:margin_left]), margin, 0),
@@ -47,7 +47,7 @@ module MarkdownToPDF
       }
     end
 
-    def opts_table_cell(style, opts)
+    def opts_table_cell(style, opts={})
       # :overflow => :shrink_to_fit, :min_font_size => 8,
       merge_opts(
         { background_color: style[:background_color] },

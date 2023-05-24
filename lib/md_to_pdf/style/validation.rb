@@ -6,33 +6,13 @@ module MarkdownToPDF
     class StyleValidationError < StandardError
     end
 
-    def styles_schema
-      @styles_schema ||= load_schema('schema_styles.json')
-    end
-
-    def frontmatter_schema
-      @frontmatter_schema ||= load_schema('schema_frontmatter.json')
-    end
-
-    def validate_styles!(yml)
-      validate_schema!(yml, styles_schema)
-    end
-
-    def validate_frontmatter!(yml)
-      validate_schema!(yml, frontmatter_schema)
-    end
-
     def validate_schema!(yml, schema)
-      errors = JSON::Validator.fully_validate(schema, yml, validate_schema: true)
+      errors = JSON::Validator.fully_validate(strict_schema(schema), yml, validate_schema: true)
       raise StyleValidationError.new(errors.join("\n")) unless errors.empty?
+      yml
     end
 
     private
-
-    def load_schema(filename)
-      schema = JSON::load_file(File.join(File.dirname(File.expand_path(__FILE__)), filename))
-      strict_schema(schema)
-    end
 
     def strict_schema(schema)
       # JSON schema does not properly support additionalProperties in combination with allOf[..],
@@ -57,7 +37,10 @@ module MarkdownToPDF
                  clone
                else
                  def_name = ref.sub('#/$defs/', '')
-                 resolve_strict_properties(defs[def_name], defs)
+                 definition = defs[def_name]
+                 raise StyleValidationError.new("Invalid Schema, missing $ref=#{ref}") if definition.nil?
+
+                 resolve_strict_properties(definition, defs)
                end
       if result['type'] == 'object'
         result['additionalProperties'] = false
