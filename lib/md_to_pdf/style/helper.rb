@@ -47,7 +47,7 @@ module MarkdownToPDF
       }
     end
 
-    def opts_table_cell(style, opts={})
+    def opts_table_cell(style, opts = {})
       # :overflow => :shrink_to_fit, :min_font_size => 8,
       merge_opts(
         { background_color: style[:background_color] },

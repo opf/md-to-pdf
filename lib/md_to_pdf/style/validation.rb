@@ -9,6 +9,7 @@ module MarkdownToPDF
     def validate_schema!(yml, schema)
       errors = JSON::Validator.fully_validate(strict_schema(schema), yml, validate_schema: true)
       raise StyleValidationError.new(errors.join("\n")) unless errors.empty?
+
       yml
     end
 
