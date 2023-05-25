@@ -128,7 +128,7 @@
       "properties": {
         "filter_pages": { "$ref": "#/$defs/pages_filter" },
         "align": { "$ref": "#/$defs/alignment" },
-        "offset": { "$ref": "#/$defs/measurement" }
+        "offset": { "$ref": "#/$defs/measurement_signed" }
       },
       "allOf": [
         { "$ref": "#/$defs/font" }
@@ -145,7 +145,7 @@
         "align": { "$ref": "#/$defs/alignment" },
         "max_width": { "$ref": "#/$defs/measurement" },
         "height": { "$ref": "#/$defs/measurement" },
-        "offset": { "$ref": "#/$defs/measurement" },
+        "offset": { "$ref": "#/$defs/measurement_signed" },
         "disabled": { "type": "boolean" }
       }
     },
@@ -181,6 +181,13 @@
     "measurement": {
       "type": ["number", "string"],
       "pattern": "^([0-9\\.]+)(mm|cm|dm|m|in|ft|yr|pt)$"
+    },
+    "measurement_signed" : {
+      "type" : [
+        "number",
+        "string"
+      ],
+      "pattern" : "^-?([0-9\\.]+)(mm|cm|dm|m|in|ft|yr|pt)$"
     },
     "alignment": {
       "type": "string",
