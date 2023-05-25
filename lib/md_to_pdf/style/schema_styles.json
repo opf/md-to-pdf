@@ -73,9 +73,9 @@
       "type": "object",
       "properties": {
         "font": { "type": "string" },
-        "size": { "type": "number" },
-        "character_spacing": { "type": "number" },
-        "leading": { "type": "number" },
+        "size": { "$ref": "#/$defs/measurement" },
+        "character_spacing": { "$ref": "#/$defs/measurement" },
+        "leading": { "$ref": "#/$defs/measurement" },
         "color": { "$ref": "#/$defs/color" },
         "styles": {
           "type": "array",
@@ -126,28 +126,26 @@
     "page_header_footer": {
       "type": "object",
       "properties": {
-        "filter_pages": {
-          "type": "array",
-          "items": { "type": "number" }
-        },
+        "filter_pages": { "$ref": "#/$defs/pages_filter" },
         "align": { "$ref": "#/$defs/alignment" },
-        "offset": { "type": "number" }
+        "offset": { "$ref": "#/$defs/measurement" }
       },
       "allOf": [
         { "$ref": "#/$defs/font" }
       ]
     },
+    "pages_filter": {
+      "type": "array",
+      "items": { "type": "integer" }
+    },
     "page_logo": {
       "type": "object",
       "properties": {
-        "filter_pages": {
-          "type": "array",
-          "items": { "type": "number" }
-        },
+        "filter_pages": { "$ref": "#/$defs/pages_filter" },
         "align": { "$ref": "#/$defs/alignment" },
         "max_width": { "$ref": "#/$defs/measurement" },
         "height": { "$ref": "#/$defs/measurement" },
-        "offset": { "type": "number" },
+        "offset": { "$ref": "#/$defs/measurement" },
         "disabled": { "type": "boolean" }
       }
     },

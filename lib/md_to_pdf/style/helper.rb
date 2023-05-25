@@ -4,9 +4,9 @@ module MarkdownToPDF
       {
         font: style[:font] || opts[:font],
         character_spacing: first_number(style[:character_spacing], opts[:character_spacing]),
-        leading: first_number(style[:leading], opts[:leading]),
+        leading: first_number(parse_pt(style[:leading]), parse_pt(opts[:leading])),
         styles: (style[:styles] || opts[:styles] || []).map(&:to_sym),
-        size: first_number(style[:size], opts[:size]),
+        size: first_number(parse_pt(style[:size]), parse_pt(opts[:size])),
         color: style[:color] || opts[:color]
       }.compact
     end
