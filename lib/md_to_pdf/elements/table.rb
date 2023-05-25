@@ -153,7 +153,9 @@ module MarkdownToPDF
         if elem.key?(:image)
           rows.push([make_subtable_cell(row, opts)]) unless row.empty?
           image_file = image_url_to_local_file(elem[:image])
-          rows.push([image_in_table_column(image_file, alignment).merge({ borders: [] })]) unless  image_file.nil? || image_file.empty?
+          unless image_file.nil? || image_file.empty?
+            rows.push([image_in_table_column(image_file, alignment).merge({ borders: [] })])
+          end
           row = []
         else
           row.push(elem)
