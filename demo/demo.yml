@@ -41,7 +41,7 @@ page_header:
 
 page_header_2:
   filter_pages: [ 1 ]
-  align: "left"
+  align: "center"
   offset: -30
   size: 8
   leading: 4
