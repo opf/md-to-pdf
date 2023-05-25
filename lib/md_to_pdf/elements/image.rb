@@ -15,7 +15,7 @@ module MarkdownToPDF
 
     def embed_image(url, node, opts)
       image_file = image_url_to_local_file(url, node)
-      return if image_file.nil?
+      return if image_file.nil? || image_file.empty?
 
       image_obj, image_info = @pdf.build_image_object(image_file)
       image_margin_opts, image_opts = build_image_settings(opts, image_info)

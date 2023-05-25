@@ -115,7 +115,7 @@ module MarkdownToPDF
     def draw_formatted_text_with_images(data_list, opts, node)
       text_items = []
       data_list.each do |item|
-        if item[:image]
+        if item.key?(:image)
           @pdf.formatted_text(text_items, filter_block_hash(opts)) unless text_items.empty?
           text_items = []
           embed_image(item[:image], node, opts.merge({ image_classes: item[:image_classes] }))
