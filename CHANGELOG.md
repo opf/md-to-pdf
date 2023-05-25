@@ -4,7 +4,7 @@
 
 - validation of yml styles with json schema
 - use _ instead of - in yml style key names
-- fix(images): handle invalid image specs as-op 14 minutes ago
+- fix(images): handle invalid image specs
 
 ## [0.0.15] - 2023-05-09
 
