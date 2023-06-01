@@ -25,9 +25,14 @@ class TestGenerator
   def parse(markdown, styling = {})
     @styles = MarkdownToPDF::Styles.new(styling)
     @images_path = 'demo/'
+    @styling_images_path = 'demo/'
     root = parse_markdown(markdown)
     draw_node(root, {}, true)
     draw_footnotes({})
+  end
+
+  def warn(text, element, node)
+    puts "WARNING: #{text}\nGot #{element} at #{node ? node.sourcepos.inspect : '?'}\n\n" unless text == 'Image file not found'
   end
 
   def render

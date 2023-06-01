@@ -70,6 +70,15 @@ describe MarkdownToPDF::Table do
                  { x: 311.0, y: 725.884, text: "Image3" }])
   end
 
+  it 'creates a table with an invalid images' do
+    generator.parse_file('table/invalid_images.md')
+    expect_pdf([
+                 { x: 160.16, y: 744.756, text: "One" },
+                 { x: 306.0, y: 744.756, text: "Two" },
+                 { x: 311.0, y: 725.884, text: "Image2" },
+                 { x: 311.0, y: 712.012, text: "" }])
+  end
+
   it 'creates a html table with checkboxes' do
     generator.parse_file('table/html.md')
     expect_pdf([
