@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.17] - 2023-06-01
+
+- fix(tables): add test and fix error for empty prawn cells
+
 ## [0.0.16] - 2023-05-25
 
 - validation of yml styles with json schema
