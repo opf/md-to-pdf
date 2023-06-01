@@ -162,7 +162,7 @@ module MarkdownToPDF
         end
       end
       rows.push([make_subtable_cell(row, opts)]) unless row.empty?
-      return make_table_cell([{ text: '' }],opts) if rows.empty?
+      return make_table_cell([{ text: '' }], opts) if rows.empty?
 
       @pdf.make_table(rows, { position: alignment }) do
         columns(0).align = alignment unless alignment == nil
