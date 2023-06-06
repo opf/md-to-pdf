@@ -14,9 +14,9 @@ describe MarkdownToPDF::Code do
     generator.parse_file('code/indented.md')
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "// Some comments" },
-                 { x: 36.0, y: 730.884, text: "line 1 of code" },
-                 { x: 36.0, y: 717.012, text: "line 2 of code" },
-                 { x: 36.0, y: 703.14, text: "line 3 of code" }])
+                 { x: 36.0, y: 728.884, text: "line 1 of code" },
+                 { x: 36.0, y: 713.012, text: "line 2 of code" },
+                 { x: 36.0, y: 697.14, text: "line 3 of code" }])
   end
 
   it 'creates code block by fences without language tag' do
@@ -28,7 +28,7 @@ describe MarkdownToPDF::Code do
     generator.parse_file('code/fences_js.md')
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "var foo = function (bar) {" },
-                 { x: 36.0, y: 730.884, text: "  return bar++;" },
-                 { x: 36.0, y: 717.012, text: "};" }])
+                 { x: 36.0, y: 728.884, text: "  return bar++;" },
+                 { x: 36.0, y: 713.012, text: "};" }])
   end
 end
