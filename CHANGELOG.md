@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.18] - 2023-06-07
+
+- feat(codeblock): create a table row per line instead of one large cell
+
 ## [0.0.17] - 2023-06-01
 
 - fix(tables): add test and fix error for empty prawn cells
