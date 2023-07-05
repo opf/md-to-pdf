@@ -1,5 +1,7 @@
 # Markdown-to-PDF
 
+A markdown to pdf generator with styling by yml.
+
 **WORK IN PROGRESS**, please expect changes to API and styling yml spec
 
 ## Installation
