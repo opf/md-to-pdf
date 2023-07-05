@@ -283,6 +283,9 @@ image:
   #  margin_top: 2mm
   margin_bottom: 3mm
   align: "center"
+  caption:
+    align: "center"
+    size: 8
 
 image_classes:
   small:

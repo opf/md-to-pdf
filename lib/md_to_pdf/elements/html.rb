@@ -169,7 +169,7 @@ module MarkdownToPDF
       tag.children.each do |sub|
         case sub.name
         when 'img'
-          embed_image(sub.attr('src'), node, current_opts.merge({ image_classes: sub.attr('class') }))
+          embed_image(sub.attr('src'), node, current_opts.merge({ image_classes: sub.attr('class'), image_caption: find_img_caption(sub) }))
         when 'text'
           @pdf.formatted_text([text_hash(sub.text, current_opts)])
         when 'a'
@@ -185,11 +185,22 @@ module MarkdownToPDF
         when 'br-page'
           @pdf.start_new_page
         when 'p', 'figure'
-          draw_html_tag(sub, node, opts)
+          draw_html_tag(sub, node, current_opts)
+        when 'figcaption'
+          # ignore, it is handled in img
         else
           process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
           draw_html_tag(sub, node, opts) if process_children
         end
+      end
+    end
+
+    def find_img_caption(tag)
+      if tag.name == 'figure'
+        figcaption = tag.search("figcaption").first
+        return figcaption.text unless figcaption.nil?
+      elsif tag.parent
+        find_img_caption(tag.parent)
       end
     end
 

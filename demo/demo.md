@@ -275,6 +275,10 @@ Floating text above ![Dummy image](demo.jpg) and below image
 
 ![Demo image](demo.jpg){: .right .small}
 
+### Markdown image caption
+
+![Demo image](demo.jpg "Demo image caption")
+
 ## HTML syntax
 
 <img src="demo.jpg" class="left small">
@@ -282,6 +286,10 @@ Floating text above ![Dummy image](demo.jpg) and below image
 <img src="demo.jpg" class="center small">
 
 <img src="demo.jpg" class="right small">
+
+## HTML figure and figcaption
+
+<figure><img src="demo.jpg"><figcaption>Demo image caption</figcaption></figure>
 
 ## Footnote syntax
 

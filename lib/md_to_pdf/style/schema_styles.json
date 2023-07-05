@@ -364,7 +364,8 @@
       "type": "object",
       "properties": {
         "max_width": { "$ref": "#/$defs/measurement" },
-        "align": { "$ref": "#/$defs/alignment" }
+        "align": { "$ref": "#/$defs/alignment" },
+        "caption": { "$ref": "#/$defs/paragraph" }
       },
       "allOf": [
         { "$ref": "#/$defs/margin" }

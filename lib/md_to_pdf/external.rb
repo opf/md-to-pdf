@@ -17,7 +17,7 @@ module MarkdownToPDF
     end
 
     def handle_unknown_html_tag(tag, node, opts)
-      warn("draw_html; Html tag on root level currently unsupported.", tag.name, node)
+      warn("draw_html; Html tag '#{tag.name}' on root level currently unsupported.", tag.name, node)
       # [continue walking the html children, options]
       [true, opts]
     end

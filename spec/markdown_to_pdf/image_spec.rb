@@ -36,6 +36,16 @@ describe MarkdownToPDF::Image do
 
   it 'creates image by footnote' do
     generator.parse_file('image/footnote.md')
-    expect_pdf([])
+    expect_pdf([{ x: 36.0, y: 320.379, text: "The demo image" }])
+  end
+
+  it 'creates image with caption' do
+    generator.parse_file('image/caption.md', { image: { caption: { align: :center, size: 10 } } })
+    expect_pdf([{ x: 264.315, y: 321.815, text: "Image with caption" }])
+  end
+
+  it 'creates image with figure and caption' do
+    generator.parse_file('image/figure.md', { image: { margin_bottom: 100, caption: { align: :center, size: 10 } } })
+    expect_pdf([{ x: 273.85, y: 321.815, text: "Dummy image" }])
   end
 end
