@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.0.19] - 2023-07-05
+
+- feat(image caption): support caption in markdown and figcaption in html
+- test(paragraph): add align tests
+
 ## [0.0.18] - 2023-06-07
 
 - feat(codeblock): create a table row per line instead of one large cell
