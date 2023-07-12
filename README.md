@@ -52,7 +52,7 @@ MarkdownToPDF.generate_markdown_string_pdf(markdown_string, styling_filename, im
 
 Please have a look at [demo.md](./demo/demo.md) for an overview and examples of all supported markdown syntax
 
-Currently **not** supported:
+**Currently not supported:**
 
 * Images inline in text in tables (images will be placed in own line)
 * Images inline in text (images will be placed in own line)
