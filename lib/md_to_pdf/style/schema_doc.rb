@@ -7,122 +7,94 @@ module MarkdownToPDF
     end
 
     def generate_markdown
-      result = build_properties_blocks
-      result += build_references
+      blocks = []
+      build_blocks(@schema, blocks)
+      build_reference_blocks(blocks)
+      root = build_entry('', @schema, true)
+      result = root[:block]
+      result += blocks.sort_by { |b| b[:title] }.map { |b| b[:block] }.flatten
       result += measurement_section
       result.join("\n")
     end
 
     private
 
-    def build_references
+    def build_children_blocks(node, blocks)
+      ref_node = get_ref(node) || node
+      (ref_node['properties'] || {}).each do |key, value|
+        if value["$ref"]
+          build_children_blocks(value, blocks)
+        elsif value["type"] == 'object'
+          block = build_entry(key, value)
+          blocks.push(block)
+          build_children_blocks(value, blocks)
+        end
+      end
+      (ref_node['patternProperties'] || {}).each do |key, value|
+        if value["$ref"]
+          build_children_blocks(value, blocks)
+        elsif value["type"] == 'object'
+          block = build_entry(key.sub('^', '').sub('\d+', 'x'), value)
+          blocks.push(block)
+          build_children_blocks(value, blocks)
+        end
+      end
+    end
+
+    def build_blocks(node, blocks)
+      (node['properties'] || {}).each do |key, value|
+        block = build_entry(key, value)
+        blocks.push(block)
+        build_children_blocks(value, blocks)
+      end
+      (node['patternProperties'] || {}).each do |key, value|
+        pattern_key = key.sub('^', '').sub('\d+', 'x')
+        block = build_entry(pattern_key, value)
+        blocks.push(block)
+        build_children_blocks(value, blocks)
+      end
+    end
+
+    def build_reference_blocks(blocks)
       result = []
       i = 0 # items may get added to @references while iterating, so no .each here
       while i < @references.length
         entry = @references[i]
         i += 1
-        result += print_entry(entry[:key], entry[:value]) unless @done.include?(entry[:key])
-      end
-      result
-    end
-
-    def build_properties_blocks
-      blocks = []
-      @schema['properties'].each do |key, value|
-        block = print_entry(key, value, 1)
-        block += print_entry_obj_children(key, value, 2)
-        blocks.push({ key: key, block: block })
-      end
-      @schema['patternProperties'].each do |key, value|
-        pattern_key = key.sub('^', '')
-        default_key = pattern_key.sub('_\d+', '')
-        index = blocks.find_index { |b| default_key == b[:key] }
-        title = value['title'] || ''
-        2.times do |number|
-          sub_key = pattern_key.sub('\d+', (number + 1).to_s)
-          value['title'] = "#{title} #{number + 1}"
-          block = print_entry(sub_key, value)
-          block += print_entry_obj_children(sub_key, value, 2)
-          blocks.insert(number + index + 1, { key: key, block: block })
+        unless @done.include?(entry[:value])
+          block = build_entry(entry[:key], entry[:value])
+          blocks.push(block)
         end
       end
-      blocks.map { |b| b[:block] }.flatten
-    end
-
-    def measurement_section
-      result = []
-      result << "## Units\n"
-      result << "available units are\n"
-      result << "`mm` - Millimeter, `cm` - Centimeter, `dm` - Decimeter, `m` - Meter\n"
-      result << "`in` - Inch, `ft` - Feet, `yr` - Yard\n"
-      result << "`pt` - [Postscript point](https://en.wikipedia.org/wiki/Point_(typography)#Desktop_publishing_point) (default if no unit is used)"
       result
     end
 
-    def print_entry(key, prop, level = 1)
-      @done.push(key)
+    def build_entry(key, prop, is_root = false)
+      level = is_root ? 1 : 2
       result = []
       ref_obj = get_ref(prop) || prop
       title = prio_value(prop['title'], ref_obj['title'])
-      result << "\n##{'#' * level} #{title || key}"
-      result << "\nKey: `#{key}`"
+      result << "\n#{'#' * level} #{title || key}"
       type = ref_obj['type']
-      # result << "\nType: `#{type}`"
       description = prio_value(prop['description'], ref_obj['description'])
       result << "\n#{description}" if description
+      result << "\nKey: `#{key}`" unless key.empty?
 
       example = prio_value(prop['x-example'], ref_obj['x-example'])
       if example
-        result << "\n```yml\n#{example.to_yaml.sub("---\n", '').gsub("\n  - ", "\n    - ")}```"
+        result << "\nExample:\n```yml\n#{example.to_yaml.sub("---\n", '').gsub("\n  - ", "\n    - ")}```"
       end
-      result += print_root_prop_object(ref_obj) if type == 'object'
+      result += print_prop_table(ref_obj) if type == 'object'
       result
+      { key: key, block: result, title: title || key }
     end
 
-    def print_entry_obj_children(_root_key, root_value, level)
+    def print_prop_table(root_prop)
       result = []
-      ref_obj = get_ref(root_value)
-      props = ref_obj['properties'] || {}
-      props.each do |key, value|
-        child_ref = get_ref(value) || value
-        if child_ref['type'] == 'object' && !@done.include?(key)
-          @done.push(key)
-          result += print_entry(key, value, level + 1)
-        end
-      end
-      result
-    end
-
-    def print_root_prop_object(root_prop)
-      result = []
-      props = root_prop['properties'] || {}
       result << "\n| Key | Description | Data type |"
       result << "| - | - | - |"
-      result += build_prop_rows(props)
-      all_of = root_prop['allOf'] || []
-      all_of.each do |item|
-        ref_obj = get_ref(item, true) || {}
-        result << "| … | See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])}) |  |"
-      end
-      (root_prop['patternProperties'] || []).each do |key, value|
-        ref_obj = get_ref(value, true) || value
-        key_text = '…'
-        if key == '.*'
-          key_text = 'your choice'
-        end
-        result << "| #{key_text} | See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])}) |  |"
-      end
-      result
-    end
-
-    def generate_id(title)
-      (title || '').downcase.gsub(' ', '_')
-    end
-
-    def build_prop_rows(props)
-      result = []
-      props.each do |key, prop|
-        ref_obj = get_ref(prop) || prop
+      (root_prop['properties'] || {}).each do |key, prop|
+        ref_obj = get_ref(prop, true) || prop
         desc = []
         title = prio_value(prop['title'], ref_obj['title'])
         desc << "**#{title}**" if title
@@ -145,7 +117,7 @@ module MarkdownToPDF
         type = "#{type.join(' or ')}<br/>See [Units](#units)" if type.is_a? Array
 
         if type == 'object'
-          desc << "See [#{title}](##{generate_id(title)})"
+          desc << "See [#{ref_obj['title'] || key}](##{generate_id(ref_obj['title'])})"
         end
 
         if type == 'array'
@@ -166,6 +138,63 @@ module MarkdownToPDF
 
         result << "| `#{key}` | #{desc.join('<br/>')} | #{type} |"
       end
+      (root_prop['allOf'] || []).each do |item|
+        ref_obj = get_ref(item, true) || item
+        title = prio_value(item['title'], ref_obj['title'])
+        description = "See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])})"
+        description = "#{title}<br/>#{description}" if title && title != ref_obj['title']
+        result << "| … | #{description} |  |"
+      end
+      (root_prop['patternProperties'] || []).each do |key, value|
+        ref_obj = get_ref(value, true) || value
+        title = prio_value(value['title'], ref_obj['title'])
+        key_text = key.sub('^', '')
+        if key == '.*'
+          key_text = 'your choice'
+        elsif key.include?('\d+')
+          key_text = [1, 2, 'x'].map { |num| "`#{ key_text.sub('\d+', num.to_s)}`" }.join('<br/>')
+        end
+        description = "See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])})"
+        description = "#{title}<br/>#{description}" if title && title != ref_obj['title']
+        result << "| #{key_text} | #{description} | #{ref_obj['type']} |"
+      end
+      result
+    end
+
+    def measurement_section
+      result = []
+      result << "## Units\n"
+      result << "available units are\n"
+      result << "`mm` - Millimeter, `cm` - Centimeter, `dm` - Decimeter, `m` - Meter\n"
+      result << "`in` - Inch, `ft` - Feet, `yr` - Yard\n"
+      result << "`pt` - [Postscript point](https://en.wikipedia.org/wiki/Point_(typography)#Desktop_publishing_point) (default if no unit is used)"
+      result
+    end
+
+    def print_entry(key, prop, level = 1)
+      result = []
+      ref_obj = get_ref(prop) || prop
+      @done.push(ref_obj)
+      title = prio_value(prop['title'], ref_obj['title'])
+      result << "\n##{'#' * level} #{title || key}"
+      type = ref_obj['type']
+      # result << "\nType: `#{type}`"
+      description = prio_value(prop['description'], ref_obj['description'])
+      result << "\n#{description}" if description
+      result << "\nKey: `#{key}`"
+      example = prio_value(prop['x-example'], ref_obj['x-example'])
+      if example
+        result << "\nExample:\n```yml\n#{example.to_yaml.sub("---\n", '').gsub("\n  - ", "\n    - ")}```"
+      end
+      result += print_prop_table(ref_obj) if type == 'object'
+      result
+    end
+
+    def generate_id(title)
+      (title || '').downcase.gsub(' ', '-')
+    end
+
+    def build_prop_rows(props)
       result
     end
 
@@ -174,8 +203,8 @@ module MarkdownToPDF
       unless ref.nil?
         ref_id = ref.split('/').last
         ref_obj = @schema['$defs'][ref.split('/').last]
-        if include_to_references && ref_obj && @references.none? { |item| item[:key] == ref_id }
-          @references.push({ key: ref_id, value: ref_obj })
+        if include_to_references && ref_obj && ref_obj["type"] == "object" && @references.none? { |item| item[:value] == ref_obj }
+          @references.push({ key: ref_id, value: ref_obj, title: ref_obj["title"] || ref_id })
         end
         ref_obj
       end

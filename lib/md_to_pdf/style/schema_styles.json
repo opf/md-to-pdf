@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "title": "YAML Styles",
   "properties": {
     "fonts": {
       "$ref": "#/$defs/font_specs",
@@ -44,17 +45,7 @@
     "page_header": {
       "$ref": "#/$defs/page_header",
       "title": "Page Header 1",
-      "description": "Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.",
-      "x-example": {
-        "page_header": {
-          "align": "left",
-          "filter_pages": [
-            1,
-            2
-          ],
-          "offset": -30
-        }
-      }
+      "description": "Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file."
     },
     "page_header_2": {
       "$ref": "#/$defs/page_header",
@@ -225,13 +216,6 @@
     "unordered_list": {
       "title": "Unordered List",
       "description": "Default styling for unordered lists on all levels.<br/>use unordered_list_`x` as key for unordered list level `x`.",
-      "x-example": {
-        "unordered_list": {
-          "spacing": "1.5mm",
-          "padding_top": "2mm",
-          "padding_bottom": "2mm"
-        }
-      },
       "$ref": "#/$defs/unordered_list"
     },
     "unordered_list_point": {
@@ -252,7 +236,7 @@
           "spacing": "2mm"
         }
       },
-      "$ref": "#/$defs/unordered_list"
+      "$ref": "#/$defs/task_list"
     },
     "task_list_point": {
       "title": "Task List Point",
@@ -271,25 +255,25 @@
     }
   },
   "patternProperties": {
-    "^ordered_list_point_\\d+": {
-      "title": "Ordered List Point Level",
-      "$ref": "#/$defs/ordered_list_point"
+    "^header_\\d+": {
+      "title": "Header Level",
+      "$ref": "#/$defs/header"
     },
     "^ordered_list_\\d+": {
       "title": "Ordered List Level",
       "$ref": "#/$defs/ordered_list"
     },
-    "^unordered_list_point_\\d+": {
-      "title": "Unordered List Point Level",
-      "$ref": "#/$defs/unordered_list_point"
+    "^ordered_list_point_\\d+": {
+      "title": "Ordered List Point Level",
+      "$ref": "#/$defs/ordered_list_point"
     },
     "^unordered_list_\\d+": {
       "title": "Unordered List Level",
       "$ref": "#/$defs/unordered_list"
     },
-    "^header_\\d+": {
-      "title": "Header Level",
-      "$ref": "#/$defs/header"
+    "^unordered_list_point_\\d+": {
+      "title": "Unordered List Point Level",
+      "$ref": "#/$defs/unordered_list_point"
     }
   },
   "required": [],
@@ -566,6 +550,7 @@
     },
     "page_footer": {
       "type": "object",
+      "title": "Page Footer",
       "properties": {
         "filter_pages": {
           "$ref": "#/$defs/pages_filter"
@@ -589,6 +574,17 @@
     },
     "page_header": {
       "type": "object",
+      "title": "Page Header",
+      "x-example": {
+        "page_header": {
+          "align": "left",
+          "filter_pages": [
+            1,
+            2
+          ],
+          "offset": -30
+        }
+      },
       "properties": {
         "filter_pages": {
           "$ref": "#/$defs/pages_filter"
@@ -683,6 +679,10 @@
       "title": "Margin Properties",
       "description": "Properties to set margins",
       "type": "object",
+      "x-example": {
+        "margin": "10mm",
+        "margin_top": "15mm"
+      },
       "properties": {
         "margin": {
           "title": "Margin",
@@ -715,6 +715,10 @@
       "title": "Padding Properties",
       "description": "Properties to set paddings",
       "type": "object",
+      "x-example": {
+        "padding": "10mm",
+        "padding_top": "15mm"
+      },
       "properties": {
         "padding": {
           "title": "Padding",
@@ -778,6 +782,40 @@
     },
     "unordered_list": {
       "type": "object",
+      "title": "Unordered list",
+      "x-example": {
+        "unordered_list": {
+          "spacing": "1.5mm",
+          "padding_top": "2mm",
+          "padding_bottom": "2mm"
+        }
+      },
+      "properties": {
+        "spacing": {
+          "title": "Spacing",
+          "description": "Additional space between list items",
+          "$ref": "#/$defs/measurement"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/font"
+        },
+        {
+          "$ref": "#/$defs/padding"
+        }
+      ]
+    },
+  "task_list": {
+      "type": "object",
+      "title": "Task list",
+      "x-example": {
+        "unordered_list": {
+          "spacing": "1.5mm",
+          "padding_top": "2mm",
+          "padding_bottom": "2mm"
+        }
+      },
       "properties": {
         "spacing": {
           "title": "Spacing",
@@ -796,6 +834,7 @@
     },
     "unordered_list_point": {
       "type": "object",
+      "title": "Unordered list point",
       "properties": {
         "sign": {
           "title": "Sign",
@@ -816,6 +855,7 @@
     },
     "task_list_point": {
       "type": "object",
+      "title": "Task list point",
       "properties": {
         "checked": {
           "title": "Checked sign",
@@ -841,6 +881,7 @@
     },
     "ordered_list": {
       "type": "object",
+      "title": "Ordered List Level",
       "properties": {
         "spacing": {
           "title": "Spacing",
@@ -864,6 +905,7 @@
     },
     "ordered_list_point": {
       "type": "object",
+      "title": "Ordered List Point Level",
       "properties": {
         "spacing": {
           "$ref": "#/$defs/measurement"
@@ -968,6 +1010,7 @@
     },
     "header": {
       "type": "object",
+      "title": "Header",
       "allOf": [
         {
           "$ref": "#/$defs/font"
@@ -1158,6 +1201,7 @@
     },
     "paragraph": {
       "type": "object",
+      "title": "Paragraph",
       "properties": {
         "align": {
           "title": "Alignment",
