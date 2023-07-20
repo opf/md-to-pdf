@@ -8,11 +8,11 @@ module MarkdownToPDF
 
     def generate_markdown
       blocks = []
+      root = build_entry('', @schema, true)
       build_blocks(@schema, blocks)
       build_reference_blocks(blocks)
-      root = build_entry('', @schema, true)
       result = root[:block]
-      result += blocks.sort_by { |b| b[:title] }.map { |b| b[:block] }.flatten
+      result += blocks.uniq { |b| b[:title] }.sort_by { |b| b[:title] }.map { |b| b[:block] }.flatten
       result += measurement_section
       result.join("\n")
     end
@@ -121,6 +121,11 @@ module MarkdownToPDF
 
         if type == 'object'
           desc << link_to_title(ref_obj['title'])
+        elsif type == 'array'
+          array_ref_obj = get_ref(ref_obj['items'], true) || ref_obj['items']
+          if array_ref_obj['type'] == 'object'
+            desc << link_to_title(array_ref_obj['title'])
+          end
         end
 
         if type == 'array'

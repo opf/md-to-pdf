@@ -3,41 +3,41 @@
 
 | Key | Description | Data type |
 | - | - | - |
-| `fonts` | **External fonts**<br/>A list of specifications about external fonts | array of object |
-| `fallback_font` | **External Fallback font**<br/>If a sign is not found in the specified font, a fallback font can be used<br/>See [External Fallback font](#external-fallback-font) | object |
+| `fonts` | **External fonts**<br/>A list of specifications about external fonts<br/>See [External font](#external-font) | array of object |
+| `fallback_font` | **External fallback font**<br/>If a sign is not found in the specified font, a fallback font can be used<br/>See [External fallback font](#external-fallback-font) | object |
 | `page` | **Page settings**<br/>Properties to set the basic page settings<br/>See [Page settings](#page-settings) | object |
-| `page_header` | **Page Header 1**<br/>Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.<br/>See [Page Header](#page-header) | object |
-| `page_header_2` | **Page Header 2**<br/>See [Page Header](#page-header) | object |
-| `page_header_3` | **Page Header 3**<br/>See [Page Header](#page-header) | object |
-| `page_footer` | **Page Footer**<br/>Up to three footer sections are supported.<br/>The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.<br/>See [Page Footer](#page-footer) | object |
-| `page_footer_2` | **Page Footer 2**<br/>See [Page Footer](#page-footer) | object |
-| `page_footer_3` | **Page Footer 3**<br/>See [Page Footer](#page-footer) | object |
-| `page_logo` | **Page Logo**<br/>A logo image in the header.<br/>The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file. <br/>See [Page Logo](#page-logo) | object |
+| `page_header` | **Page header 1**<br/>Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.<br/>See [Page header](#page-header) | object |
+| `page_header_2` | **Page header 2**<br/>See [Page header](#page-header) | object |
+| `page_header_3` | **Page header 3**<br/>See [Page header](#page-header) | object |
+| `page_footer` | **Page footer**<br/>Up to three footer sections are supported.<br/>The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.<br/>See [Page footer](#page-footer) | object |
+| `page_footer_2` | **Page footer 2**<br/>See [Page footer](#page-footer) | object |
+| `page_footer_3` | **Page footer 3**<br/>See [Page footer](#page-footer) | object |
+| `page_logo` | **Page logo**<br/>A logo image in the header.<br/>The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file. <br/>See [Page logo](#page-logo) | object |
 | `paragraph` | **Paragraph**<br/>A block of text<br/>See [Paragraph](#paragraph) | object |
 | `header` | **Header**<br/>Default styling for headers on all levels.<br/>use header_`x` as key for header level `x`.<br/>See [Header](#header) | object |
 | `code` | **Code**<br/>Styling to denote a word or phrase as code<br/>See [Code](#code) | object |
-| `codeblock` | **Code Block**<br/>Styling to denote a paragraph as code<br/>See [Code Block](#code-block) | object |
+| `codeblock` | **Code block**<br/>Styling to denote a paragraph as code<br/>See [Code block](#code-block) | object |
 | `blockquote` | **Blockquote**<br/>Styling to denote a paragraph as quote<br/>See [Blockquote](#blockquote) | object |
 | `link` | **Link**<br/>Styling a clickable link<br/>See [Link](#link) | object |
 | `table` | **Table**<br/>See [Table](#table) | object |
-| `headless_table` | **Headless Table**<br/>Tables without or empty header rows can be styled differently.<br/>See [Headless Table](#headless-table) | object |
+| `headless_table` | **Headless table**<br/>Tables without or empty header rows can be styled differently.<br/>See [Headless table](#headless-table) | object |
 | `image` | **Image**<br/>Styling of images<br/>See [Image](#image) | object |
 | `image_classes` | **Image classes**<br/>Styling for images by class names<br/>See [Image classes](#image-classes) | object |
-| `hrule` | **Horizontal Rule**<br/>Styling for horizontal lines<br/>See [Horizontal Rule](#horizontal-rule) | object |
-| `footnote_reference` | **Footnote Reference**<br/>See [Footnote Reference](#footnote-reference) | object |
-| `footnote_definition` | **Footnote Definition**<br/>See [Footnote Definition](#footnote-definition) | object |
-| `ordered_list` | **Ordered List**<br/>Default styling for ordered lists on all levels.<br/>use ordered_list_`x` as key for ordered list level `x`.<br/>See [Ordered List Level](#ordered-list-level) | object |
-| `ordered_list_point` | **Ordered List Point**<br/>Default styling for ordered list points on all levels.<br/>use ordered_list_point_`x` as key for ordered list points level `x`.<br/>See [Ordered List Point Level](#ordered-list-point-level) | object |
-| `unordered_list` | **Unordered List**<br/>Default styling for unordered lists on all levels.<br/>use unordered_list_`x` as key for unordered list level `x`.<br/>See [Unordered list](#unordered-list) | object |
-| `unordered_list_point` | **Unordered List Point**<br/>Default styling for unordered list points on all levels.<br/>use unordered_list_point_`x` as key for unordered list points level `x`.<br/>See [Unordered list point](#unordered-list-point) | object |
-| `task_list` | **Task List**<br/>See [Task list](#task-list) | object |
-| `task_list_point` | **Task List Point**<br/>See [Task list point](#task-list-point) | object |
-| `fields_default` | **Default Field Settings**<br/>See [Default Fields Settings](#default-fields-settings) | object |
-| `header_1`<br/>`header_2`<br/>`header_x` | Header Level<br/>See [Header](#header) | object |
-| `ordered_list_1`<br/>`ordered_list_2`<br/>`ordered_list_x` | See [Ordered List Level](#ordered-list-level) | object |
-| `ordered_list_point_1`<br/>`ordered_list_point_2`<br/>`ordered_list_point_x` | See [Ordered List Point Level](#ordered-list-point-level) | object |
-| `unordered_list_1`<br/>`unordered_list_2`<br/>`unordered_list_x` | Unordered List Level<br/>See [Unordered list](#unordered-list) | object |
-| `unordered_list_point_1`<br/>`unordered_list_point_2`<br/>`unordered_list_point_x` | Unordered List Point Level<br/>See [Unordered list point](#unordered-list-point) | object |
+| `hrule` | **Horizontal rule**<br/>Styling for horizontal lines<br/>See [Horizontal rule](#horizontal-rule) | object |
+| `footnote_reference` | **Footnote reference**<br/>See [Footnote reference](#footnote-reference) | object |
+| `footnote_definition` | **Footnote definition**<br/>See [Footnote definition](#footnote-definition) | object |
+| `ordered_list` | **Ordered list**<br/>Default styling for ordered lists on all levels.<br/>use ordered_list_`x` as key for ordered list level `x`.<br/>See [Ordered list level](#ordered-list-level) | object |
+| `ordered_list_point` | **Ordered list point**<br/>Default styling for ordered list points on all levels.<br/>use ordered_list_point_`x` as key for ordered list points level `x`.<br/>See [Ordered list point level](#ordered-list-point-level) | object |
+| `unordered_list` | **Unordered list**<br/>Default styling for unordered lists on all levels.<br/>use unordered_list_`x` as key for unordered list level `x`.<br/>See [Unordered list](#unordered-list) | object |
+| `unordered_list_point` | **Unordered list point**<br/>Default styling for unordered list points on all levels.<br/>use unordered_list_point_`x` as key for unordered list points level `x`.<br/>See [Unordered list point](#unordered-list-point) | object |
+| `task_list` | **Task list**<br/>See [Task list](#task-list) | object |
+| `task_list_point` | **Task list point**<br/>See [Task list point](#task-list-point) | object |
+| `fields_default` | **md-to-pdf default fields settings**<br/>See [md-to-pdf default fields settings](#md-to-pdf-default-fields-settings) | object |
+| `header_1`<br/>`header_2`<br/>`header_x` | Header level<br/>See [Header](#header) | object |
+| `ordered_list_1`<br/>`ordered_list_2`<br/>`ordered_list_x` | See [Ordered list level](#ordered-list-level) | object |
+| `ordered_list_point_1`<br/>`ordered_list_point_2`<br/>`ordered_list_point_x` | See [Ordered list point level](#ordered-list-point-level) | object |
+| `unordered_list_1`<br/>`unordered_list_2`<br/>`unordered_list_x` | Unordered list level<br/>See [Unordered list](#unordered-list) | object |
+| `unordered_list_point_1`<br/>`unordered_list_point_2`<br/>`unordered_list_point_x` | Unordered list point level<br/>See [Unordered list point](#unordered-list-point) | object |
 
 ## Blockquote
 
@@ -63,13 +63,13 @@ blockquote:
 
 | Key | Description | Data type |
 | - | - | - |
-| `background_color` | **A color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Border Properties](#border-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
-| … | See [Margin Properties](#margin-properties) |  |
+| `background_color` | **Color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Border properties](#border-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
+| … | See [Margin properties](#margin-properties) |  |
 
-## Border Properties
+## Border properties
 
 Properties to set borders
 
@@ -120,9 +120,9 @@ code:
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Code Block
+## Code block
 
 Styling to denote a paragraph as code
 
@@ -142,37 +142,12 @@ codeblock:
 
 | Key | Description | Data type |
 | - | - | - |
-| `background_color` | **A color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
-| … | See [Margin Properties](#margin-properties) |  |
+| `background_color` | **Color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
+| … | See [Margin properties](#margin-properties) |  |
 
-## Default Custom Fields Values
-
-Key: `pdf_fields`
-
-| Key | Description | Data type |
-| - | - | - |
-| your choice |  | ["string", "number"] |
-
-## Default Field Settings
-
-Key: `fields_default`
-
-| Key | Description | Data type |
-| - | - | - |
-| `pdf_language` |  | string |
-| `pdf_header` |  | string |
-| `pdf_header_2` |  | string |
-| `pdf_header_3` |  | string |
-| `pdf_footer` |  | string |
-| `pdf_footer_2` |  | string |
-| `pdf_footer_3` |  | string |
-| `pdf_header_logo` |  | string |
-| `pdf_hyphenation` |  | boolean |
-| `pdf_fields` | **Default Custom Fields Values**<br/>See [Default Custom Fields Values](#default-custom-fields-values) | object |
-
-## External Fallback font
+## External fallback font
 
 If a sign is not found in the specified font, a fallback font can be used
 
@@ -192,6 +167,31 @@ fallback_font:
 | `pathname` | **Font directory**<br/>The name of directory where the fallback font file is located<br/>Example: `NotoSansSymbols2` | string |
 | `filename` | **Font file name**<br/>The fallback font file name<br/>Example: `NotoSansSymbols2-Regular.ttf` | string |
 
+## External font
+
+A specification of external font files
+
+Key: `font_spec`
+
+Example:
+```yml
+name: Vollkorn
+pathname: Vollkorn
+regular: Vollkorn-Regular.ttf
+bold: Vollkorn-Bold.ttf
+italic: Vollkorn-Italic.ttf
+bold_italic: Vollkorn-BoldItalic.ttf
+```
+
+| Key | Description | Data type |
+| - | - | - |
+| `name` | **Font name**<br/>The name of the external font how it is used in the styling<br/>Example: `Vollkorn` | string |
+| `pathname` | **Font directory**<br/>The name of directory where the font files are located<br/>Example: `vollkorn` | string |
+| `regular` | **Regular font file name**<br/>The font file name for regular text<br/>Example: `Vollkorn-Regular.ttf` | string |
+| `bold` | **Bold font file name**<br/>The font file name for bold text<br/>Example: `Vollkorn-Bold.ttf` | string |
+| `italic` | **Italic font file name**<br/>The font file name for italic text<br/>Example: `Vollkorn-Italic.ttf` | string |
+| `bold_italic` | **Bold & italic font file name**<br/>The font file name for bold & italic text<br/>Example: `Vollkorn-BoldItalic.ttf` | string |
+
 ## External fonts
 
 A list of specifications about external fonts
@@ -209,7 +209,7 @@ fonts:
   filename: OpenSans-Regular.ttf
 ```
 
-## Font Properties
+## Font properties
 
 Properties to set the font style
 
@@ -229,12 +229,12 @@ leading: 2
 | - | - | - |
 | `font` | **Font name**<br/>The name of the font to use | string |
 | `size` | **Font size**<br/>The size of the font to use<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `character_spacing` | **Character Spacing**<br/>Additional space between characters<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
+| `character_spacing` | **Character spacing**<br/>Additional space between characters<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `leading` | **Leading**<br/>Additional space between lines<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `color` | **Font color**<br/>The color of the font to use<br/>Example: `F0F0F0` | string |
 | `styles` | **Font styles**<br/>The styles of the font to use<br/>Example: `[bold]`<br/>Valid values:<br/>`bold`, `italic`, `underline`, `strikethrough`, `superscript`, `subscript` | array of string |
 
-## Footnote Definition
+## Footnote definition
 
 Key: `footnote_definition`
 
@@ -250,9 +250,9 @@ footnote_definition:
 
 | Key | Description | Data type |
 | - | - | - |
-| `point` | **Footnote Definition Point**<br/>Styling of the point sign for footnotes<br/>See [Footnote Definition Point](#footnote-definition-point) | object |
+| `point` | **Footnote definition point**<br/>Styling of the point sign for footnotes<br/>See [Footnote definition point](#footnote-definition-point) | object |
 
-## Footnote Definition Point
+## Footnote definition point
 
 Styling of the point sign for footnotes
 
@@ -260,9 +260,9 @@ Key: `point`
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Footnote Reference
+## Footnote reference
 
 Key: `footnote_reference`
 
@@ -277,7 +277,7 @@ footnote_reference:
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
 ## Header
 
@@ -305,19 +305,19 @@ header_2:
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Header Level
+## Header level
 
 Key: `header_x`
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Headless Table
+## Headless table
 
 Tables without or empty header rows can be styled differently.
 
@@ -335,11 +335,11 @@ headless_table:
 | Key | Description | Data type |
 | - | - | - |
 | `auto_width` | **Automatic column widths**<br/>Table columns should fit the content, equal spacing of columns if value is `false` | boolean |
-| `cell` | **Table Cell**<br/>Properties for table cell style<br/>See [Table Cell](#table-cell) | object |
-| … | See [Margin Properties](#margin-properties) |  |
-| … | See [Border Properties](#border-properties) |  |
+| `cell` | **Table cell**<br/>Properties for table cell style<br/>See [Table cell](#table-cell) | object |
+| … | See [Margin properties](#margin-properties) |  |
+| … | See [Border properties](#border-properties) |  |
 
-## Horizontal Rule
+## Horizontal rule
 
 Styling for horizontal lines
 
@@ -354,7 +354,7 @@ hrule:
 | Key | Description | Data type |
 | - | - | - |
 | `line_width` | **Sets the stroke width of the horizontal rule**<br/>A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Margin Properties](#margin-properties) |  |
+| … | See [Margin properties](#margin-properties) |  |
 
 ## Image
 
@@ -379,32 +379,7 @@ image:
 | `max_width` | **Maximum width of the image**<br/>A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `caption` | **Image caption**<br/>Styling for the caption below an image<br/>See [Paragraph](#paragraph) | object |
-| … | See [Margin Properties](#margin-properties) |  |
-
-## Image
-
-Styling of images
-
-Key: `image`
-
-Example:
-```yml
-image:
-  max_width: 50mm
-  margin: 2mm
-  margin_bottom: 3mm
-  align: center
-  caption:
-    align: center
-    size: 8
-```
-
-| Key | Description | Data type |
-| - | - | - |
-| `max_width` | **Maximum width of the image**<br/>A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
-| `caption` | **Image caption**<br/>Styling for the caption below an image<br/>See [Paragraph](#paragraph) | object |
-| … | See [Margin Properties](#margin-properties) |  |
+| … | See [Margin properties](#margin-properties) |  |
 
 ## Image classes
 
@@ -430,9 +405,9 @@ link:
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Margin Properties
+## Margin properties
 
 Properties to set margins
 
@@ -452,7 +427,7 @@ margin_top: 15mm
 | `margin_top` | **Margin top**<br/>Margin only on the top side<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `margin_bottom` | **Margin bottom**<br/>Margin only on the bottom side<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 
-## Ordered List
+## Ordered list
 
 Default styling for ordered lists on all levels.<br/>use ordered_list_`x` as key for ordered list level `x`.
 
@@ -468,22 +443,22 @@ ordered_list:
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | **Spacing**<br/>Additional space between list items<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `point_inline` | **Inline Point**<br/>Do not indent paragraph text, but include the point into the first paragraph | boolean |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| `point_inline` | **Inline point**<br/>Do not indent paragraph text, but include the point into the first paragraph | boolean |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Ordered List Level
+## Ordered list level
 
 Key: `ordered_list_x`
 
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | **Spacing**<br/>Additional space between list items<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `point_inline` | **Inline Point**<br/>Do not indent paragraph text, but include the point into the first paragraph | boolean |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| `point_inline` | **Inline point**<br/>Do not indent paragraph text, but include the point into the first paragraph | boolean |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Ordered List Point
+## Ordered list point
 
 Default styling for ordered list points on all levels.<br/>use ordered_list_point_`x` as key for ordered list points level `x`.
 
@@ -504,9 +479,9 @@ ordered_list_point:
 | `alphabetical` | **Alphabetical bullet points**<br/>Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
 | `spanning` | **Spanning**<br/>Use the width of the largest bullet as indention. | boolean |
 | `template` | **Template**<br/>customize what the prefix should contain, eg. `(<number>)` | string |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Ordered List Point Level
+## Ordered list point level
 
 Key: `ordered_list_point_x`
 
@@ -516,9 +491,9 @@ Key: `ordered_list_point_x`
 | `alphabetical` | **Alphabetical bullet points**<br/>Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
 | `spanning` | **Spanning**<br/>Use the width of the largest bullet as indention. | boolean |
 | `template` | **Template**<br/>customize what the prefix should contain, eg. `(<number>)` | string |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Padding Properties
+## Padding properties
 
 Properties to set paddings
 
@@ -538,7 +513,7 @@ padding_top: 15mm
 | `padding_top` | **Padding top**<br/>Padding only on the top side<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `padding_bottom` | **Padding bottom**<br/>Padding only on the bottom side<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 
-## Page Footer
+## Page footer
 
 Up to three footer sections are supported.<br/>The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.
 
@@ -557,9 +532,9 @@ page_footer:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page bottom**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Footer 2
+## Page footer 2
 
 Key: `page_footer_2`
 
@@ -576,9 +551,9 @@ page_footer_2:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page bottom**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Footer 3
+## Page footer 3
 
 Key: `page_footer_3`
 
@@ -595,9 +570,30 @@ page_footer_3:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page bottom**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Header 1
+## Page header
+
+Key: `page_header`
+
+Example:
+```yml
+page_header:
+  align: left
+  filter_pages:
+    - 1
+    - 2
+  offset: -30
+```
+
+| Key | Description | Data type |
+| - | - | - |
+| `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
+| `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
+| `offset` | **Offset position from page top**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
+| … | See [Font properties](#font-properties) |  |
+
+## Page header 1
 
 Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.
 
@@ -618,9 +614,9 @@ page_header:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page top**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Header 2
+## Page header 2
 
 Key: `page_header_2`
 
@@ -638,9 +634,9 @@ page_header_2:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page top**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Header 3
+## Page header 3
 
 Key: `page_header_3`
 
@@ -658,9 +654,9 @@ page_header_3:
 | `filter_pages` | **Pages to skip**<br/>A list of pages to skip<br/>Examples: `- 1 = not on first page`, `- 2 = not on second page` | array of integer |
 | `align` | **Alignment**<br/>How the element should be aligned<br/>Example: `center`<br/>Valid values:<br/>`left`, `center`, `right` | string |
 | `offset` | **Offset position from page top**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Page Logo
+## Page logo
 
 A logo image in the header.<br/>The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file. 
 
@@ -682,7 +678,7 @@ page_logo:
 | `max_width` | **Maximum width of the image**<br/>A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `height` | **Height of the image**<br/>A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | `offset` | **Offset position from page top**<br/>A positive or negative number and an optional unit<br/>Example: `-30` | number or string<br/>See [Units](#units) |
-| `disabled` | **Disable Logo**<br/>Disable or enable the page logo<br/>Example: `false` | boolean |
+| `disabled` | **Disable logo**<br/>Disable or enable the page logo<br/>Example: `false` | boolean |
 
 ## Page settings
 
@@ -705,8 +701,8 @@ page:
 | - | - | - |
 | `page_layout` | **Page layout**<br/>The layout of a page<br/>Example: `portrait`<br/>Valid values:<br/>`portrait`, `landscape` | string |
 | `page_size` | **Page size**<br/>The size of a page<br/>Example: `EXECUTIVE`<br/>Valid values:<br/>`EXECUTIVE`, `TABLOID`, `LETTER`, `LEGAL`, `FOLIO`, `A0`, `A1`, `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `A8`, `A9`, `A10`, `B0`, `B1`, `B2`, `B3`, `B4`, `B5`, `B6`, `B7`, `B8`, `B9`, `B10`, `C0`, `C1`, `C2`, `C3`, `C4`, `C5`, `C6`, `C7`, `C8`, `C9`, `C10`, `RA0`, `RA1`, `RA2`, `RA3`, `RA4`, `SRA0`, `SRA1`, `SRA2`, `SRA3`, `SRA4`, `4A0`, `2A0` | string |
-| … | Default Font Settings<br/>See [Font Properties](#font-properties) |  |
-| … | Page margins<br/>See [Margin Properties](#margin-properties) |  |
+| … | Default font settings<br/>See [Font properties](#font-properties) |  |
+| … | Page margins<br/>See [Margin properties](#margin-properties) |  |
 
 ## Paragraph
 
@@ -724,18 +720,8 @@ paragraph:
 | Key | Description | Data type |
 | - | - | - |
 | `align` | **Alignment**<br/>How the text should be aligned<br/>Valid values:<br/>`left`, `center`, `right`, `justify` | string |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
-
-## Paragraph
-
-Key: `paragraph`
-
-| Key | Description | Data type |
-| - | - | - |
-| `align` | **Alignment**<br/>How the text should be aligned<br/>Valid values:<br/>`left`, `center`, `right`, `justify` | string |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
 ## Table
 
@@ -757,12 +743,12 @@ table:
 | Key | Description | Data type |
 | - | - | - |
 | `auto_width` | **Automatic column widths**<br/>Table columns should fit the content, equal spacing of columns if value is `false` | boolean |
-| `header` | **Table Header**<br/>Properties for table header cell style<br/>See [Table Header](#table-header) | object |
-| `cell` | **Table Cell**<br/>Properties for table cell style<br/>See [Table Cell](#table-cell) | object |
-| … | See [Margin Properties](#margin-properties) |  |
-| … | See [Border Properties](#border-properties) |  |
+| `header` | **Table header**<br/>Properties for table header cell style<br/>See [Table header](#table-header) | object |
+| `cell` | **Table cell**<br/>Properties for table cell style<br/>See [Table cell](#table-cell) | object |
+| … | See [Margin properties](#margin-properties) |  |
+| … | See [Border properties](#border-properties) |  |
 
-## Table Cell
+## Table cell
 
 Properties for table cell style
 
@@ -770,11 +756,11 @@ Key: `table_cell`
 
 | Key | Description | Data type |
 | - | - | - |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
-| … | See [Border Properties](#border-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
+| … | See [Border properties](#border-properties) |  |
 
-## Table Header
+## Table header
 
 Properties for table header cell style
 
@@ -782,27 +768,29 @@ Key: `table_header`
 
 | Key | Description | Data type |
 | - | - | - |
-| `background_color` | **A color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
+| `background_color` | **Color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
 | `no_repeating` | **Disable header repeating**<br/>Disable table headers should be repeated if table spawns over pages with `true` | boolean |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Task List
+## Task list
 
 Key: `task_list`
 
 Example:
 ```yml
 task_list:
-  spacing: 2mm
+  spacing: 1.5mm
+  padding_top: 2mm
+  padding_bottom: 2mm
 ```
 
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | **Spacing**<br/>Additional space between list items<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Task List Point
+## Task list point
 
 Key: `task_list_point`
 
@@ -819,9 +807,9 @@ task_list_point:
 | `checked` | **Checked sign**<br/>Sign for checked state of a task list item | string |
 | `unchecked` | **Unchecked sign**<br/>Sign for unchecked state of a task list item | string |
 | `spacing` | **Spacing**<br/>Additional space between point and list item content<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Unordered List
+## Unordered list
 
 Default styling for unordered lists on all levels.<br/>use unordered_list_`x` as key for unordered list level `x`.
 
@@ -838,10 +826,10 @@ unordered_list:
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | **Spacing**<br/>Additional space between list items<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Unordered List Level
+## Unordered list level
 
 Key: `unordered_list_x`
 
@@ -856,10 +844,10 @@ unordered_list:
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | **Spacing**<br/>Additional space between list items<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
-| … | See [Padding Properties](#padding-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
 
-## Unordered List Point
+## Unordered list point
 
 Default styling for unordered list points on all levels.<br/>use unordered_list_point_`x` as key for unordered list points level `x`.
 
@@ -876,9 +864,9 @@ unordered_list_point:
 | - | - | - |
 | `sign` | **Sign**<br/>The 'bullet point' character used in the list | string |
 | `spacing` | **Spacing**<br/>Space between point and list item content<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
 
-## Unordered List Point Level
+## Unordered list point level
 
 Key: `unordered_list_point_x`
 
@@ -886,7 +874,32 @@ Key: `unordered_list_point_x`
 | - | - | - |
 | `sign` | **Sign**<br/>The 'bullet point' character used in the list | string |
 | `spacing` | **Spacing**<br/>Space between point and list item content<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| … | See [Font Properties](#font-properties) |  |
+| … | See [Font properties](#font-properties) |  |
+
+## md-to-pdf default custom fields values
+
+Key: `pdf_fields`
+
+| Key | Description | Data type |
+| - | - | - |
+| your choice |  | ["string", "number"] |
+
+## md-to-pdf default fields settings
+
+Key: `fields_default`
+
+| Key | Description | Data type |
+| - | - | - |
+| `pdf_language` |  | string |
+| `pdf_header` |  | string |
+| `pdf_header_2` |  | string |
+| `pdf_header_3` |  | string |
+| `pdf_footer` |  | string |
+| `pdf_footer_2` |  | string |
+| `pdf_footer_3` |  | string |
+| `pdf_header_logo` |  | string |
+| `pdf_hyphenation` |  | boolean |
+| `pdf_fields` | **md-to-pdf default custom fields values**<br/>See [md-to-pdf default custom fields values](#md-to-pdf-default-custom-fields-values) | object |
 ## Units
 
 available units are

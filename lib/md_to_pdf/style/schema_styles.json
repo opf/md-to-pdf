@@ -44,12 +44,12 @@
     },
     "page_header": {
       "$ref": "#/$defs/page_header",
-      "title": "Page Header 1",
+      "title": "Page header 1",
       "description": "Up to three header sections are supported. The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file."
     },
     "page_header_2": {
       "$ref": "#/$defs/page_header",
-      "title": "Page Header 2",
+      "title": "Page header 2",
       "x-example": {
         "page_header_2": {
           "align": "center",
@@ -62,7 +62,7 @@
     },
     "page_header_3": {
       "$ref": "#/$defs/page_header",
-      "title": "Page Header 3",
+      "title": "Page header 3",
       "x-example": {
         "page_header_3": {
           "align": "right",
@@ -75,7 +75,7 @@
     },
     "page_footer": {
       "$ref": "#/$defs/page_footer",
-      "title": "Page Footer",
+      "title": "Page footer",
       "description": "Up to three footer sections are supported.<br/>The content must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file.",
       "x-example": {
         "page_footer": {
@@ -87,7 +87,7 @@
     },
     "page_footer_2": {
       "$ref": "#/$defs/page_footer",
-      "title": "Page Footer 2",
+      "title": "Page footer 2",
       "x-example": {
         "page_footer_2": {
           "align": "center",
@@ -98,7 +98,7 @@
     },
     "page_footer_3": {
       "$ref": "#/$defs/page_footer",
-      "title": "Page Footer 3",
+      "title": "Page footer 3",
       "x-example": {
         "page_footer_3": {
           "align": "right",
@@ -190,7 +190,7 @@
       "$ref": "#/$defs/footnote_definition"
     },
     "ordered_list": {
-      "title": "Ordered List",
+      "title": "Ordered list",
       "description": "Default styling for ordered lists on all levels.<br/>use ordered_list_`x` as key for ordered list level `x`.",
       "x-example": {
         "ordered_list": {
@@ -201,7 +201,7 @@
       "$ref": "#/$defs/ordered_list"
     },
     "ordered_list_point": {
-      "title": "Ordered List Point",
+      "title": "Ordered list point",
       "description": "Default styling for ordered list points on all levels.<br/>use ordered_list_point_`x` as key for ordered list points level `x`.",
       "x-example": {
         "ordered_list_point": {
@@ -214,12 +214,12 @@
       "$ref": "#/$defs/ordered_list_point"
     },
     "unordered_list": {
-      "title": "Unordered List",
+      "title": "Unordered list",
       "description": "Default styling for unordered lists on all levels.<br/>use unordered_list_`x` as key for unordered list level `x`.",
       "$ref": "#/$defs/unordered_list"
     },
     "unordered_list_point": {
-      "title": "Unordered List Point",
+      "title": "Unordered list point",
       "description": "Default styling for unordered list points on all levels.<br/>use unordered_list_point_`x` as key for unordered list points level `x`.",
       "x-example": {
         "unordered_list_point": {
@@ -230,49 +230,34 @@
       "$ref": "#/$defs/unordered_list_point"
     },
     "task_list": {
-      "title": "Task List",
-      "x-example": {
-        "task_list": {
-          "spacing": "2mm"
-        }
-      },
       "$ref": "#/$defs/task_list"
     },
     "task_list_point": {
-      "title": "Task List Point",
-      "$ref": "#/$defs/task_list_point",
-      "x-example": {
-        "task_list_point": {
-          "checked": "☑",
-          "unchecked": "☐",
-          "spacing": "0.75mm"
-        }
-      }
+      "$ref": "#/$defs/task_list_point"
     },
     "fields_default": {
-      "title": "Default Field Settings",
       "$ref": "#/$defs/fields_default"
     }
   },
   "patternProperties": {
     "^header_\\d+": {
-      "title": "Header Level",
+      "title": "Header level",
       "$ref": "#/$defs/header"
     },
     "^ordered_list_\\d+": {
-      "title": "Ordered List Level",
+      "title": "Ordered list level",
       "$ref": "#/$defs/ordered_list"
     },
     "^ordered_list_point_\\d+": {
-      "title": "Ordered List Point Level",
+      "title": "Ordered list point level",
       "$ref": "#/$defs/ordered_list_point"
     },
     "^unordered_list_\\d+": {
-      "title": "Unordered List Level",
+      "title": "Unordered list level",
       "$ref": "#/$defs/unordered_list"
     },
     "^unordered_list_point_\\d+": {
-      "title": "Unordered List Point Level",
+      "title": "Unordered list point level",
       "$ref": "#/$defs/unordered_list_point"
     }
   },
@@ -291,6 +276,14 @@
       "type": "object",
       "title": "External font",
       "description": "A specification of external font files",
+      "x-example": {
+        "name": "Vollkorn",
+        "pathname": "Vollkorn",
+        "regular": "Vollkorn-Regular.ttf",
+        "bold": "Vollkorn-Bold.ttf",
+        "italic": "Vollkorn-Italic.ttf",
+        "bold_italic": "Vollkorn-BoldItalic.ttf"
+      },
       "properties": {
         "name": {
           "type": "string",
@@ -352,7 +345,7 @@
     },
     "fallback_font_spec": {
       "type": "object",
-      "title": "External Fallback font",
+      "title": "External fallback font",
       "description": "If a sign is not found in the specified font, a fallback font can be used",
       "properties": {
         "name": {
@@ -388,7 +381,7 @@
     },
     "color": {
       "type": "string",
-      "title": "A color",
+      "title": "Color",
       "description": "A color in RRGGBB format",
       "examples": [
         "F0F0F0"
@@ -397,7 +390,7 @@
     },
     "font": {
       "type": "object",
-      "title": "Font Properties",
+      "title": "Font properties",
       "description": "Properties to set the font style",
       "x-example": {
         "font": "Vollkorn",
@@ -420,7 +413,7 @@
         },
         "character_spacing": {
           "$ref": "#/$defs/measurement",
-          "title": "Character Spacing",
+          "title": "Character spacing",
           "description": "Additional space between characters"
         },
         "leading": {
@@ -445,7 +438,7 @@
     },
     "font_style": {
       "type": "string",
-      "title": "Font Style",
+      "title": "Font style",
       "description": "Style of the font to use",
       "examples": [
         "bold"
@@ -539,7 +532,7 @@
       },
       "allOf": [
         {
-          "title": "Default Font Settings",
+          "title": "Default font settings",
           "$ref": "#/$defs/font"
         },
         {
@@ -550,7 +543,7 @@
     },
     "page_footer": {
       "type": "object",
-      "title": "Page Footer",
+      "title": "Page footer",
       "properties": {
         "filter_pages": {
           "$ref": "#/$defs/pages_filter"
@@ -574,7 +567,7 @@
     },
     "page_header": {
       "type": "object",
-      "title": "Page Header",
+      "title": "Page header",
       "x-example": {
         "page_header": {
           "align": "left",
@@ -619,7 +612,7 @@
       }
     },
     "page_logo": {
-      "title": "Page Logo",
+      "title": "Page logo",
       "description": "A logo image in the header.<br/>The image filename must be declared in the [frontmatter](FRONTMATTER.md) head of the markdown file. ",
       "type": "object",
       "properties": {
@@ -645,7 +638,7 @@
           "$ref": "#/$defs/measurement_signed"
         },
         "disabled": {
-          "title": "Disable Logo",
+          "title": "Disable logo",
           "description": "Disable or enable the page logo",
           "examples": [
             false
@@ -656,7 +649,7 @@
     },
     "hrule": {
       "type": "object",
-      "title": "Horizontal Rule",
+      "title": "Horizontal rule",
       "description": "Styling for horizontal lines",
       "properties": {
         "line_width": {
@@ -676,7 +669,7 @@
       ]
     },
     "margin": {
-      "title": "Margin Properties",
+      "title": "Margin properties",
       "description": "Properties to set margins",
       "type": "object",
       "x-example": {
@@ -712,7 +705,7 @@
       }
     },
     "padding": {
-      "title": "Padding Properties",
+      "title": "Padding properties",
       "description": "Properties to set paddings",
       "type": "object",
       "x-example": {
@@ -806,11 +799,11 @@
         }
       ]
     },
-  "task_list": {
+    "task_list": {
       "type": "object",
       "title": "Task list",
       "x-example": {
-        "unordered_list": {
+        "task_list": {
           "spacing": "1.5mm",
           "padding_top": "2mm",
           "padding_bottom": "2mm"
@@ -856,6 +849,13 @@
     "task_list_point": {
       "type": "object",
       "title": "Task list point",
+      "x-example": {
+        "task_list_point": {
+          "checked": "☑",
+          "unchecked": "☐",
+          "spacing": "0.75mm"
+        }
+      },
       "properties": {
         "checked": {
           "title": "Checked sign",
@@ -881,7 +881,7 @@
     },
     "ordered_list": {
       "type": "object",
-      "title": "Ordered List Level",
+      "title": "Ordered list level",
       "properties": {
         "spacing": {
           "title": "Spacing",
@@ -889,7 +889,7 @@
           "$ref": "#/$defs/measurement"
         },
         "point_inline": {
-          "title": "Inline Point",
+          "title": "Inline point",
           "description": "Do not indent paragraph text, but include the point into the first paragraph",
           "type": "boolean"
         }
@@ -905,7 +905,7 @@
     },
     "ordered_list_point": {
       "type": "object",
-      "title": "Ordered List Point Level",
+      "title": "Ordered list point level",
       "properties": {
         "spacing": {
           "$ref": "#/$defs/measurement"
@@ -934,7 +934,7 @@
     },
     "footnote_reference": {
       "type": "object",
-      "title": "Footnote Reference",
+      "title": "Footnote reference",
       "x-example": {
         "footnote_reference": {
           "size": 13,
@@ -952,7 +952,7 @@
     },
     "footnote_definition": {
       "type": "object",
-      "title": "Footnote Definition",
+      "title": "Footnote definition",
       "x-example": {
         "footnote_definition": {
           "point": {
@@ -967,7 +967,7 @@
       "properties": {
         "point": {
           "type": "object",
-          "title": "Footnote Definition Point",
+          "title": "Footnote definition point",
           "description": "Styling of the point sign for footnotes",
           "allOf": [
             {
@@ -1062,7 +1062,7 @@
     },
     "codeblock": {
       "type": "object",
-      "title": "Code Block",
+      "title": "Code block",
       "description": "Styling to denote a paragraph as code",
       "x-example": {
         "codeblock": {
@@ -1133,7 +1133,7 @@
     },
     "headless_table": {
       "type": "object",
-      "title": "Headless Table",
+      "title": "Headless table",
       "description": "Tables without or empty header rows can be styled differently.",
       "x-example": {
         "headless_table": {
@@ -1165,7 +1165,7 @@
     },
     "table_cell": {
       "type": "object",
-      "title": "Table Cell",
+      "title": "Table cell",
       "description": "Properties for table cell style",
       "allOf": [
         {
@@ -1181,7 +1181,7 @@
     },
     "table_header": {
       "type": "object",
-      "title": "Table Header",
+      "title": "Table header",
       "description": "Properties for table header cell style",
       "properties": {
         "background_color": {
@@ -1262,7 +1262,7 @@
     },
     "border": {
       "type": "object",
-      "title": "Border Properties",
+      "title": "Border properties",
       "description": "Properties to set borders",
       "x-example": {
         "border_color": "F000FF",
@@ -1364,7 +1364,7 @@
     },
     "fields_default": {
       "type": "object",
-      "title": "Default Fields Settings",
+      "title": "md-to-pdf default fields settings",
       "properties": {
         "pdf_language": {
           "type": "string"
@@ -1395,7 +1395,7 @@
         },
         "pdf_fields": {
           "type": "object",
-          "title": "Default Custom Fields Values",
+          "title": "md-to-pdf default custom fields values",
           "patternProperties": {
             ".*": {
               "type": [
