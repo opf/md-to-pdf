@@ -120,7 +120,7 @@ module MarkdownToPDF
         type = "#{type.join(' or ')}<br/>#{link_to_title('Units')}" if type.is_a? Array
 
         if type == 'object'
-          desc << link_to_title(ref_obj['title'] || key)
+          desc << link_to_title(ref_obj['title'])
         end
 
         if type == 'array'
@@ -165,6 +165,8 @@ module MarkdownToPDF
     end
 
     def link_to_title(title)
+      return '' if title.nil? || title.empty?
+
       "See [#{title}](##{generate_id(title)})"
     end
 
@@ -198,11 +200,10 @@ module MarkdownToPDF
     end
 
     def generate_id(title)
-      (title || '').downcase.gsub(' ', '-')
-    end
-
-    def build_prop_rows(props)
-      result
+      id = (title || '').downcase
+      id.gsub!(/[^\p{Word}\- ]/u, '') # remove punctuation
+      id.tr!(' ', '-') # replace spaces with dash
+      id
     end
 
     def get_ref(ref_parent, include_to_references = false)

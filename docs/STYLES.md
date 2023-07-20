@@ -153,7 +153,7 @@ Key: `pdf_fields`
 
 | Key | Description | Data type |
 | - | - | - |
-| your choice | See [](#) | ["string", "number"] |
+| your choice |  | ["string", "number"] |
 
 ## Default Field Settings
 
