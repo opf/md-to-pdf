@@ -34,7 +34,7 @@ module MarkdownToPDF
         if value["$ref"]
           build_children_blocks(value, blocks)
         elsif value["type"] == 'object'
-          block = build_entry(key.sub('^', '').sub('\d+', 'x'), value)
+          block = build_entry(format_pattern_prop_key(key, 'x'), value)
           blocks.push(block)
           build_children_blocks(value, blocks)
         end
@@ -48,11 +48,14 @@ module MarkdownToPDF
         build_children_blocks(value, blocks)
       end
       (node['patternProperties'] || {}).each do |key, value|
-        pattern_key = key.sub('^', '').sub('\d+', 'x')
-        block = build_entry(pattern_key, value)
+        block = build_entry(format_pattern_prop_key(key), value)
         blocks.push(block)
         build_children_blocks(value, blocks)
       end
+    end
+
+    def format_pattern_prop_key(key, char = 'x')
+      key.sub('^', '').sub('\d+', char)
     end
 
     def build_reference_blocks(blocks)
@@ -114,10 +117,10 @@ module MarkdownToPDF
         end
 
         type = ref_obj['type']
-        type = "#{type.join(' or ')}<br/>See [Units](#units)" if type.is_a? Array
+        type = "#{type.join(' or ')}<br/>#{link_to_title('Units')}" if type.is_a? Array
 
         if type == 'object'
-          desc << "See [#{ref_obj['title'] || key}](##{generate_id(ref_obj['title'])})"
+          desc << link_to_title(ref_obj['title'] || key)
         end
 
         if type == 'array'
@@ -141,24 +144,28 @@ module MarkdownToPDF
       (root_prop['allOf'] || []).each do |item|
         ref_obj = get_ref(item, true) || item
         title = prio_value(item['title'], ref_obj['title'])
-        description = "See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])})"
+        description = link_to_title(ref_obj['title'])
         description = "#{title}<br/>#{description}" if title && title != ref_obj['title']
         result << "| … | #{description} |  |"
       end
       (root_prop['patternProperties'] || []).each do |key, value|
         ref_obj = get_ref(value, true) || value
         title = prio_value(value['title'], ref_obj['title'])
-        key_text = key.sub('^', '')
+        key_text = key
         if key == '.*'
           key_text = 'your choice'
         elsif key.include?('\d+')
-          key_text = [1, 2, 'x'].map { |num| "`#{ key_text.sub('\d+', num.to_s)}`" }.join('<br/>')
+          key_text = [1, 2, 'x'].map { |num| "`#{format_pattern_prop_key(key, num.to_s)}`" }.join('<br/>')
         end
-        description = "See [#{ref_obj['title']}](##{generate_id(ref_obj['title'])})"
+        description = link_to_title(ref_obj['title'])
         description = "#{title}<br/>#{description}" if title && title != ref_obj['title']
         result << "| #{key_text} | #{description} | #{ref_obj['type']} |"
       end
       result
+    end
+
+    def link_to_title(title)
+      "See [#{title}](##{generate_id(title)})"
     end
 
     def measurement_section
