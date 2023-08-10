@@ -31,4 +31,9 @@ describe MarkdownToPDF::Code do
                  { x: 36.0, y: 728.884, text: "  return bar++;" },
                  { x: 36.0, y: 713.012, text: "};" }])
   end
+
+  it 'creates ignores empty code block by fences' do
+    generator.parse_file('code/fences_empty.md')
+    expect_pdf([])
+  end
 end

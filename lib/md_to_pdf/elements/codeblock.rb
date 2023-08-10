@@ -3,6 +3,8 @@ module MarkdownToPDF
     def draw_codeblock(node, opts)
       cell_style_opts = codeblock_style(opts)
       table_rows = build_codeblock_cell_rows(node, cell_style_opts)
+      return if table_rows.empty?
+
       with_block_margin_all(codeblock_margin_style) do
         @pdf.table(table_rows, width: @pdf.bounds.right, cell_style: cell_style_opts) do
           if table_rows.length > 1

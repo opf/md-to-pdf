@@ -54,6 +54,8 @@ module MarkdownToPDF
         subtable_data = data_blockquote(child, opts)
         subtable_rows.concat(subtable_data)
       end
+      return [] if subtable_rows.empty?
+
       subtable = @pdf.make_table(subtable_rows, cell_style: opts) do
         (0..(row_length)).each do |i|
           rows(i).padding_left = 20
