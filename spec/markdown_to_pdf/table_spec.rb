@@ -123,4 +123,15 @@ describe MarkdownToPDF::Table do
                  { x: 402.38, y: 697.212, text: "clarification" }, # clarification is not broken by char
                  { x: 514.4, y: 697.212, text: "42958" }]) # 42958 is not broken by char
   end
+
+  it 'creates a html table with header column' do
+    generator.parse_file('table/html_figure.md')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "Header 1" },
+                 { x: 306.0, y: 744.756, text: "Text 1" },
+                 { x: 36.0, y: 730.884, text: "Header 2" },
+                 { x: 306.0, y: 730.884, text: "Text 2" },
+                 { x: 36.0, y: 717.012, text: "Header 3" },
+                 { x: 306.0, y: 717.012, text: "Text 3" }])
+  end
 end

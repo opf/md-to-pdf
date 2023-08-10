@@ -114,7 +114,7 @@ module MarkdownToPDF
             data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
             result.concat(data_array)
           end
-        when 'ul', 'ol', 'li', 'label'
+        when 'ul', 'ol', 'li', 'label', 'p'
           result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
