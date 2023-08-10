@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.0.20] - 2023-08-10
+
+- feat(html): support p-tag for inline html
+- fix(codeblock): ignore empty table instead letting prawnpdf throw an exception
+
 ## [0.0.19] - 2023-07-05
 
 - feat(image caption): support caption in markdown and figcaption in html
