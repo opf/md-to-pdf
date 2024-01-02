@@ -1,4 +1,4 @@
-require 'commonmarker'
+require 'markly'
 require 'front_matter_parser'
 
 module MarkdownToPDF
@@ -26,9 +26,10 @@ module MarkdownToPDF
     end
 
     def parse_markdown(markdown)
-      cm_extensions = %i[autolink strikethrough table tagfilter tasklist]
-      cm_parse_options = %i[FOOTNOTES SMART LIBERAL_HTML_TAG STRIKETHROUGH_DOUBLE_TILDE UNSAFE VALIDATE_UTF8]
-      CommonMarker.render_doc(markdown, cm_parse_options, cm_extensions)
+      Markly.parse(markdown,
+                   flags: Markly::FOOTNOTES | Markly::SMART | Markly::LIBERAL_HTML_TAG |
+                     Markly::STRIKETHROUGH_DOUBLE_TILDE | Markly::UNSAFE | Markly::VALIDATE_UTF8,
+                   extensions: %i[autolink strikethrough table tagfilter tasklist])
     end
 
     private

@@ -151,4 +151,22 @@ describe MarkdownToPDF::List do
                  { x: 62.688, y: 553.176, text: "3." },
                  { x: 76.032, y: 553.176, text: "three" }])
   end
+
+  it 'creates an ordered list with correct numbers inline' do
+    generator.parse_file('list/inline.md', { ordered_list: { point_inline: true } })
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "1. " },
+                 { x: 50.10429, y: 747.384, text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt" },
+                 { x: 36.0, y: 733.512, text: "ut labore et dolore magna aliquyam erat, sed diam voluptua." },
+                 { x: 36.0, y: 719.64, text: "2. " },
+                 { x: 51.81067, y: 719.64, text: "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea" },
+                 { x: 36.0, y: 705.768, text: "takimata sanctus est Lorem ipsum dolor sit amet." },
+                 { x: 36.0, y: 691.896, text: "3. " },
+                 { x: 50.10429, y: 691.896, text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt" },
+                 { x: 36.0, y: 678.024, text: "ut labore et dolore magna aliquyam erat, sed diam voluptua." },
+                 { x: 36.0, y: 664.152, text: "4. " },
+                 { x: 51.81067, y: 664.152, text: "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea" },
+                 { x: 36.0, y: 650.28, text: "takimata sanctus est Lorem ipsum dolor sit amet." }])
+  end
+
 end

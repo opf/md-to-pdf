@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- chore(dependencies): commonmarker 1.x gem removed the possibility to parse and get the markdown AST; switched to markly fork
+
 ## [0.0.20] - 2023-08-10
 
 - feat(html): support p-tag for inline html

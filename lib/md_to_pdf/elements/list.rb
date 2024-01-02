@@ -68,7 +68,7 @@ module MarkdownToPDF
         return @pdf.formatted_text([text_hash(bullet, point[:opts])]) if child.nil?
 
         # insert into paragraph
-        text_node = CommonMarker::Node.new(:text).tap { |n| n.string_content = bullet }
+        text_node = Markly::Node.new(:text).tap { |n| n.string_content = bullet }
         insert_parent = child.type == :paragraph && child.first_child ? child.first_child : child
         insert_parent.insert_before(text_node)
 
