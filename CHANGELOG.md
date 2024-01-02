@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.22] - 2024-02-01
+
+- fix(markly): follow renamed property
+
 ## [0.0.21] - 2024-02-01
 
 - chore(dependencies): commonmarker 1.x gem removed the possibility to parse and get the markdown AST; switched to markly fork
