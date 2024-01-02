@@ -23,7 +23,7 @@ module MarkdownToPDF
     end
 
     def warn(text, element, node)
-      puts "WARNING: #{text}\nGot #{element} at #{node ? node.sourcepos.inspect : '?'}\n\n"
+      puts "WARNING: #{text}\nGot #{element} at #{node ? node.source_position.inspect : '?'}\n\n"
     end
 
     private

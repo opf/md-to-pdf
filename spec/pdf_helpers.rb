@@ -32,7 +32,7 @@ class TestGenerator
   end
 
   def warn(text, element, node)
-    puts "WARNING: #{text}\nGot #{element} at #{node ? node.sourcepos.inspect : '?'}\n\n" unless text == 'Image file not found'
+    puts "WARNING: #{text}\nGot #{element} at #{node ? node.source_position.inspect : '?'}\n\n" unless text == 'Image file not found'
   end
 
   def render
