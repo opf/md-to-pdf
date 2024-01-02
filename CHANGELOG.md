@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.0.21] - 2024-02-01
+
 - chore(dependencies): commonmarker 1.x gem removed the possibility to parse and get the markdown AST; switched to markly fork
 
 ## [0.0.20] - 2023-08-10
