@@ -198,7 +198,7 @@ module MarkdownToPDF
     def find_img_caption(tag)
       if tag.name == 'figure'
         figcaption = tag.search("figcaption").first
-        return figcaption.text unless figcaption.nil?
+        figcaption&.text
       elsif tag.parent
         find_img_caption(tag.parent)
       end

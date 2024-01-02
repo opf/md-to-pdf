@@ -79,7 +79,7 @@ module MarkdownToPDF
     end
 
     def opt_list_point_sign(style)
-      ((style[:sign] || '•')).to_s
+      (style[:sign] || '•').to_s
     end
 
     def list_point_alphabetically(int)

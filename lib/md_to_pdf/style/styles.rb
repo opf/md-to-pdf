@@ -78,7 +78,7 @@ module MarkdownToPDF
     end
 
     def headline_level(level)
-      get_style("header_#{level}".to_sym)
+      get_style(:"header_#{level}")
     end
 
     def footnote_reference
@@ -114,7 +114,7 @@ module MarkdownToPDF
     end
 
     def list_level(is_ordered, level)
-      get_style("#{is_ordered ? :ordered_list : :unordered_list}_#{level}".to_sym)
+      get_style(:"#{is_ordered ? :ordered_list : :unordered_list}_#{level}")
     end
 
     def list_point(is_ordered)
@@ -122,7 +122,7 @@ module MarkdownToPDF
     end
 
     def list_point_level(is_ordered, level)
-      get_style("#{is_ordered ? :ordered_list : :unordered_list}_point_#{level}".to_sym)
+      get_style(:"#{is_ordered ? :ordered_list : :unordered_list}_point_#{level}")
     end
 
     def table

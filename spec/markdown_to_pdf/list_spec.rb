@@ -168,5 +168,4 @@ describe MarkdownToPDF::List do
                  { x: 51.81067, y: 664.152, text: "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea" },
                  { x: 36.0, y: 650.28, text: "takimata sanctus est Lorem ipsum dolor sit amet." }])
   end
-
 end

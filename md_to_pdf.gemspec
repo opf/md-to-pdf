@@ -26,13 +26,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "prawn-table", ["~> 0.2"]
   s.add_runtime_dependency "text-hyphen", ["~> 1.5"]
 
-  s.add_development_dependency 'pdf-inspector', "~> 1.3"
-  s.add_development_dependency "rake", "~> 13.1"
-  s.add_development_dependency "rspec", "~> 3.12"
-  s.add_development_dependency 'rubocop', '~> 1.59'
-  s.add_development_dependency 'rubocop-rake', '~> 0.6'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.25'
-
   s.metadata['rubygems_mfa_required'] = 'true'
   s.metadata["homepage_uri"] = s.homepage
   s.metadata["source_code_uri"] = "https://github.com/opf/md-to-pdf"
