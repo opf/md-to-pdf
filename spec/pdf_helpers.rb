@@ -111,8 +111,4 @@ RSpec.shared_context 'with pdf' do
       expect(actual).to include "#{c} #{x} #{y} #{w} #{h} re"
     end
   end
-
-  def expect_pdf_color_rect(color, x, y, w, h)
-    expect_pdf_color_rects([color, x, y, w, h])
-  end
 end
