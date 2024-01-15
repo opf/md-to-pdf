@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.0.23] - 2024-01-15
+
 - feat(html table cell): allow set a cell background color in html tables with style attribute
 
 ## [0.0.22] - 2024-01-02
