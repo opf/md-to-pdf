@@ -254,10 +254,6 @@ module MarkdownToPDF
       cell_data
     end
 
-    def get_html_table_tag_style_rules(tag)
-      CssParser::RuleSet.new(nil, tag.get_attribute('style') || '')
-    end
-
     def collect_html_table_tag_row(tag, table_font_opts, opts)
       cells = []
       tag.children.each do |sub|
