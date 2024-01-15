@@ -94,7 +94,7 @@ RSpec.shared_context 'with pdf' do
     expect(page).to eq(data)
   end
 
-  def extract_graphic_states content
+  def extract_graphic_states(content)
     content = (content.delete_prefix %(q\n)).delete_suffix %(\nQ)
     (content.scan %r/^q\n(.*?)\nQ$/m).map { |it| it[0].split ?\n }
   end
