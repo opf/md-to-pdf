@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.required_ruby_version = '>= 3.0.3'
 
+  s.add_runtime_dependency "color_conversion", ["~> 0.1"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
   s.add_runtime_dependency "json-schema", ["~> 4.1"]
   s.add_runtime_dependency "markly", ["~> 0.7"]

@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'nokogiri'
+require 'color_conversion'
 require 'fileutils'
 require 'md_to_pdf/generator'
 require 'md_to_pdf/prawn_fix'

@@ -27,6 +27,7 @@ module MarkdownToPDF
         font: opts[:font],
         size: opts[:size],
         padding: opts[:cell_padding],
+        background_color: cell_data.empty? ? nil : cell_data[0][:cell_background_color],
         inline_format: true
       )
     end

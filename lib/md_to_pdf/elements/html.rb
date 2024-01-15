@@ -245,7 +245,13 @@ module MarkdownToPDF
     end
 
     def collect_html_table_tag_cell(tag, opts)
-      data_inlinehtml_tag(tag, nil, opts)
+      cell_data = data_inlinehtml_tag(tag, nil, opts)
+      if tag.key?('style') && !cell_data.empty?
+        style = tag.get_attribute('style') || ''
+        res = style.scan(/background-color:(.*?)(?:;|\z)/)
+        cell_data[0][:cell_background_color] = parse_color(res.last[0]) unless res.empty?
+      end
+      cell_data
     end
 
     def collect_html_table_tag_row(tag, table_font_opts, opts)
