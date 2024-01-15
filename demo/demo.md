@@ -259,6 +259,10 @@ var foo = function (bar) {
 | text around a ![Dummy image](demo.jpg) cell image | Links [ipsum](dolor)      | f**or**m*at*ting ~~strikethrough~~ |
 |                      # test                       | <u>underline</u>          | ---                                |
 
+## HTML Table
+
+<table><thead><tr><th>Header</th><th></th></tr></thead><tbody><tr><td style="background-color: #0fffff;">Cell Background Color</td><td></td></tr></tbody></table>
+
 <br-page/>
 
 # Images

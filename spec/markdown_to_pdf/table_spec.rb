@@ -134,4 +134,22 @@ describe MarkdownToPDF::Table do
                  { x: 36.0, y: 717.012, text: "Header 3" },
                  { x: 306.0, y: 717.012, text: "Text 3" }])
   end
+
+  it 'creates a html table with cell colors' do
+    generator.parse_file('table/html_cellcolor.md')
+    expect_pdf_color_rects(
+      [
+        ['99e64d', "36.0", "728.256", "135.0", "27.744"],
+        ['4ce6e6', "171.0", "728.256", "135.0", "27.744"],
+        ['1b8ed7', "306.0", "728.256", "135.0", "27.744"],
+        ['e64da4', "441.0", "728.256", "135.0", "27.744"]
+      ]
+    )
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "With multiple colors, last" },
+                 { x: 36.0, y: 730.884, text: "is selected" },
+                 { x: 171.0, y: 744.756, text: "HSL color support" },
+                 { x: 306.0, y: 744.756, text: "RGB color support" },
+                 { x: 441.0, y: 744.756, text: "Partial RGBA support" }])
+  end
 end

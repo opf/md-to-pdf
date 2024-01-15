@@ -154,5 +154,12 @@ module MarkdownToPDF
     def process_text(text)
       hyphenate(text)
     end
+
+    def parse_color(css_color)
+      color = ColorConversion::Color.new(css_color.strip) unless css_color.nil? || css_color.empty?
+      color.hex.to_s.sub('#', '') unless color.nil?
+    rescue ColorConversion::InvalidColorError
+      # ignore invalid colors
+    end
   end
 end
