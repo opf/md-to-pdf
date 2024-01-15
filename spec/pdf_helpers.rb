@@ -76,8 +76,8 @@ RSpec.shared_context 'with pdf' do
     result = []
     list.each_with_index do |s, i|
       if s.end_with?('re')
-        color = list[i - 1].split(' ').take(3).map { |e| format '%<value>02x', value: e.to_f * 256 }.join
-        result.push [color, *s.split(' ').take(4)].to_json
+        color = list[i - 1].split.take(3).map { |e| format '%<value>02x', value: e.to_f * 256 }.join
+        result.push [color, *s.split.take(4)].to_json
       end
     end
     puts "expect_pdf_color_rects(\n[\n#{result.join(",\n")}\n])"
@@ -100,7 +100,7 @@ RSpec.shared_context 'with pdf' do
   end
 
   def pdf_raw_color(color)
-    ((color.upcase.scan %r/../).map { |it| ((it.to_i 16) / 255.0).round 5 }.join ' ') + ' scn'
+    "#{(color.upcase.scan %r/../).map { |it| ((it.to_i 16) / 255.0).round 5 }.join ' '} scn"
   end
 
   def expect_pdf_color_rects(cases)
