@@ -136,20 +136,31 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with cell colors' do
-    generator.parse_file('table/html_cellcolor.md')
+    generator.parse_file('table/html_cellcolor.md', { table: { header: { background_color: "F0F0F0" } } })
     expect_pdf_color_rects(
       [
-        ['99e64d', "36.0", "728.256", "135.0", "27.744"],
-        ['4ce6e6', "171.0", "728.256", "135.0", "27.744"],
-        ['1b8ed7', "306.0", "728.256", "135.0", "27.744"],
-        ['e64da4', "441.0", "728.256", "135.0", "27.744"]
+        ["99e64d", "36.0", "728.256", "135.0", "27.744"],
+        ["f0f0f0", "171.0", "728.256", "135.0", "27.744"],
+        ["f0f0f0", "306.0", "728.256", "135.0", "27.744"],
+        ["f0f0f0", "441.0", "728.256", "135.0", "27.744"],
+        ["99e64d", "36.0", "700.512", "135.0", "27.744"],
+        ["4ce6e6", "171.0", "700.512", "135.0", "27.744"],
+        ["1b8ed7", "306.0", "700.512", "135.0", "27.744"],
+        ["e64da4", "441.0", "700.512", "135.0", "27.744"],
+        ["4ce6e6", "171.0", "672.768", "135.0", "27.744"],
+        ["1b8ed7", "306.0", "672.768", "135.0", "27.744"],
+        ["e64da4", "441.0", "672.768", "135.0", "27.744"]
       ]
     )
     expect_pdf([
-                 { x: 36.0, y: 744.756, text: "With multiple colors, last" },
-                 { x: 36.0, y: 730.884, text: "is selected" },
-                 { x: 171.0, y: 744.756, text: "HSL color support" },
-                 { x: 306.0, y: 744.756, text: "RGB color support" },
-                 { x: 441.0, y: 744.756, text: "Partial RGBA support" }])
+                 { x: 36.0, y: 744.756, text: "Header with custom cell" },
+                 { x: 36.0, y: 730.884, text: "color" },
+                 { x: 36.0, y: 717.012, text: "With multiple colors, last" },
+                 { x: 36.0, y: 703.14, text: "is selected" },
+                 { x: 171.0, y: 717.012, text: "HSL color support" },
+                 { x: 306.0, y: 717.012, text: "RGB color support" },
+                 { x: 441.0, y: 717.012, text: "Partial RGBA support" },
+                 { x: 36.0, y: 689.268, text: "Color empty cells to the" },
+                 { x: 36.0, y: 675.396, text: "right" }])
   end
 end

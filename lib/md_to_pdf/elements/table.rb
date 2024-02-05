@@ -138,7 +138,7 @@ module MarkdownToPDF
           opts_header = table[:opts_header]
           header_cells = cells.columns(0..-1).rows(0..(table[:header_row_count] - 1))
           header_cells.each do |cell|
-            cell.background_color = opts_header[:background_color]
+            cell.background_color = opts_header[:background_color] if cell.background_color.nil? || cell.background_color.empty?
             cell.font_style = opts_header[:style]
             cell.text_color = opts_header[:color]
             cell.size = opts_header[:size] || table[:opts_cell][:size]
