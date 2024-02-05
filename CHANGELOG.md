@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.24] - 2024-02-05
+
+- fix(html table cell): allow set a cell background color of empty cells; custom color overwrites default header color as-op 30 minutes ago
+
 ## [0.0.23] - 2024-01-15
 
 - feat(html table cell): allow set a cell background color in html tables with style attribute
