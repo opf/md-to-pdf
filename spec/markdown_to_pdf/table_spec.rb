@@ -177,19 +177,19 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with lists inside' do
     generator.parse_file('table/list_in_cell.md')
     expect_pdf([
-                 {x:36.0, y:744.756, text:"• test1"},
-                 {x:36.0, y:730.884, text:"• test2"},
-                 {x:36.0, y:717.012, text:"  test2cont"},
-                 {x:36.0, y:703.14, text:"• test3"},
-                 {x:36.0, y:689.268, text:"  • test3.1"},
-                 {x:36.0, y:675.396, text:"  • test3.2"},
-                 {x:36.0, y:661.524, text:"    test3.2cont"},
-                 {x:36.0, y:647.652, text:"  • test3.3"},
-                 {x:216.0, y:744.756, text:"[ ] aha"},
-                 {x:216.0, y:730.884, text:"[x] oho"},
-                 {x:216.0, y:717.012, text:"[ ] ehe"},
-                 {x:396.0, y:744.756, text:"1. wooo"},
-                 {x:396.0, y:730.884, text:"2. waaa"},
-                 {x:396.0, y:717.012, text:"3. wiiiii"}])
+                 { x: 36.0, y: 744.756, text: "• test1" },
+                 { x: 36.0, y: 730.884, text: "• test2" },
+                 { x: 36.0, y: 717.012, text: "  test2cont" },
+                 { x: 36.0, y: 703.14, text: "• test3" },
+                 { x: 36.0, y: 689.268, text: "  • test3.1" },
+                 { x: 36.0, y: 675.396, text: "  • test3.2" },
+                 { x: 36.0, y: 661.524, text: "    test3.2cont" },
+                 { x: 36.0, y: 647.652, text: "  • test3.3" },
+                 { x: 216.0, y: 744.756, text: "[ ] aha" },
+                 { x: 216.0, y: 730.884, text: "[x] oho" },
+                 { x: 216.0, y: 717.012, text: "[ ] ehe" },
+                 { x: 396.0, y: 744.756, text: "1. wooo" },
+                 { x: 396.0, y: 730.884, text: "2. waaa" },
+                 { x: 396.0, y: 717.012, text: "3. wiiiii" }])
   end
 end

@@ -25,7 +25,7 @@ module MarkdownToPDF
       end
     end
 
-    def data_html_list(tag, node, opts)
+    def data_html_list(tag, _node, opts)
       level = count_list_level_html(tag)
       is_ordered = tag.name.downcase == 'ol'
       is_task_list = !tag.search("input[type=checkbox]").first.nil?

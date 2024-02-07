@@ -106,9 +106,6 @@ module MarkdownToPDF
           # ignore html comments
         when 'img'
           result.push({ image: sub.attr('src') })
-        when 'input'
-          data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
-          result.concat(data_array)
         when 'ul', 'ol'
           result.concat(data_inlinehtml_list_tag(sub, node, opts))
         when 'label', 'p', 'li'
