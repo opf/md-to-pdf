@@ -25,12 +25,11 @@ module MarkdownToPDF
       end
     end
 
-    def draw_html_list_tag(tag, node, opts)
+    def data_html_list(tag, node, opts)
       level = count_list_level_html(tag)
       is_ordered = tag.name.downcase == 'ol'
-      list_style = list_style(level, is_ordered, false)
-      padding = level == 1 ? opts_padding(list_style) : {}
-      # point_inline = opt_list_point_inline?(list_style)
+      is_task_list = !tag.search("input[type=checkbox]").first.nil?
+      list_style = list_style(level, is_ordered, is_task_list)
       content_opts = opts_font(list_style, opts).merge(
         {
           force_paragraph: {
@@ -38,7 +37,13 @@ module MarkdownToPDF
           }
         }
       )
-      points = collect_points_html(tag, level, is_ordered, content_opts)
+      points = collect_points_html(tag, level, is_ordered, is_task_list, content_opts)
+      [points, level, list_style, content_opts]
+    end
+
+    def draw_html_list_tag(tag, node, opts)
+      points, level, list_style, content_opts = data_html_list(tag, node, opts)
+      padding = level == 1 ? opts_padding(list_style) : {}
       with_block_padding_all(padding) do
         draw_points_html(points, node, content_opts)
       end
@@ -82,8 +87,8 @@ module MarkdownToPDF
       end
     end
 
-    def collect_points_html(tag, level, is_ordered, content_opts)
-      point_style = list_point_style(level, is_ordered, false)
+    def collect_points_html(tag, level, is_ordered, is_task_list, content_opts)
+      point_style = list_point_style(level, is_ordered, is_task_list)
       auto_span = opt_list_point_spanning?(point_style)
       bullet_opts = opts_font(point_style, content_opts)
       spacing = opt_list_point_spacing(point_style)
@@ -91,13 +96,22 @@ module MarkdownToPDF
       index = 1
       tag.children.each do |sub|
         if sub.name.downcase == 'li'
-          bullet = list_bullet(point_style, is_ordered, false, index, false)
+          checked = false
+          if is_task_list
+            checked_box_tag = tag.search("input[type=checkbox]").first
+            unless checked_box_tag.nil?
+              checked = checked_box_tag.attributes.key?('checked')
+              checked_box_tag.remove
+            end
+          end
+          bullet = list_bullet(point_style, is_ordered, is_task_list, index, checked)
           bullet_width = measure_text_width(bullet, bullet_opts) + spacing
-          points.push({ tag: sub, bullet: bullet, width: bullet_width, opts: bullet_opts })
+          space_width = measure_text_width(Prawn::Text::NBSP, bullet_opts)
+          points.push({ tag: sub, bullet: bullet, width: bullet_width, space_width: space_width, opts: bullet_opts })
           index += 1
         end
       end
-      if auto_span
+      if auto_span || is_task_list
         max_span = max_point_width(points)
         points.each { |point| point[:width] = max_span }
       end

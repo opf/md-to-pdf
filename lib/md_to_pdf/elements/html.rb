@@ -107,14 +107,11 @@ module MarkdownToPDF
         when 'img'
           result.push({ image: sub.attr('src') })
         when 'input'
-          if sub.attr('type') == 'checkbox'
-            checkbox = opt_task_list_point_sign(@styles.task_list_point, sub.attributes.key?('checked'))
-            result.push(text_hash(checkbox, current_opts))
-          else
-            data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
-            result.concat(data_array)
-          end
-        when 'ul', 'ol', 'li', 'label', 'p'
+          data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
+          result.concat(data_array)
+        when 'ul', 'ol'
+          result.concat(data_inlinehtml_list_tag(sub, node, opts))
+        when 'label', 'p', 'li'
           result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
@@ -122,6 +119,25 @@ module MarkdownToPDF
           data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
           result.concat(data_array)
         end
+      end
+      result
+    end
+
+    def data_inlinehtml_list_tag(tag, node, opts)
+      result = []
+      points, level, _list_style, content_opts = data_html_list(tag, node, opts)
+      result.push(text_hash_raw("\n", content_opts).merge({ list_level: level, list_indent: 0 })) if level > 1
+      points.each do |point|
+        data = data_inlinehtml_tag(point[:tag], node, content_opts)
+        data.push(text_hash_raw("\n", content_opts).merge({ list_entry_type: 'end' }))
+        data[0][:list_entry_type] = 'first' unless data.empty?
+        data.unshift(text_hash(point[:bullet], point[:opts]).merge({ list_entry_type: 'bullet' }))
+        data.each do |item|
+          item[:list_level] = level if item[:list_level].nil?
+          item[:list_indent] = point[:width] if item[:list_indent].nil?
+          item[:list_indent_space] = point[:space_width] if item[:list_indent_space].nil?
+        end
+        result.concat(data)
       end
       result
     end
@@ -257,16 +273,51 @@ module MarkdownToPDF
       cell_data
     end
 
+    def space_stuffing(width, space_width)
+      amount = (width / space_width).truncate
+      return '' if amount < 1
+
+      Prawn::Text::NBSP * amount
+    end
+
+    def indent_html_table_list_items(cell_data)
+      cell_data.each do |item|
+        next if item[:list_level].nil?
+
+        # Note: There is no settings for paddings of text fragments in Prawn::Table
+        # so as a workaround the lists are stuffed with spaces, which is of course not pixel perfect
+
+        # first indenting with spaces of multiline list items
+        # * item
+        #   multiline item
+        #   multiline item
+        if item[:list_entry_type].nil? && item[:text] != "\n"
+          item[:text] = "#{space_stuffing(item[:list_indent], item[:list_indent_space])}#{item[:text]}"
+        end
+
+        # second indenting of nested lists
+        # * item
+        #   multiline item
+        #   * sub list item
+        #   * sub list item
+        #     sub list multiline item
+        if item[:list_level] > 1 && (item[:list_entry_type].nil? || item[:list_entry_type] == 'bullet') && item[:text] != "\n"
+          item[:text] = "#{space_stuffing(item[:list_indent], item[:list_indent_space])}#{item[:text]}"
+        end
+      end
+      cell_data
+    end
+
     def collect_html_table_tag_row(tag, table_font_opts, opts)
       cells = []
       tag.children.each do |sub|
         case sub.name
         when 'th'
           cell_data = collect_html_table_tag_cell(sub, opts.merge(table_font_opts[:header]))
-          cells.push(cell_data)
+          cells.push(indent_html_table_list_items(cell_data))
         when 'td'
           cell_data = collect_html_table_tag_cell(sub, opts.merge(table_font_opts[:cell]))
-          cells.push(cell_data)
+          cells.push(indent_html_table_list_items(cell_data))
         end
       end
       cells
