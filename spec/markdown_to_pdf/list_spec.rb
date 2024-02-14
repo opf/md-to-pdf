@@ -152,6 +152,17 @@ describe MarkdownToPDF::List do
                  { x: 76.032, y: 553.176, text: "three" }])
   end
 
+  it 'creates task lists by html' do
+    generator.parse_file('list/tasklist_html.md', {})
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "[ ]" },
+                 { x: 52.008, y: 747.384, text: "aha" },
+                 { x: 36.0, y: 733.512, text: "[x]" },
+                 { x: 52.008, y: 733.512, text: "oho" },
+                 { x: 36.0, y: 719.64, text: "[ ]" },
+                 { x: 52.008, y: 719.64, text: "ehe" }])
+  end
+
   it 'creates an ordered list with correct numbers inline' do
     generator.parse_file('list/inline.md', { ordered_list: { point_inline: true } })
     expect_pdf([

@@ -89,14 +89,14 @@ describe MarkdownToPDF::Table do
                  { x: 421.71429, y: 744.756, text: "Header 5" },
                  { x: 498.85714, y: 744.756, text: "Header 6" },
                  { x: 36.0, y: 730.884, text: "Entry 1" },
-                 { x: 344.57143, y: 730.884, text: "[x]" },
-                 { x: 498.85714, y: 730.884, text: "[x]" },
+                 { x: 344.57143, y: 730.884, text: "[x] " },
+                 { x: 498.85714, y: 730.884, text: "[x] " },
                  { x: 36.0, y: 717.012, text: "Entry 2" },
-                 { x: 344.57143, y: 717.012, text: "[x]" },
-                 { x: 421.71429, y: 717.012, text: "[x]" },
+                 { x: 344.57143, y: 717.012, text: "[x] " },
+                 { x: 421.71429, y: 717.012, text: "[x] " },
                  { x: 36.0, y: 703.14, text: "Entry 3" },
                  { x: 36.0, y: 689.268, text: "Entry 4" },
-                 { x: 113.14286, y: 689.268, text: "[x]" }])
+                 { x: 113.14286, y: 689.268, text: "[x] " }])
   end
 
   it 'creates a table without bad wrapping with doc font style' do
@@ -162,5 +162,34 @@ describe MarkdownToPDF::Table do
                  { x: 441.0, y: 717.012, text: "Partial RGBA support" },
                  { x: 36.0, y: 689.268, text: "Color empty cells to the" },
                  { x: 36.0, y: 675.396, text: "right" }])
+  end
+
+  it 'creates a html table with linefeeds inside' do
+    generator.parse_file('table/linefeed_in_cell.md')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "Description Column 1" },
+                 { x: 36.0, y: 730.884, text: "Lorem ipsum dolor" },
+                 { x: 36.0, y: 717.012, text: "sit amet" },
+                 { x: 36.0, y: 703.14, text: "Consectetur" },
+                 { x: 36.0, y: 689.268, text: "adipiscing elit" }])
+  end
+
+  it 'creates a html table with lists inside' do
+    generator.parse_file('table/list_in_cell.md')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "• test1" },
+                 { x: 36.0, y: 730.884, text: "• test2" },
+                 { x: 36.0, y: 717.012, text: "  test2cont" },
+                 { x: 36.0, y: 703.14, text: "• test3" },
+                 { x: 36.0, y: 689.268, text: "  • test3.1" },
+                 { x: 36.0, y: 675.396, text: "  • test3.2" },
+                 { x: 36.0, y: 661.524, text: "    test3.2cont" },
+                 { x: 36.0, y: 647.652, text: "  • test3.3" },
+                 { x: 216.0, y: 744.756, text: "[ ] aha" },
+                 { x: 216.0, y: 730.884, text: "[x] oho" },
+                 { x: 216.0, y: 717.012, text: "[ ] ehe" },
+                 { x: 396.0, y: 744.756, text: "1. wooo" },
+                 { x: 396.0, y: 730.884, text: "2. waaa" },
+                 { x: 396.0, y: 717.012, text: "3. wiiiii" }])
   end
 end
