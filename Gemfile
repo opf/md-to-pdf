@@ -11,5 +11,5 @@ group :development, :test do
   gem 'rspec', '~> 3.12'
   gem 'rubocop', '~> 1.59'
   gem 'rubocop-rake', '~> 0.6'
-  gem 'rubocop-rspec', '~> 2.25'
+  gem 'rubocop-rspec', '~> 2.26'
 end
