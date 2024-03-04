@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.0.26] - 2024-02-15
+
+- fix(tasklists): support nested tasklists and tasklist items with or without any text
+
 ## [0.0.25] - 2024-02-15
  
 - feat(html table cell): better support for html lists

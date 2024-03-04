@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "json-schema", ["~> 4.1"]
   s.add_runtime_dependency "markly", ["~> 0.10"]
   s.add_runtime_dependency "matrix", ["~> 0.4"]
-  s.add_runtime_dependency "nokogiri", ["~> 1.16"]
+  s.add_runtime_dependency "nokogiri", ["~> 1.1"]
   s.add_runtime_dependency "prawn", ["~> 2.4"]
   s.add_runtime_dependency "prawn-table", ["~> 0.2"]
   s.add_runtime_dependency "text-hyphen", ["~> 1.5"]
