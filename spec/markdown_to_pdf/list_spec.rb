@@ -179,4 +179,15 @@ describe MarkdownToPDF::List do
                  { x: 51.81067, y: 664.152, text: "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea" },
                  { x: 36.0, y: 650.28, text: "takimata sanctus est Lorem ipsum dolor sit amet." }])
   end
+
+  it 'creates a html table with edge cases checkbox lists inside' do
+    generator.parse_file('list/tasklist_html_edgecases.md')
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "[ ]" },
+                 { x: 52.008, y: 747.384, text: "dslngslngwr" },
+                 { x: 52.008, y: 733.512, text: "[ ]" },
+                 { x: 52.008, y: 719.64, text: "" },
+                 { x: 36.0, y: 705.768, text: "[x]" },
+                 { x: 36.0, y: 691.896, text: "test" }])
+  end
 end

@@ -112,6 +112,12 @@ module MarkdownToPDF
           result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
+        when 'input'
+          # ignore, if handled in tasklist
+          unless sub['md_to_pdf_done'] == "true"
+            process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
+            draw_html_tag(sub, node, opts) if process_children
+          end
         else
           data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
           result.concat(data_array)
@@ -201,6 +207,12 @@ module MarkdownToPDF
           draw_html_tag(sub, node, current_opts)
         when 'figcaption'
           # ignore, it is handled in img
+        when 'input'
+          # ignore, if handled in tasklist
+          unless sub['md_to_pdf_done'] == "true"
+            process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
+            draw_html_tag(sub, node, opts) if process_children
+          end
         else
           process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
           draw_html_tag(sub, node, opts) if process_children
