@@ -61,7 +61,14 @@ module MarkdownToPDF
     def draw_points_html(points, node, opts)
       points.each do |point|
         @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])]) }
-        @pdf.indent(point[:width]) { draw_html_tag(point[:tag], node, opts) }
+        @pdf.indent(point[:width]) do
+          y = @pdf.y
+          draw_html_tag(point[:tag], node, opts)
+          if y == @pdf.y
+            point_height = @pdf.height_of_formatted([text_hash(point[:bullet], point[:opts])])
+            @pdf.move_down(point_height)
+          end
+        end
       end
     end
 
@@ -98,10 +105,10 @@ module MarkdownToPDF
         if sub.name.downcase == 'li'
           checked = false
           if is_task_list
-            checked_box_tag = tag.search("input[type=checkbox]").first
+            checked_box_tag = sub.search("input[type=checkbox]").first
             unless checked_box_tag.nil?
               checked = checked_box_tag.attributes.key?('checked')
-              checked_box_tag.remove
+              checked_box_tag['md_to_pdf_done'] = true
             end
           end
           bullet = list_bullet(point_style, is_ordered, is_task_list, index, checked)
