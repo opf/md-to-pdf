@@ -4,7 +4,7 @@ describe MarkdownToPDF::Codeblock do
   include_context 'with pdf'
 
   it 'keeps using the code block if mermaid cli is not available' do
-    allow_any_instance_of(MarkdownToPDF::Codeblock)
+    allow_any_instance_of(described_class)
       .to receive(:mermaid_cli_available?)
             .and_return(false)
     generator.parse_file('mermaid/mermaid.md')
@@ -36,11 +36,11 @@ describe MarkdownToPDF::Codeblock do
   end
 
   it 'replaces mermaid diagram code block with images' do
-    allow_any_instance_of(MarkdownToPDF::Codeblock)
+    allow_any_instance_of(described_class)
       .to receive(:mermaid_cli_available?)
             .and_return(true)
-    allow_any_instance_of(MarkdownToPDF::Codeblock)
-      .to receive(:run_mermaid_cli) do |caller, mmdc, destination, format, options|
+    allow_any_instance_of(described_class)
+      .to receive(:run_mermaid_cli) do |_caller, _mmdc, destination, _format, _options|
       png = Base64.decode64("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==")
       File.write(destination, png)
       true

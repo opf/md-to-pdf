@@ -305,6 +305,9 @@ Style/HashTransformValues:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/AnyInstance:
+  Enabled: false
+
 Naming/VariableNumber:
   Enabled: false
 

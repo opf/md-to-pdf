@@ -38,7 +38,7 @@ module MarkdownToPDF
         begin
           _, status = Open3.capture2e("mmdc", "-V")
           status.success?
-        rescue StandardError => e
+        rescue StandardError
           false
         end
     end
@@ -57,7 +57,7 @@ module MarkdownToPDF
         }
         @pdf.embed_image(image_obj, image_info, options)
         true
-      rescue StandardError => e
+      rescue StandardError
         false
       ensure
         image_file.unlink
@@ -66,21 +66,19 @@ module MarkdownToPDF
 
     def run_mermaid_cli(mmdc, destination, format, options = {})
       tmp_file('mermaid', 'mmdc', mmdc) do |filename|
-        begin
-          args = ["-i", filename, '-e', format, '-o', destination]
-          args << '-C' << options[:css_file] if options[:css_file]
-          args << '-t' << options[:theme] if options[:theme]
-          args << '-w' << options[:width] if options[:width]
-          args << '-H' << options[:height] if options[:height]
-          args << '-s' << options[:scale] if options[:scale]
-          args << '-b' << options[:background] if options[:background]
-          args << '-p' << options[:puppeteer_config_file] if options[:puppeteer_config_file]
-          args << '-c' << options[:config_file] if options[:config_file]
-          _, status = Open3.capture2e("mmdc", *args)
-          status.success?
-        rescue StandardError => e
-          false
-        end
+        args = ["-i", filename, '-e', format, '-o', destination]
+        args << '-C' << options[:css_file] if options[:css_file]
+        args << '-t' << options[:theme] if options[:theme]
+        args << '-w' << options[:width] if options[:width]
+        args << '-H' << options[:height] if options[:height]
+        args << '-s' << options[:scale] if options[:scale]
+        args << '-b' << options[:background] if options[:background]
+        args << '-p' << options[:puppeteer_config_file] if options[:puppeteer_config_file]
+        args << '-c' << options[:config_file] if options[:config_file]
+        _, status = Open3.capture2e("mmdc", *args)
+        status.success?
+      rescue StandardError
+        false
       end
     end
 
