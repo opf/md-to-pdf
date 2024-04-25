@@ -6,6 +6,7 @@ require 'md_to_pdf/external'
 require 'md_to_pdf/markdown_parser'
 require 'nokogiri'
 require 'color_conversion'
+require 'pdf_calls_inspector'
 
 Prawn::Font::AFM.hide_m17n_warning = true
 
@@ -64,6 +65,18 @@ RSpec.shared_context 'with pdf' do
     result
   end
 
+  def images
+    PDF::Inspector::XObject.analyze(pdf)
+  end
+
+  def rectangles
+    PDF::Inspector::Graphics::Rectangle.analyze(pdf).rectangles
+  end
+
+  def calls
+    PDF::Inspector::Calls.analyze(pdf).calls
+  end
+
   def out
     puts "expect_pdf(#{page.to_s
                            .gsub('{:x=>', "\n{x:")
@@ -71,16 +84,19 @@ RSpec.shared_context 'with pdf' do
                            .gsub(':text=>', 'text:')})"
   end
 
-  def out_rectangles
-    list = extract_graphic_states(generator.render).flatten
-    result = []
-    list.each_with_index do |s, i|
-      if s.end_with?('re')
-        color = list[i - 1].split.take(3).map { |e| format '%<value>02x', value: e.to_f * 256 }.join
-        result.push [color, *s.split.take(4)].to_json
+  def rectangles
+    rects = []
+    calls.each_with_index do |call, i|
+      if call[0] == :append_rectangle
+        color = calls[i - 1].slice(1, 3).map { |e| format '%<value>02x', value: e.to_f * 256 }.join
+        rects.push [color, call[1], call[2], call[3], call[4]]
       end
     end
-    puts "expect_pdf_color_rects(\n[\n#{result.join(",\n")}\n])"
+    rects
+  end
+
+  def out_rectangles
+    puts "expect_pdf_color_rects(\n[\n#{rectangles.map(&:to_json).join(",\n")}\n])"
   end
 
   def show
@@ -94,9 +110,8 @@ RSpec.shared_context 'with pdf' do
     expect(page).to eq(data)
   end
 
-  def extract_graphic_states(content)
-    content = (content.delete_prefix %(q\n)).delete_suffix %(\nQ)
-    (content.scan %r/^q\n(.*?)\nQ$/m).map { |it| it[0].split ?\n }
+  def expect_images_in_pdf(amount)
+    expect(images.xobject_streams.size).to eq(amount)
   end
 
   def pdf_raw_color(color)
@@ -104,11 +119,10 @@ RSpec.shared_context 'with pdf' do
   end
 
   def expect_pdf_color_rects(cases)
-    actual = extract_graphic_states(generator.render).flatten.join(' ')
-    cases.each do |case_entry|
-      color, x, y, w, h = case_entry
-      c = pdf_raw_color(color)
-      expect(actual).to include "#{c} #{x} #{y} #{w} #{h} re"
+    actual = rectangles
+    expect(actual.length).to eq cases.length
+    cases.each_with_index do |case_entry, index|
+      expect(case_entry).to eq actual[index]
     end
   end
 end
