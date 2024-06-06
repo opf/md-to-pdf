@@ -49,4 +49,11 @@ Prawn::Table::Cell::Text.prepend(Module.new do
     options = @text_options.reject { |k| %i[style inline_format].include?(k) }
     with_font { @pdf.width_of(longest_word, options) }
   end
+
+  def width=(new_width)
+    @width = new_width
+    # recalculate height
+    @height = nil
+    content_height
+  end
 end)

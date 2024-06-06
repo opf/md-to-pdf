@@ -29,4 +29,10 @@ Prawn::Table::Cell.prepend(Module.new do
     column_widths[column] = [column_widths[column], split_width_ignoring_span].max
     column_widths.values.inject(0, &:+)
   end
+
+  def width=(new_width)
+    @min_width = new_width unless defined?(@min_width)
+    @max_width = new_width unless defined?(@max_width)
+    @width = new_width
+  end
 end)

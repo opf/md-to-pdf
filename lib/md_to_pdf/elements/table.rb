@@ -165,13 +165,14 @@ module MarkdownToPDF
       rows.push([make_subtable_cell(row, opts)]) unless row.empty?
       return make_table_cell([{ text: '' }], opts) if rows.empty?
 
-      @pdf.make_table(rows, { position: alignment }) do
+      @pdf.make_table(rows, {}) do
         columns(0).align = alignment unless alignment == nil
       end
     end
 
     def image_in_table_column(image_file, alignment)
-      { image: image_file, fit: [100, 100], position: alignment, vposition: :center }
+      { image: image_file,
+        position: alignment, vposition: :center }
     end
 
     def build_table_data(data_rows, column_alignments, opts)
