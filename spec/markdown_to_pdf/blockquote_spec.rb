@@ -16,7 +16,7 @@ describe MarkdownToPDF::Blockquote do
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Blockquotes can also contain images…" },
                  { x: 61.0, y: 725.884, text: "…before image" },
-                 { x: 61.0, y: 612.937, text: "after image…" }])
+                 { x: 61.0, y: 290.822, text: "after image…" }])
   end
 
   it 'creates a blockquote with limited list support' do

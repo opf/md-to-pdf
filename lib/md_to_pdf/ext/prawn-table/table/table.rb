@@ -66,6 +66,11 @@ Prawn::Table.prepend(Module.new do
     cols.sort_by { |e| e[:index] }.map { |e| e[:min] }
   end
 
+  def recalculate_positions
+    @natural_row_heights = nil
+    position_cells
+  end
+
   def natural_split_column_widths
     @natural_split_column_widths ||= ColumnSplitWidthCalculator.new(cells).natural_split_widths
   end

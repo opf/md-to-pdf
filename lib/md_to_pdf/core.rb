@@ -27,6 +27,8 @@ require 'md_to_pdf/ext/prawn-table/table/table'
 require 'md_to_pdf/ext/prawn-table/table/natural_split_generator'
 require 'md_to_pdf/ext/prawn-table/table/cell/cell'
 require 'md_to_pdf/ext/prawn-table/table/cell/cell/text'
+require 'md_to_pdf/ext/prawn-table/table/cell/cell/image'
+require 'md_to_pdf/ext/prawn-table/table/cell/cell/subtable'
 
 module MarkdownToPDF
   module Core
