@@ -96,10 +96,9 @@ RSpec.shared_context 'with pdf' do
   def out_images
     puts "expect_pdf_images(#{images.to_s
                                     .gsub('{:x=>', "\n{x:")
-                                    .gsub(':width=>', "width:")
-                                    .gsub(':height=>', "height:")
-                                    .gsub(':y=>', 'y:')
-    })"
+                                    .gsub(':width=>', 'width:')
+                                    .gsub(':height=>', 'height:')
+                                    .gsub(':y=>', 'y:')})"
   end
 
   def rectangles

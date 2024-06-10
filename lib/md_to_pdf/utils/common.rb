@@ -65,10 +65,10 @@ module MarkdownToPDF
       end
     end
 
-    def csspx2pt(px)
+    def csspx2pt(css_px)
       # only css pixels are supported, not device pixels
       # https://github.com/prawnpdf/prawn/pull/879
-      px * 0.75
+      css_px * 0.75
     end
 
     def number_unit(string)

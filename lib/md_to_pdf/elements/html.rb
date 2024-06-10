@@ -129,10 +129,10 @@ module MarkdownToPDF
     def data_image_style_opts(tag, _node, _opts)
       result = {}
       if tag.attr("style")
-        image_styles = tag.attr("style").split(';').map do |pair|
+        image_styles = tag.attr("style").split(';').to_h do |pair|
           k, v = pair.split(':', 2)
           [k, v]
-        end.to_h
+        end
         if image_styles['width']
           custom_max_width = parse_pt(image_styles['width'])
           result[:custom_max_width] = custom_max_width unless custom_max_width.nil? || custom_max_width <= 0
