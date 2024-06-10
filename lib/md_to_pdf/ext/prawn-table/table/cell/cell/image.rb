@@ -1,15 +1,21 @@
 Prawn::Table::Cell::Image.prepend(Module.new do
   def initialize(pdf, point, options = {})
     @image_options = {}
+    custom_max_width = options.delete(:custom_max_width)
     super
 
-    @pdf_object, @image_info = @pdf.build_image_object(@file)
-    @natural_width, @natural_height = @image_info.calc_image_dimensions(@image_options)
+    natural_width(custom_max_width) if custom_max_width && custom_max_width > 0 && custom_max_width < @natural_width
+    natural_width(@pdf.bounds.width) if @natural_width > @pdf.bounds.width
+  end
+
+  def natural_width(new_width)
+    @natural_height = @natural_height * (new_width / @natural_width)
+    @natural_width = new_width
   end
 
   def width=(new_width)
-    @width = new_width
-    @height = (@natural_height * (new_width / @natural_width))
+    @width = [new_width, @natural_width].min
+    @height = (@natural_height * (@width / @natural_width))
   end
 
   def natural_content_width

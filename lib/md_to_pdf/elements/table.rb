@@ -147,7 +147,7 @@ module MarkdownToPDF
       end
     end
 
-    def make_subtable(cell_data, opts, alignment)
+    def make_subtable(cell_data, opts, alignment, column_count)
       rows = []
       row = []
       cell_data.each do |elem|
@@ -155,7 +155,7 @@ module MarkdownToPDF
           rows.push([make_subtable_cell(row, opts)]) unless row.empty?
           image_file = image_url_to_local_file(elem[:image])
           unless image_file.nil? || image_file.empty?
-            rows.push([image_in_table_column(image_file, alignment).merge({ borders: [] })])
+            rows.push([image_in_table_column(image_file, alignment).merge({ borders: [], custom_max_width: elem[:custom_max_width] })])
           end
           row = []
         else
@@ -165,7 +165,7 @@ module MarkdownToPDF
       rows.push([make_subtable_cell(row, opts)]) unless row.empty?
       return make_table_cell([{ text: '' }], opts) if rows.empty?
 
-      @pdf.make_table(rows, {}) do
+      @pdf.make_table(rows, column_widths: [@pdf.bounds.width / column_count]) do
         columns(0).align = alignment unless alignment == nil
       end
     end
@@ -180,20 +180,20 @@ module MarkdownToPDF
       data_rows.each do |data_row|
         cells_row = []
         data_row.each_with_index do |cell_data, index|
-          cells_row.push(make_table_cell_or_subtable(cell_data, opts, column_alignments[index]))
+          cells_row.push(make_table_cell_or_subtable(cell_data, opts, column_alignments[index], data_row.length))
         end
         data.push(cells_row)
       end
       data
     end
 
-    def make_table_cell_or_subtable(cell_data, opts, alignment)
+    def make_table_cell_or_subtable(cell_data, opts, alignment, column_count)
       image_data = cell_data.find { |elem| elem.key?(:image) }
       if image_data
         image_file = image_url_to_local_file(image_data[:image])
         return image_in_table_column(image_file, alignment) if !(image_file.nil? || image_file.empty?) && cell_data.length === 1
 
-        return make_subtable(cell_data, opts, alignment)
+        return make_subtable(cell_data, opts, alignment, column_count)
       end
       make_table_cell(cell_data, opts)
     end

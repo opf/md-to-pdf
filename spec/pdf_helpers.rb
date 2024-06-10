@@ -65,7 +65,7 @@ RSpec.shared_context 'with pdf' do
     result
   end
 
-  def images
+  def xobjects
     PDF::Inspector::XObject.analyze(pdf)
   end
 
@@ -82,6 +82,24 @@ RSpec.shared_context 'with pdf' do
                            .gsub('{:x=>', "\n{x:")
                            .gsub(':y=>', 'y:')
                            .gsub(':text=>', 'text:')})"
+  end
+
+  def images
+    all_calls = calls
+    image_calls = calls.each_index.select { |i| all_calls[i][0] == :invoke_xobject } # .find_index { |call| call[0] == :invoke_xobject }
+    image_calls.map do |call_index|
+      call = all_calls[call_index - 1]
+      { x: call[5], y: call[6], width: call[1], height: call[4] }
+    end
+  end
+
+  def out_images
+    puts "expect_pdf_images(#{images.to_s
+                                    .gsub('{:x=>', "\n{x:")
+                                    .gsub(':width=>', "width:")
+                                    .gsub(':height=>', "height:")
+                                    .gsub(':y=>', 'y:')
+    })"
   end
 
   def rectangles
@@ -110,8 +128,8 @@ RSpec.shared_context 'with pdf' do
     expect(page).to eq(data)
   end
 
-  def expect_images_in_pdf(amount)
-    expect(images.xobject_streams.size).to eq(amount)
+  def expect_pdf_images(data)
+    expect(images).to eq(data)
   end
 
   def pdf_raw_color(color)

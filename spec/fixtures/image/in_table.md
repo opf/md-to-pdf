@@ -3,7 +3,7 @@
     <tr>
         <td><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor<br></p>
-            <p><img src="demo.jpg"></p>
+            <p><img src="logo.png"></p>
                   <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor&nbsp;</p>
         </td>
@@ -22,10 +22,10 @@
           <td>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor<br></p>
-            <p><img src="demo.jpg"></p>
+            <p><img src="logo.png"></p>
            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor&nbsp;</p>
-            <p><img src="demo.jpg"></p>
+            <p><img src="logo.png"></p>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor<br></p>
         </td>
@@ -40,7 +40,7 @@
           <td>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,&nbsp;<br></p>
-            <p><img src="demo.jpg"></p>
+            <p><img src="logo.png"></p>
                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
             sed diam nonumy eirmod tempor&nbsp;</p>
         </td>

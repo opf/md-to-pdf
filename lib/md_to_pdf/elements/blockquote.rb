@@ -31,7 +31,7 @@ module MarkdownToPDF
 
     def data_blockquote_paragraph(node, opts)
       cell_data = data_node_children(node, opts)
-      [make_table_cell_or_subtable(cell_data, opts, :left)]
+      [make_table_cell_or_subtable(cell_data, opts, :left, 1)]
     end
 
     def data_blockquote_list(node, opts)
@@ -40,7 +40,7 @@ module MarkdownToPDF
         sub.to_a.each do |paragraph|
           cell_data = data_node_children(paragraph, opts)
           unless cell_data.empty?
-            cell = make_table_cell_or_subtable(cell_data, opts, :left)
+            cell = make_table_cell_or_subtable(cell_data, opts, :left, 1)
             result.push(cell)
           end
         end

@@ -1,3 +1,6 @@
+
+<img src="demo.jpg" style="width: 100px;">
+
 <img src="demo.jpg" class="left small">
 
 # An image in the middle of <img src="demo.jpg"> a headline
