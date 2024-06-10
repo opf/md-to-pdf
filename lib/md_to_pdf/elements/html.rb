@@ -105,7 +105,7 @@ module MarkdownToPDF
         when 'comment'
           # ignore html comments
         when 'img'
-          result.push({ image: sub.attr('src') })
+          result.push(data_inline_image_tag(sub, node, opts))
         when 'ul', 'ol'
           result.concat(data_inlinehtml_list_tag(sub, node, opts))
         when 'label', 'p', 'li'
@@ -124,6 +124,27 @@ module MarkdownToPDF
         end
       end
       result
+    end
+
+    def data_image_style_opts(tag, _node, _opts)
+      result = {}
+      if tag.attr("style")
+        image_styles = tag.attr("style").split(';').to_h do |pair|
+          k, v = pair.split(':', 2)
+          [k, v]
+        end
+        if image_styles['width']
+          custom_max_width = parse_pt(image_styles['width'])
+          result[:custom_max_width] = custom_max_width unless custom_max_width.nil? || custom_max_width <= 0
+        end
+      end
+      result[:image_classes] = tag.attr('class')
+      result[:image_caption] = find_img_caption(tag)
+      result
+    end
+
+    def data_inline_image_tag(tag, node, opts)
+      { image: tag.attr('src') }.merge(data_image_style_opts(tag, node, opts))
     end
 
     def data_inlinehtml_list_tag(tag, node, opts)
@@ -188,7 +209,8 @@ module MarkdownToPDF
       tag.children.each do |sub|
         case sub.name
         when 'img'
-          embed_image(sub.attr('src'), node, current_opts.merge({ image_classes: sub.attr('class'), image_caption: find_img_caption(sub) }))
+          embed_image(sub.attr('src'), node, current_opts
+                                               .merge(data_image_style_opts(sub, node, current_opts)))
         when 'text'
           @pdf.formatted_text([text_hash(sub.text, current_opts)])
         when 'a'
