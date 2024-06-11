@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "color_conversion", ["~> 0.1"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
-  s.add_runtime_dependency "json-schema", ["~> 4.1"]
+  s.add_runtime_dependency "json-schema", ["~> 4.3"]
   s.add_runtime_dependency "markly", ["~> 0.10"]
   s.add_runtime_dependency "matrix", ["~> 0.4"]
   s.add_runtime_dependency "nokogiri", ["~> 1.1"]

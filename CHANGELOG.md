@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.0.27] - 2024-06-11
+
+- fix(tables): better image handling in table autosizing
+- fix(tables): better image handling in table cells
+
 ## [0.0.26] - 2024-02-15
 
 - fix(tasklists): support nested tasklists and tasklist items with or without any text
