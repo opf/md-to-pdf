@@ -55,11 +55,9 @@ module MarkdownToPDF
     end
 
     def build_image_opts(style, image_info, image_margin_opts, opts)
-      max_width = opt_image_max_width(style)
       options = opts_image(style)
       width = @pdf.bounds.width - (image_margin_opts[:left_margin] || 0) - (image_margin_opts[:right_margin] || 0)
-      width = [max_width, width].min unless max_width.nil?
-      width = [image_info.width, width].min
+      width = [image_info.width, opt_image_max_width(style), opts[:custom_max_width], width].compact.min
       options[:scale] = [width / image_info.width.to_f, 1].min
       options[:position] = :right if (opts[:image_classes] || '') =~ /\bright\b/
       options

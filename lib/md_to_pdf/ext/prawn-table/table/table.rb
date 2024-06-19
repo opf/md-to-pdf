@@ -49,21 +49,28 @@ Prawn::Table.prepend(Module.new do
   end
 
   def reduce_to_available_space(needed)
-    cols = natural_split_column_widths.each_with_index
-                                      .map { |w, index| { min: w, max: natural_column_widths[index], index: index } }
-                                      .sort_by { |e| -e[:max] }
-    steps = needed / natural_split_column_widths.length
+    split_widths = natural_split_column_widths
+    return [[20, split_widths[0] - needed].max] if split_widths.length == 1
 
-    col = cols.first
+    cols = split_widths.each_with_index
+                       .map { |w, index| { min: w, max: natural_column_widths[index], index: index } }
+    steps = needed / (split_widths.length * 2)
+
+    col = cols.max_by { |e| e[:max] }
     while needed > Prawn::FLOAT_PRECISION
       reduce = [steps, needed].min
       col[:min] -= reduce
       col[:max] -= reduce
       needed -= reduce
-      col = cols.max_by { |e| e[:max] }
+      col = cols.max_by { |e| e[:min] }
     end
 
-    cols.sort_by { |e| e[:index] }.map { |e| e[:min] }
+    cols.map { |e| e[:min] }
+  end
+
+  def recalculate_positions
+    @natural_row_heights = nil
+    position_cells
   end
 
   def natural_split_column_widths

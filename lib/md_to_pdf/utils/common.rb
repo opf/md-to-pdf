@@ -58,9 +58,17 @@ module MarkdownToPDF
         ft2pt(value)
       when 'in'
         in2pt(value)
+      when 'px'
+        csspx2pt(value)
       else
         value
       end
+    end
+
+    def csspx2pt(css_px)
+      # only css pixels are supported, not device pixels
+      # https://github.com/prawnpdf/prawn/pull/879
+      css_px * 0.75
     end
 
     def number_unit(string)

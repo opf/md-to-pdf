@@ -65,8 +65,8 @@ describe MarkdownToPDF::Table do
     expect_pdf([
                  { x: 160.16, y: 744.756, text: "One" },
                  { x: 306.0, y: 744.756, text: "Two" },
-                 { x: 151.99, y: 725.884, text: "Image1" },
-                 { x: 151.99, y: 612.937, text: "Image2" },
+                 { x: 151.49, y: 725.884, text: "Image1" },
+                 { x: 151.49, y: 488.5095, text: "Image2" },
                  { x: 311.0, y: 725.884, text: "Image3" }])
   end
 
@@ -75,8 +75,7 @@ describe MarkdownToPDF::Table do
     expect_pdf([
                  { x: 160.16, y: 744.756, text: "One" },
                  { x: 306.0, y: 744.756, text: "Two" },
-                 { x: 311.0, y: 725.884, text: "Image2" },
-                 { x: 311.0, y: 712.012, text: "" }])
+                 { x: 311.0, y: 725.884, text: "Image2" }])
   end
 
   it 'creates a html table with checkboxes' do
