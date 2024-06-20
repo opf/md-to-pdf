@@ -8,7 +8,7 @@ describe MarkdownToPDF::Codeblock do
       .to receive(:mermaid_cli_available?)
             .and_return(false)
     generator.parse_file('mermaid/mermaid.md')
-    expect_images_in_pdf(0)
+    expect_pdf_images([])
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "gantt" },
                  { x: 36.0, y: 728.884, text: "    title A Gantt Diagram" },
@@ -46,7 +46,9 @@ describe MarkdownToPDF::Codeblock do
       true
     end
     generator.parse_file('mermaid/mermaid.md')
-    expect_images_in_pdf(2)
+    expect_pdf_images([
+                        { x: 36.0, y: 755.0, width: 1.0, height: 1.0 },
+                        { x: 36.0, y: 754.0, width: 1.0, height: 1.0 }])
     expect_pdf([])
   end
 end
