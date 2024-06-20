@@ -2,7 +2,6 @@ require 'prawn/table'
 
 module MarkdownToPDF
   module Blockquote
-
     def data_blockquote(node, opts)
       result = []
       case node.type

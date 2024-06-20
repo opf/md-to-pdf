@@ -7,7 +7,7 @@ module MarkdownToPDF
       IMPORTANT: "\ue803",
       CAUTION: "\ue804"
     }.freeze
-    ALERT_OCTICONS_FONTNAME = 'octicon-alerts'
+    ALERT_OCTICONS_FONTNAME = 'octicon-alerts'.freeze
 
     def pdf_init_fonts(doc, fonts, fallback_font, fonts_path)
       fonts.each { |font| register_pdf_font(doc, font, fonts_path) }
