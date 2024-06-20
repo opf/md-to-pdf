@@ -48,6 +48,10 @@ class TestGenerator
   def hyphenate(text)
     text # @hyphens.hyphenate(text)
   end
+
+  def mermaid_cli_enabled?
+    true
+  end
 end
 
 RSpec.shared_context 'with pdf' do

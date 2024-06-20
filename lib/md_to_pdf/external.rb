@@ -26,6 +26,10 @@ module MarkdownToPDF
       puts "WARNING: #{text}\nGot #{element} at #{node ? node.source_position.inspect : '?'}\n\n"
     end
 
+    def mermaid_cli_enabled?
+      true
+    end
+
     private
 
     def validate_image(url, node)

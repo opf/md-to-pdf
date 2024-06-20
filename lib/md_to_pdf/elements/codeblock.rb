@@ -27,10 +27,6 @@ module MarkdownToPDF
 
     private
 
-    def mermaid_cli_enabled?
-      mermaid_cli_available?
-    end
-
     def mermaid_cli_available?
       return $mermaid_cli_available if defined?($mermaid_cli_available)
 
@@ -44,7 +40,8 @@ module MarkdownToPDF
     end
 
     def build_mermaid_block(node, _opts)
-      return false unless mermaid_cli_enabled?
+      return false unless respond_to?(:mermaid_cli_enabled?) && mermaid_cli_enabled?
+      return false unless mermaid_cli_available?
 
       image_file = Tempfile.new(['mermaid', ".png"])
       begin
