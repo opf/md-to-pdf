@@ -33,11 +33,39 @@
 | `task_list` | **Task list**<br/>See [Task list](#task-list) | object |
 | `task_list_point` | **Task list point**<br/>See [Task list point](#task-list-point) | object |
 | `fields_default` | **md-to-pdf default fields settings**<br/>See [md-to-pdf default fields settings](#md-to-pdf-default-fields-settings) | object |
+| `alerts` | **alert boxes (styled blockquotes)**<br/>See [alert boxes (styled blockquotes)](#alert-boxes-styled-blockquotes) | object |
 | `header_1`<br/>`header_2`<br/>`header_x` | Header level<br/>See [Header](#header) | object |
 | `ordered_list_1`<br/>`ordered_list_2`<br/>`ordered_list_x` | See [Ordered list level](#ordered-list-level) | object |
 | `ordered_list_point_1`<br/>`ordered_list_point_2`<br/>`ordered_list_point_x` | See [Ordered list point level](#ordered-list-point-level) | object |
 | `unordered_list_1`<br/>`unordered_list_2`<br/>`unordered_list_x` | Unordered list level<br/>See [Unordered list](#unordered-list) | object |
 | `unordered_list_point_1`<br/>`unordered_list_point_2`<br/>`unordered_list_point_x` | Unordered list point level<br/>See [Unordered list point](#unordered-list-point) | object |
+
+## Alert
+
+Styling to denote a quote as alert box
+
+Key: `alert`
+
+Example:
+```yml
+ALERT:
+  alert_color: f4f9ff
+  border_color: f4f9ff
+  border_width: 2
+  no_border_right: true
+  no_border_left: false
+  no_border_bottom: true
+  no_border_top: true
+```
+
+| Key | Description | Data type |
+| - | - | - |
+| `background_color` | **Color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
+| `alert_color` | **Color**<br/>A color in RRGGBB format<br/>Example: `F0F0F0` | string |
+| … | See [Font properties](#font-properties) |  |
+| … | See [Border properties](#border-properties) |  |
+| … | See [Padding properties](#padding-properties) |  |
+| … | See [Margin properties](#margin-properties) |  |
 
 ## Blockquote
 
@@ -876,6 +904,18 @@ Key: `unordered_list_point_x`
 | `spacing` | **Spacing**<br/>Space between point and list item content<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
 | … | See [Font properties](#font-properties) |  |
 
+## alert boxes (styled blockquotes)
+
+Key: `alerts`
+
+| Key | Description | Data type |
+| - | - | - |
+| `NOTE` | **Alert**<br/>Styling to denote a quote as alert box<br/>See [Alert](#alert) | object |
+| `TIP` | **Alert**<br/>Styling to denote a quote as alert box<br/>See [Alert](#alert) | object |
+| `WARNING` | **Alert**<br/>Styling to denote a quote as alert box<br/>See [Alert](#alert) | object |
+| `IMPORTANT` | **Alert**<br/>Styling to denote a quote as alert box<br/>See [Alert](#alert) | object |
+| `CAUTION` | **Alert**<br/>Styling to denote a quote as alert box<br/>See [Alert](#alert) | object |
+
 ## md-to-pdf default custom fields values
 
 Key: `pdf_fields`
@@ -900,6 +940,7 @@ Key: `fields_default`
 | `pdf_header_logo` |  | string |
 | `pdf_hyphenation` |  | boolean |
 | `pdf_fields` | **md-to-pdf default custom fields values**<br/>See [md-to-pdf default custom fields values](#md-to-pdf-default-custom-fields-values) | object |
+
 ## Units
 
 available units are

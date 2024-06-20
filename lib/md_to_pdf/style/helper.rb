@@ -57,6 +57,13 @@ module MarkdownToPDF
       )
     end
 
+    def opts_alert_table_cell(style, opts = {})
+      merge_opts(
+        { alert_color: style[:alert_color] },
+        opts_table_cell(style, opts)
+      )
+    end
+
     def opts_image(style)
       align = (style[:align] || 'center').to_sym
       { position: align }

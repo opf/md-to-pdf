@@ -162,5 +162,10 @@ module MarkdownToPDF
     def get_style(section)
       @styling[section] || {}
     end
+
+    def alert_styles(alert_type)
+      alert_styles = get_style(:alerts)
+      alert_styles[alert_type] || {}
+    end
   end
 end

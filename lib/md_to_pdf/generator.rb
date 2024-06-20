@@ -66,6 +66,7 @@ module MarkdownToPDF
       style = @styles.page
       @pdf = Prawn::Document.new(pdf_document_options(style))
       pdf_init_fonts(@pdf, @styles.fonts, @styles.fallback_font, @fonts_path)
+      pdf_init_md2pdf_fonts(@pdf)
     end
   end
 end

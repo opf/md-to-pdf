@@ -1,10 +1,13 @@
+require 'prawn/table'
+
 module MarkdownToPDF
   module Blockquote
+
     def data_blockquote(node, opts)
       result = []
       case node.type
       when :paragraph
-        result.push(data_blockquote_paragraph(node, opts))
+        result.concat(data_blockquote_paragraph(node, opts, result.empty?))
       when :blockquote
         result.push(data_blockquote_quote(node, opts))
       when :list
@@ -23,15 +26,47 @@ module MarkdownToPDF
       return if data.empty?
 
       with_block_margin_all(margin_opts) do
-        draw_blockquote_table(data, cell_style_opts)
+        draw_blockquote_table(data, cell_style_opts[:alert_style_opts] || cell_style_opts)
       end
     end
 
     private
 
-    def data_blockquote_paragraph(node, opts)
-      cell_data = data_node_children(node, opts)
-      [make_table_cell_or_subtable(cell_data, opts, :left, 1)]
+    def data_blockquote_paragraph(node, opts, is_first)
+      node.to_a.each do |child|
+        if child.type == :softbreak
+          new_node = Markly::Node.new(:linebreak)
+          child.insert_before(new_node)
+          child.delete
+        end
+      end
+      current_opts = opts
+      alert_type = nil
+      alert_title = nil
+      if is_first && node.first_child && node.first_child.type == :text
+        line = node.first_child.string_content
+        line.match(/^\[!([A-Z]*)(?::([^\]]*))?\]/) do |m|
+          if MarkdownToPDF::Fonts::ALERT_OCTICONS.key?(m[1].to_sym)
+            alert_type = m[1].to_sym
+            alert_title = m[2] || alert_type.to_s.capitalize
+            opts[:alert_style_opts] = opts_alert_table_cell(@styles.alert_styles(alert_type), opts)
+            current_opts = opts[:alert_style_opts]
+          end
+        end
+      end
+
+      cell_data = data_node_children(node, current_opts)
+      if alert_type
+        cell_data[0][:text] = "#{alert_title.strip}\n"
+        icon = MarkdownToPDF::Fonts::ALERT_OCTICONS[alert_type]
+        if current_opts[:alert_color]
+          icon = "<color rgb=\"#{current_opts[:alert_color]}\">#{icon}</color>"
+          cell_data[0][:color] = current_opts[:alert_color]
+        end
+        text = "<font name=\"#{MarkdownToPDF::Fonts::ALERT_OCTICONS_FONTNAME}\">#{icon}</font> "
+        cell_data.insert(0, { text: text, raw: true })
+      end
+      [[make_table_cell_or_subtable(cell_data, current_opts, :left, 1)]]
     end
 
     def data_blockquote_list(node, opts)
