@@ -23,7 +23,7 @@ describe MarkdownToPDF::Generator do
 
   it "generate the demo via cmdline" do
     FileUtils.rm_f(dest_filename)
-    system("bundle exec md_to_pdf #{source_filename} #{styling_filename} #{dest_filename} >/dev/null 2>&1")
+    system("bundle exec md_to_pdf #{styling_filename} #{source_filename} #{dest_filename} >/dev/null 2>&1")
     expect(File.exist?(dest_filename)).to be(true)
   end
 end
