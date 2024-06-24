@@ -40,4 +40,58 @@ describe MarkdownToPDF::Blockquote do
                  { x: 268.476, y: 744.756, text: " " },
                  { x: 271.812, y: 744.756, text: "underline" }])
   end
+
+  def compile_alert_styles(color)
+    {
+      border_color: color,
+      alert_color: color,
+      padding: '4mm',
+      border_width: 2,
+      no_border_right: true,
+      no_border_left: false,
+      no_border_bottom: true,
+      no_border_top: true
+    }
+  end
+
+  it 'creates alert boxes' do
+    generator.parse_file('blockquote/alerts.md',
+                         {
+                           blockquote: compile_alert_styles('000000'),
+                           alerts: {
+                             NOTE: compile_alert_styles('0969da'),
+                             TIP: compile_alert_styles('1a7f37'),
+                             IMPORTANT: compile_alert_styles('8250df'),
+                             WARNING: compile_alert_styles('bf8700'),
+                             CAUTION: compile_alert_styles('d1242f')
+                           }
+                         })
+    expect_pdf([
+                 { x: 47.33858, y: 731.83342, text: "" },
+                 { x: 59.33858, y: 731.83342, text: " " },
+                 { x: 62.67458, y: 731.83342, text: "Note" },
+                 { x: 47.33858, y: 704.08942, text: "Useful information that users should know, even when skimming content." },
+                 { x: 47.33858, y: 665.95625, text: "" },
+                 { x: 59.33858, y: 665.95625, text: " " },
+                 { x: 62.67458, y: 665.95625, text: "Tip" },
+                 { x: 47.33858, y: 638.21225, text: "Helpful advice for doing things better or more easily." },
+                 { x: 47.33858, y: 600.07909, text: "" },
+                 { x: 59.33858, y: 600.07909, text: " " },
+                 { x: 62.67458, y: 600.07909, text: "Important" },
+                 { x: 47.33858, y: 572.33509, text: "Key information users need to know to achieve their goal." },
+                 { x: 47.33858, y: 534.20192, text: "" },
+                 { x: 59.33858, y: 534.20192, text: " " },
+                 { x: 62.67458, y: 534.20192, text: "Warning" },
+                 { x: 47.33858, y: 506.45792, text: "Urgent info that needs immediate user attention to avoid problems." },
+                 { x: 47.33858, y: 468.32476, text: "" },
+                 { x: 59.33858, y: 468.32476, text: " " },
+                 { x: 62.67458, y: 468.32476, text: "Caution" },
+                 { x: 47.33858, y: 440.58076, text: "Advises about risks or negative outcomes of certain actions." },
+                 { x: 47.33858, y: 404.03159, text: "A normal quote in between" },
+                 { x: 47.33858, y: 365.89843, text: "" },
+                 { x: 59.33858, y: 365.89843, text: " " },
+                 { x: 62.67458, y: 365.89843, text: "With an own title" },
+                 { x: 47.33858, y: 338.15443, text: "Useful information that users should know, even when skimming content." },
+                 { x: 47.33858, y: 301.60526, text: "[!UNKNOWN]" }])
+  end
 end

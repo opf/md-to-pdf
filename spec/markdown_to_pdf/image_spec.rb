@@ -44,14 +44,16 @@ describe MarkdownToPDF::Image do
                  { x: 43.536, y: 510.159, text: "a list" },
                  { x: 36.0, y: 496.287, text: "•" },
                  { x: 43.536, y: 496.287, text: "List 3" },
-                 { x: 41.0, y: 739.756, text: "Quote 1 An image in the middle of" },
-                 { x: 41.0, y: 288.879, text: "a quote Quote 2" }])
+                 { x: 41.0, y: 739.756, text: "Quote 1" },
+                 { x: 41.0, y: 725.884, text: "An image in the middle of" },
+                 { x: 41.0, y: 275.007, text: "a quote" },
+                 { x: 41.0, y: 261.135, text: "Quote 2" }])
     expect_pdf_images([
                         { x: 268.5, y: 696.69375, width: 75.0, height: 59.30625 },
                         { x: 156.0, y: 459.46875, width: 300.0, height: 237.225 },
                         { x: 156.0, y: 208.37175, width: 300.0, height: 237.225 },
                         { x: 159.768, y: 518.775, width: 300.0, height: 237.225 },
-                        { x: 41.0, y: 309.623, width: 527.35378, height: 417.005 }])
+                        { x: 41.0, y: 295.751, width: 527.35378, height: 417.005 }])
   end
 
   it 'creates image by footnote' do

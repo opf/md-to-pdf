@@ -93,6 +93,35 @@ This is _italic_ text with `_`
 
 > Blockquotes can be f**or**m*att*ed ~~strikethrough~~ <u>underline</u>
 
+
+# Alert Blockquotes
+
+Markdown extension by [Github](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)
+
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
+
+> [!NOTE: With an own title]
+> Useful information that users should know, even when skimming content.
+
+
 <br-page/>
 
 # Links

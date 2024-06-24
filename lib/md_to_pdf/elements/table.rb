@@ -21,13 +21,14 @@ module MarkdownToPDF
     end
 
     def make_table_cell(cell_data, opts)
+      additional_cell_settings = cell_data.empty? ? {} : cell_data[0]
       Prawn::Table::Cell::Text.new(
         @pdf, [0, 0],
         content: merge_cell_data(cell_data),
         font: opts[:font],
         size: opts[:size],
-        padding: opts[:cell_padding],
-        background_color: cell_data.empty? ? nil : cell_data[0][:cell_background_color],
+        padding: opts[:cell_padding] || additional_cell_settings[:cell_padding],
+        background_color: additional_cell_settings[:cell_background_color],
         inline_format: true
       )
     end

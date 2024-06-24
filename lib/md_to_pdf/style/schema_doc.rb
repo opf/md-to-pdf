@@ -177,7 +177,7 @@ module MarkdownToPDF
 
     def measurement_section
       result = []
-      result << "## Units\n"
+      result << "\n## Units\n"
       result << "available units are\n"
       result << "`mm` - Millimeter, `cm` - Centimeter, `dm` - Decimeter, `m` - Meter\n"
       result << "`in` - Inch, `ft` - Feet, `yr` - Yard\n"

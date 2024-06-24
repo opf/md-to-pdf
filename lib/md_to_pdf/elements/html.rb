@@ -252,7 +252,9 @@ module MarkdownToPDF
     end
 
     def cell_inline_formatting(cell_data_part)
-      # https://prawnpdf.org/docs/0.11.1/Prawn/Text.html internal format
+      return cell_data_part[:text] if cell_data_part[:raw]
+
+      # https://prawnpdf.org/docs/prawn/2.5.0/Prawn/Text.html inline format
       value = cell_inline_formatting_data(cell_data_part)
       cell_inline_formatting_styles(cell_data_part, value)
     end
