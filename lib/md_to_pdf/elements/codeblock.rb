@@ -46,12 +46,13 @@ module MarkdownToPDF
       image_file = Tempfile.new(['mermaid', ".png"])
       begin
         return false unless run_mermaid_cli(node.string_content, image_file.path, 'png',
-                                            { background: "transparent", theme: "neutral" })
+                                            { background: "transparent", theme: "neutral", scale: "2" })
 
         image_obj, image_info = @pdf.build_image_object(image_file.path)
-        options = {
-          scale: [@pdf.bounds.width / image_info.width.to_f, 1].min
-        }
+        options = {}
+        if image_info.width > @pdf.bounds.width
+          options[:scale] = [@pdf.bounds.width / image_info.width.to_f, 1].min
+        end
         @pdf.embed_image(image_obj, image_info, options)
         true
       rescue StandardError
