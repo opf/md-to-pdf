@@ -1,5 +1,16 @@
 ## [Unreleased]
 
+## [0.1.0] - 2024-06-24
+
+- feat: add support for mermaid diagrams if [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) is installed and available in the PATH
+- feat: add support for Github alert blockquotes
+
+BREAKING:
+
+- styles now require a ˚alerts˚ key with settings for the alert blockquotes (see [docs/STYLING.md](docs/STYLING.md#alert-boxes-styled-blockquotes))
+- command line tool parameters have been fixed to match the documentation
+- Module users need to implement mermaid_cli_enabled? and return true to enable mermaid diagrams
+
 ## [0.0.27] - 2024-06-11
 
 - fix(tables): better image handling in table autosizing

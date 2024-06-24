@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    md_to_pdf (0.0.27)
+    md_to_pdf (0.1.0)
       color_conversion (~> 0.1)
       front_matter_parser (~> 1.0)
       json-schema (~> 4.3)
       markly (~> 0.10)
       matrix (~> 0.4)
-      nokogiri (~> 1.1)
+      nokogiri (~> 1.16)
       prawn (~> 2.4)
       prawn-table (~> 0.2)
       text-hyphen (~> 1.5)
