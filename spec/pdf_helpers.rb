@@ -18,6 +18,7 @@ class TestGenerator
   def initialize
     @pdf = Prawn::Document.new({})
     init_options({ auto_generate_header_ids: false })
+    pdf_init_md2pdf_fonts(@pdf)
   end
 
   def parse_file(filepath, styling = {})
