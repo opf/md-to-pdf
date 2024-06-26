@@ -17,4 +17,3 @@ describe MarkdownToPDF::Core do
                  { x: 36.0, y: 636.408, text: "And here’s another paragraph that’s visible." }])
   end
 end
-#

@@ -305,6 +305,12 @@ Style/HashTransformValues:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
 RSpec/AnyInstance:
   Enabled: false
 
