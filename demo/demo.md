@@ -363,6 +363,24 @@ quadrantChart
     Campaign F: [0.35, 0.78]
 ```
 
+# Comments
+
+
+Here's a paragraph that will be visible.
+
+<!-- This is a comment that will be hidden. -->
+
+<!-- 
+
+This is a comment that will
+be hidden.
+
+-->
+
+And here's another paragraph that's visible.
+
+
+
 ---
 
 # Frontmatter
