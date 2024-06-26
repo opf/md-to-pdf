@@ -189,4 +189,13 @@ describe MarkdownToPDF::Table do
                  { x: 396.0, y: 730.884, text: "2. waaa" },
                  { x: 396.0, y: 717.012, text: "3. wiiiii" }])
   end
+
+  it 'creates a html table with subtable in a header row' do
+    generator.parse_file('table/subtable_in_header_row.md')
+    expect_pdf([
+                 { x: 221.0, y: 739.756, text: "Header 1" },
+                 { x: 396.0, y: 744.756, text: "Header 2" },
+                 { x: 36.0, y: 578.549, text: "Entry 1" },
+                 { x: 36.0, y: 564.677, text: "Entry 2" }])
+  end
 end
