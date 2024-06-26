@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.1] - 2024-06-26
+
+- fix: table header row with image crashed because of missing methods
+
 ## [0.1.0] - 2024-06-24
 
 - feat: add support for mermaid diagrams if [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) is installed and available in the PATH
