@@ -340,15 +340,19 @@ With a reference later in the document defining the URL location.
 
 ## Page breaks
 
-use one of these formats to start a new page
+use one of these formats to start a new page (all with mandatory empty lines around them)
 
 `<br style="page-break-before: always;"/>`
 
+`<br style="page-break-after: always;"/>`
+
 `<div style="page-break-before: always;"/>`
 
-`<br-page/>` (custom tag with mandatory empty line before other markdown content)
+`<div style="page-break-after: always;"/>`
 
-`<page-br/>` (custom tag with mandatory empty line before other markdown content)
+`<br-page/>` 
+
+`<page-br/>` 
 
 ---
 
