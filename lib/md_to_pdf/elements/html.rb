@@ -222,8 +222,12 @@ module MarkdownToPDF
         when 'comment'
           # ignore html comments
         when 'br'
-          @pdf.formatted_text([text_hash_raw("\n", current_opts)])
-        when 'br-page'
+          if is_page_break_tag?(sub)
+            @pdf.start_new_page
+          else
+            @pdf.formatted_text([text_hash_raw("\n", current_opts)])
+          end
+        when 'br-page', 'page-br'
           @pdf.start_new_page
         when 'p', 'figure'
           draw_html_tag(sub, node, current_opts)
@@ -236,10 +240,21 @@ module MarkdownToPDF
             draw_html_tag(sub, node, opts) if process_children
           end
         else
-          process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
-          draw_html_tag(sub, node, opts) if process_children
+          if sub.name == 'div' && is_page_break_tag?(sub)
+            @pdf.start_new_page
+          else
+            process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
+            draw_html_tag(sub, node, opts) if process_children
+          end
         end
       end
+    end
+
+    def is_page_break_tag?(tag)
+      return false unless tag.key?('style')
+
+      style = tag.get_attribute('style') || ''
+      /page-break-before\s*:\s*always/ === style
     end
 
     def find_img_caption(tag)

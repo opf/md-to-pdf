@@ -338,7 +338,17 @@ With a reference later in the document defining the URL location.
 
 # HTML Specials
 
-`<br-page/>` start a new page
+## Page breaks
+
+use one of these formats to start a new page
+
+`<br style="page-break-before: always;"/>`
+
+`<div style="page-break-before: always;"/>`
+
+`<br-page/>` (custom tag with mandatory empty line before other markdown content)
+
+`<page-br/>` (custom tag with mandatory empty line before other markdown content)
 
 ---
 
