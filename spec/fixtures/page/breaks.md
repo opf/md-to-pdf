@@ -1,13 +1,33 @@
-First page <!-- (custom html tag NEEDS the empty line) -->
+Page 1
 
 <br-page/>
-Second page <!-- (custom html tag NEEDS the empty line) -->
+
+Page 2
 
 <page-br/>
-Third page <!-- (used by OpenProject and CKEditor) -->
+
+Page 3
+
+<br style="page-break-after: always;"/>
+
+Page 4 
+
 <br style="page-break-before: always;"/>
-Fourth page <!-- (used by many editors) -->
+
+Page 5 
+
 <div style="page-break-before: always;">Everything here <br-page/> is ignored</div>
-Fifth page <!-- (CKEditor default format) -->
+
+Page 6
+
+<div style="page-break-after: always;">Everything here <br-page/> is ignored</div>
+
+Page 7
+
+<div style="page-break-before: always;">Everything here <br-page/> is ignored</div>
+
+Page 8
+
 <div class="page-break" style="page-break-before: always;"><span style="display: none"></span></div>
-Sixth page
+
+Page 9

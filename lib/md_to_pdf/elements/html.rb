@@ -254,7 +254,7 @@ module MarkdownToPDF
       return false unless tag.key?('style')
 
       style = tag.get_attribute('style') || ''
-      /page-break-before\s*:\s*always/ === style
+      /page-break-(before|after)\s*:\s*always/ === style
     end
 
     def find_img_caption(tag)
