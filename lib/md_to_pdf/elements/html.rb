@@ -108,8 +108,10 @@ module MarkdownToPDF
           result.push(data_inline_image_tag(sub, node, opts))
         when 'ul', 'ol'
           result.concat(data_inlinehtml_list_tag(sub, node, opts))
-        when 'label', 'p', 'li'
+        when 'label', 'li'
           result.concat(data_inlinehtml_tag(sub, node, opts))
+        when 'p'
+          result.concat(data_inlinehtml_tag(sub, node, opts)).push(text_hash_raw("\n", current_opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
         when 'input'

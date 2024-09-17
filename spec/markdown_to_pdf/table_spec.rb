@@ -198,4 +198,27 @@ describe MarkdownToPDF::Table do
                  { x: 36.0, y: 578.549, text: "Entry 1" },
                  { x: 36.0, y: 564.677, text: "Entry 2" }])
   end
+
+  it 'creates a html table with paragraphs in a cell' do
+    generator.parse_file('table/paragraphs_in_cell.md')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "1" },
+                 { x: 36.0, y: 730.884, text: "2" },
+                 { x: 36.0, y: 717.012, text: "3" }])
+  end
+
+  it 'creates a html table with empty lines in a cell' do
+    generator.parse_file('table/linebreaks_in_cell.md')
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "With paragraphs:" },
+                 { x: 36.0, y: 730.884, text: "First" },
+                 { x: 36.0, y: 661.524, text: "Fourth" },
+                 { x: 306.0, y: 730.884, text: "First" },
+                 { x: 306.0, y: 717.012, text: "Second" },
+                 { x: 36.0, y: 636.408, text: "With breaks:" },
+                 { x: 36.0, y: 619.908, text: "First" },
+                 { x: 36.0, y: 578.292, text: "Fourth" },
+                 { x: 306.0, y: 619.908, text: "First" },
+                 { x: 306.0, y: 606.036, text: "Second" }])
+  end
 end
