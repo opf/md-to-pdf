@@ -111,7 +111,7 @@ module MarkdownToPDF
         when 'label', 'li'
           result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'p'
-          result.concat(data_inlinehtml_tag(sub, node, opts)).concat([text_hash_raw("\n", current_opts)])
+          result.concat(data_inlinehtml_tag(sub, node, opts)).push(text_hash_raw("\n", current_opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
         when 'input'
