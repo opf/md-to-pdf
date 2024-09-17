@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.2] - 2024-09-17
+
+- feat: add support paragraphs in html table cells
+
 ## [0.1.1] - 2024-06-26
 
 - fix: table header row with image crashed because of missing methods
