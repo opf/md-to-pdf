@@ -191,6 +191,7 @@ module MarkdownToPDF
       column_alignments = Array.new(column_count, :left)
       header_row_count = count_html_header_rows(tag)
       table = build_table_settings(header_row_count, opts)
+      opts[:opts_cell] = table[:opts_cell]
       draw_table_data(table, rows, column_alignments, opts)
     end
 
@@ -314,13 +315,59 @@ module MarkdownToPDF
       cell_data = data_inlinehtml_tag(tag, nil, opts)
       if tag.key?('style')
         style = tag.get_attribute('style') || ''
-        res = style.scan(/background-color:(.*?)(?:;|\z)/)
-        unless res.empty?
-          cell_data = [{}] if cell_data.empty?
-          cell_data[0][:cell_background_color] = parse_color(res.last[0])
+        cell_background_color = parse_html_color(style, /background-color:(.*?)(?:;|\z)/)
+        cell_border_color = parse_html_color(style, /border-color:(.*?)(?:;|\z)/)
+        cell_border_width = parse_html_pt(style, /border-width:(.*?)(?:;|\z)/)
+        cell_border_style = parse_html_border_style(style)
+        cell_border = style.scan(/border:(.*?)(?:;|\z)/)
+        unless cell_border.empty?
+          cell_border_compact = cell_border.last[0].split(' ', 3)
+          if cell_border_width.nil?
+            test_size = parse_pt(cell_border_compact[0])
+            cell_border_width = test_size unless test_size.nil?
+          end
+          if cell_border_style.nil?
+            test_style = parse_border_style(cell_border_compact[1])
+            cell_border_style = test_style unless test_style.nil?
+          end
+          if cell_border_color.nil?
+            test_color = parse_color(cell_border_compact[2])
+            cell_border_color = test_color unless test_color.nil?
+          end
         end
+        cell_data = [{}] if cell_data.empty?
+        cell_data[0][:cell_background_color] = cell_background_color
+        cell_data[0][:cell_border_color] = cell_border_color
+        cell_data[0][:cell_border_width] = cell_border_width
+        cell_data[0][:cell_border_style] = cell_border_style
       end
       cell_data
+    end
+
+    def parse_html_border_style(style)
+      res = style.scan(/border-style:(.*?)(?:;|\z)/)
+      parse_border_style(res.last[0]) unless res.empty?
+    end
+
+    def parse_border_style(border_style)
+      case border_style
+      when 'dotted'
+        :dotted
+      when 'dashed'
+        :dashed
+      else
+        :solid
+      end
+    end
+
+    def parse_html_pt(style, size_regexp)
+      res = style.scan(size_regexp)
+      parse_pt(res.last[0]) unless res.empty?
+    end
+
+    def parse_html_color(style, color_regexp)
+      res = style.scan(color_regexp)
+      parse_color(res.last[0]) unless res.empty?
     end
 
     def space_stuffing(width, space_width)
