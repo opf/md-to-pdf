@@ -119,7 +119,7 @@ RSpec.shared_context 'with pdf' do
 
   def borders
     border_calls = []
-    calls.each_with_index do |call, i|
+    calls.each do |call|
       if call[0] == :set_line_width
         border_calls.push(call[1])
       elsif call[0] == :set_color_for_stroking_and_special

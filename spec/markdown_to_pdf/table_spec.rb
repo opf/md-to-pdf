@@ -224,7 +224,6 @@ describe MarkdownToPDF::Table do
 
   it 'creates a html table with cell borders' do
     generator.parse_file('table/html_borders.html')
-    out
     expect_pdf_border_rects(
       [
         7.5, [0.0, 0.0, 0.0],
@@ -327,7 +326,8 @@ describe MarkdownToPDF::Table do
         0.25, [0.0, 0.0, 0.0],
         0.25, [0.0, 0.0, 0.0],
         1, [0.0, 0.0, 0.0]
-      ])
+      ]
+    )
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "dotted" },
                  { x: 144.0, y: 744.756, text: "column1" },

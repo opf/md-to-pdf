@@ -22,15 +22,16 @@ module MarkdownToPDF
 
     def make_table_cell(cell_data, opts)
       additional_cell_settings = cell_data.empty? ? {} : cell_data[0]
-      cell_opts = { content: merge_cell_data(cell_data),
-                    font: opts[:font],
-                    size: opts[:size],
-                    padding: opts[:cell_padding] || additional_cell_settings[:cell_padding],
-                    background_color: additional_cell_settings[:cell_background_color],
-                    border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
-                    border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
-                    border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
-                    inline_format: true
+      cell_opts = {
+        content: merge_cell_data(cell_data),
+        font: opts[:font],
+        size: opts[:size],
+        padding: opts[:cell_padding] || additional_cell_settings[:cell_padding],
+        background_color: additional_cell_settings[:cell_background_color],
+        border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
+        border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
+        border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
+        inline_format: true
       }.compact
       Prawn::Table::Cell::Text.new(@pdf, [0, 0], cell_opts)
     end
