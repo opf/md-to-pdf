@@ -117,6 +117,22 @@ RSpec.shared_context 'with pdf' do
     rects
   end
 
+  def borders
+    border_calls = []
+    calls.each do |call|
+      if call[0] == :set_line_width
+        border_calls.push(call[1])
+      elsif call[0] == :set_color_for_stroking_and_special
+        border_calls.push(call.slice(1, 3))
+      end
+    end
+    border_calls
+  end
+
+  def out_borders
+    puts "expect_pdf_border_rects(\n[\n#{borders.map(&:to_json).join(",\n")}\n])".gsub(",\n[", ', [')
+  end
+
   def out_rectangles
     puts "expect_pdf_color_rects(\n[\n#{rectangles.map(&:to_json).join(",\n")}\n])"
   end
@@ -142,6 +158,14 @@ RSpec.shared_context 'with pdf' do
 
   def expect_pdf_color_rects(cases)
     actual = rectangles
+    expect(actual.length).to eq cases.length
+    cases.each_with_index do |case_entry, index|
+      expect(case_entry).to eq actual[index]
+    end
+  end
+
+  def expect_pdf_border_rects(cases)
+    actual = borders
     expect(actual.length).to eq cases.length
     cases.each_with_index do |case_entry, index|
       expect(case_entry).to eq actual[index]
