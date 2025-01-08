@@ -63,7 +63,7 @@ module MarkdownToPDF
 
     private
 
-    def smart_render_headers(list, opts, threshold)
+    def smart_render_headers(list, opts, estimated_next_item_height)
       return if list.empty?
 
       height = 0
@@ -72,9 +72,9 @@ module MarkdownToPDF
       end
 
       space_from_bottom = @pdf.y - @pdf.bounds.bottom - height
-      if space_from_bottom < threshold
-        @pdf.start_new_page
-      end
+      threshold = option_smart_header_threshold + estimated_next_item_height -  @styles.min_footer_offset
+
+      @pdf.start_new_page if space_from_bottom < threshold
       list.each do |header_node|
         draw_header(header_node, opts)
       end
@@ -88,18 +88,59 @@ module MarkdownToPDF
       # 4. render headers
       # 5. render items
       # 6. goto 1.
-      threshold = option_smart_header_threshold
       header_nodes = []
       list.each do |inner_node|
         if inner_node.type == :header
           header_nodes.push(inner_node)
         else
-          smart_render_headers(header_nodes, opts, threshold)
-          header_nodes = []
+          unless header_nodes.empty?
+            estimated = estimate_height_by_type(inner_node, opts)
+            smart_render_headers(header_nodes, opts, estimated)
+            header_nodes = []
+          end
           draw_node_by_type(inner_node, opts)
         end
       end
-      smart_render_headers(header_nodes, opts, threshold)
+      smart_render_headers(header_nodes, opts, 0)
+    end
+
+    def shadow_pdf
+      @original_pdf ||= @pdf
+      @shadow_pdf ||= create_shadow_pdf
+    end
+
+    def create_shadow_pdf
+      clone_pdf = Prawn::Document.new(pdf_document_options(@styles.page))
+      clone_pdf.font_families.update(@pdf.font_families)
+      clone_pdf
+    end
+
+    def with_shadow_pdf
+      if @pdf == shadow_pdf
+        throw 'Cannot nest with_shadow_pdf'
+      end
+      @pdf = shadow_pdf
+      yield
+    rescue
+      @pdf = @original_pdf
+    ensure
+      @pdf = @original_pdf
+    end
+
+    def estimate_height_by_type(node, opts)
+      height = 0
+      with_shadow_pdf do
+        shadow_pdf.start_new_page
+        current_y = shadow_pdf.y
+        current_page = shadow_pdf.page_count
+        draw_node_by_type(node, opts)
+        if current_page == shadow_pdf.page_count
+          height = current_y - shadow_pdf.y
+        else
+          height = shadow_pdf.bounds.height
+        end
+      end
+      height
     end
 
     def draw_node_by_type(node, opts)

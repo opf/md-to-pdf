@@ -19,8 +19,7 @@ module MarkdownToPDF
     private
 
     def is_first_on_page?
-      page_margins = opts_margin(@styles.page)
-      space_above = @pdf.bounds.top + page_margins[:top_margin] - @pdf.y
+      space_above = @pdf.bounds.absolute_top - @pdf.y
       space_above < 10
     end
 
