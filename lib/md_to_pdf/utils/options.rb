@@ -11,7 +11,8 @@ module MarkdownToPDF
     def def_options
       {
         table_page_break_threshold: 100,
-        smart_header_threshold: 150,
+        smart_header_threshold: 50,
+        smart_blockquote_threshold: 50,
         auto_generate_header_ids: true
       }
     end
@@ -22,6 +23,10 @@ module MarkdownToPDF
 
     def option_smart_header_threshold
       options[:smart_header_threshold]
+    end
+
+    def option_smart_blockquote_threshold
+      options[:smart_blockquote_threshold]
     end
 
     def option_auto_generate_header_ids?

@@ -102,7 +102,7 @@ module MarkdownToPDF
     end
 
     def draw_blockquote_table(data, cell_style_opts)
-      @pdf.table(data, width: @pdf.bounds.right, cell_style: cell_style_opts) do
+      table = @pdf.make_table(data, width: @pdf.bounds.right, cell_style: cell_style_opts) do
         (0..(row_length - 2)).each do |i|
           rows(i).padding_bottom = cell_style_opts[:leading] || 0
         end
@@ -110,6 +110,11 @@ module MarkdownToPDF
           rows(i).padding_top = cell_style_opts[:leading] || 0
         end
       end
+
+      space_from_bottom = @pdf.y - @pdf.bounds.bottom
+      @pdf.start_new_page if space_from_bottom < option_smart_blockquote_threshold
+
+      table.draw
     end
 
     def blockquote_data_rows(node, cell_style_opts)
