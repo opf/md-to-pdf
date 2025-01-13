@@ -72,7 +72,7 @@ module MarkdownToPDF
       end
 
       space_from_bottom = @pdf.y - @pdf.bounds.bottom - height
-      threshold = option_smart_header_threshold + estimated_next_item_height -  @styles.min_footer_offset
+      threshold = option_smart_header_threshold + estimated_next_item_height - @styles.min_footer_offset
 
       @pdf.start_new_page if space_from_bottom < threshold
       list.each do |header_node|
@@ -121,7 +121,7 @@ module MarkdownToPDF
       end
       @pdf = shadow_pdf
       yield
-    rescue
+    rescue StandardError
       @pdf = @original_pdf
     ensure
       @pdf = @original_pdf
@@ -134,11 +134,11 @@ module MarkdownToPDF
         current_y = shadow_pdf.y
         current_page = shadow_pdf.page_count
         draw_node_by_type(node, opts)
-        if current_page == shadow_pdf.page_count
-          height = current_y - shadow_pdf.y
-        else
-          height = shadow_pdf.bounds.height
-        end
+        height = if current_page == shadow_pdf.page_count
+                   current_y - shadow_pdf.y
+                 else
+                   shadow_pdf.bounds.height
+                 end
       end
       height
     end
