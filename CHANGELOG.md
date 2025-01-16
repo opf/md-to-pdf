@@ -1,8 +1,18 @@
 ## [Unreleased]
 
+## [0.1.4] - 2024-01-07
+
+- fix: smart header feature to avoid dangling header rows on page breaks with height measurements
+- fix: avoid split of alert box first line on page breaks
+
+## [0.1.3] - 2024-01-07
+
+- feat: parse and use more html table cell css
+
 ## [0.1.2] - 2024-09-17
 
-- feat: add support paragraphs in html table cells
+- feat: support page break markers
+- feat: support for line breaks and paragraphs in html tables
 
 ## [0.1.1] - 2024-06-26
 
