@@ -21,16 +21,16 @@ class TestGenerator
     pdf_init_md2pdf_fonts(@pdf)
   end
 
-  def parse_file(filepath, styling = {})
-    parse File.read("spec/fixtures/#{filepath}").to_s, styling
+  def parse_file(filepath, styling = {}, smart_headers = true)
+    parse File.read("spec/fixtures/#{filepath}").to_s, styling, smart_headers
   end
 
-  def parse(markdown, styling = {})
+  def parse(markdown, styling = {}, smart_headers = true)
     @styles = MarkdownToPDF::Styles.new(styling)
     @images_path = 'demo/'
     @styling_images_path = 'demo/'
     root = parse_markdown(markdown)
-    draw_node(root, {}, true)
+    draw_node(root, {}, smart_headers)
     draw_footnotes({})
   end
 

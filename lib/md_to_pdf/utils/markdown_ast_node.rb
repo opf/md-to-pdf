@@ -66,6 +66,8 @@ module MarkdownToPDF
     def smart_render_headers(list, opts, estimated_next_item_height)
       return if list.empty?
 
+      return render_headers(list, opts) if is_first_on_page?
+
       height = 0
       list.each do |header_node|
         height += measure_header(header_node, opts)
@@ -74,7 +76,11 @@ module MarkdownToPDF
       space_from_bottom = @pdf.y - @pdf.bounds.bottom - height
       threshold = option_smart_header_threshold + estimated_next_item_height - @styles.min_footer_offset
 
-      @pdf.start_new_page if space_from_bottom < threshold
+      @pdf.start_new_page if space_from_bottom < threshold && !is_first_on_page?
+      render_headers(list, opts)
+    end
+
+    def render_headers(list, opts)
       list.each do |header_node|
         draw_header(header_node, opts)
       end
@@ -94,8 +100,12 @@ module MarkdownToPDF
           header_nodes.push(inner_node)
         else
           unless header_nodes.empty?
-            estimated = estimate_height_by_type(inner_node, opts)
-            smart_render_headers(header_nodes, opts, estimated)
+            if is_html_page_break_node?(inner_node)
+              render_headers(header_nodes, opts)
+            else
+              estimated = estimate_height_by_type(inner_node, opts)
+              smart_render_headers(header_nodes, opts, estimated)
+            end
             header_nodes = []
           end
           draw_node_by_type(inner_node, opts)
@@ -107,6 +117,10 @@ module MarkdownToPDF
     def shadow_pdf
       @original_pdf ||= @pdf
       @shadow_pdf ||= create_shadow_pdf
+    end
+
+    def is_page_break_node?(node)
+      node.type == :html && is_html_page_break_node?(node)
     end
 
     def create_shadow_pdf
