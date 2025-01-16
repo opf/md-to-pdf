@@ -28,6 +28,10 @@ module MarkdownToPDF
       get_style(:page_footer_3)
     end
 
+    def min_footer_offset
+      @min_footer_offset ||= [page_footer[:offset] || 0, page_footer2[:offset] || 0, page_footer3[:offset] || 0].min
+    end
+
     def page_logo
       get_style(:page_logo)
     end

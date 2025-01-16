@@ -207,6 +207,11 @@ module MarkdownToPDF
       header_count
     end
 
+    def is_html_page_break_node?(node)
+      probe = (node.string_content || '').downcase
+      probe.include?('<br-page') || probe.include?('<page-br') || probe =~ /page-break-(before|after)\s*:\s*always/
+    end
+
     def draw_html_tag(tag, node, opts)
       current_opts = opts
       tag.children.each do |sub|

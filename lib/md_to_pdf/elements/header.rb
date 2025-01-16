@@ -18,12 +18,6 @@ module MarkdownToPDF
 
     private
 
-    def is_first_on_page?
-      page_margins = opts_margin(@styles.page)
-      space_above = @pdf.bounds.top + page_margins[:top_margin] - @pdf.y
-      space_above < 10
-    end
-
     def generate_header_id(node)
       content = node.to_plaintext.gsub("\n", '').gsub(' ', ' ')
       id = generate_id(content)

@@ -169,5 +169,10 @@ module MarkdownToPDF
     rescue ColorConversion::InvalidColorError
       # ignore invalid colors
     end
+
+    def is_first_on_page?
+      space_above = @pdf.bounds.absolute_top - @pdf.y
+      space_above < 10
+    end
   end
 end
