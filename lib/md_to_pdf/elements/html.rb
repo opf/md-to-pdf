@@ -139,7 +139,6 @@ module MarkdownToPDF
       result
     end
 
-
     def data_image_style_opts(tag, _node, _opts)
       result = {}
       if tag.attr("style")
