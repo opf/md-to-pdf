@@ -88,14 +88,14 @@ describe MarkdownToPDF::Table do
                  { x: 421.71429, y: 744.756, text: "Header 5" },
                  { x: 498.85714, y: 744.756, text: "Header 6" },
                  { x: 36.0, y: 730.884, text: "Entry 1" },
-                 { x: 344.57143, y: 730.884, text: "[x] " },
-                 { x: 498.85714, y: 730.884, text: "[x] " },
+                 { x: 344.57143, y: 730.884, text: "[x]" },
+                 { x: 498.85714, y: 730.884, text: "[x]" },
                  { x: 36.0, y: 717.012, text: "Entry 2" },
-                 { x: 344.57143, y: 717.012, text: "[x] " },
-                 { x: 421.71429, y: 717.012, text: "[x] " },
+                 { x: 344.57143, y: 717.012, text: "[x]" },
+                 { x: 421.71429, y: 717.012, text: "[x]" },
                  { x: 36.0, y: 703.14, text: "Entry 3" },
                  { x: 36.0, y: 689.268, text: "Entry 4" },
-                 { x: 113.14286, y: 689.268, text: "[x] " }])
+                 { x: 113.14286, y: 689.268, text: "[x]" }])
   end
 
   it 'creates a table without bad wrapping with doc font style' do
@@ -145,7 +145,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with lists inside' do
-    generator.parse_file('table/list_in_cell.md')
+    generator.parse_file('table/list_in_cell.html')
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "• test1" },
                  { x: 36.0, y: 730.884, text: "• test2" },
@@ -161,6 +161,17 @@ describe MarkdownToPDF::Table do
                  { x: 396.0, y: 744.756, text: "1. wooo" },
                  { x: 396.0, y: 730.884, text: "2. waaa" },
                  { x: 396.0, y: 717.012, text: "3. wiiiii" }])
+  end
+
+  it 'creates a html table with lists with paragraphs inside' do
+    generator.parse_file('table/lists_in_cell.html')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "He is making a list" },
+                 { x: 36.0, y: 730.884, text: "1. checking it" },
+                 { x: 36.0, y: 717.012, text: "2. twice" },
+                 { x: 36.0, y: 703.14, text: "    1. gonna find out" },
+                 { x: 36.0, y: 689.268, text: "    2. who's been naughty or" },
+                 { x: 36.0, y: 675.396, text: "        1. nice" }])
   end
 
   it 'creates a html table with subtable in a header row' do
@@ -185,14 +196,14 @@ describe MarkdownToPDF::Table do
     expect_pdf([
                  { x: 36.0, y: 747.384, text: "With paragraphs:" },
                  { x: 36.0, y: 730.884, text: "First" },
-                 { x: 36.0, y: 661.524, text: "Fourth" },
+                 { x: 36.0, y: 689.268, text: "Fourth" },
                  { x: 306.0, y: 730.884, text: "First" },
                  { x: 306.0, y: 717.012, text: "Second" },
-                 { x: 36.0, y: 636.408, text: "With breaks:" },
-                 { x: 36.0, y: 619.908, text: "First" },
-                 { x: 36.0, y: 578.292, text: "Fourth" },
-                 { x: 306.0, y: 619.908, text: "First" },
-                 { x: 306.0, y: 606.036, text: "Second" }])
+                 { x: 36.0, y: 664.152, text: "With breaks:" },
+                 { x: 36.0, y: 647.652, text: "First" },
+                 { x: 36.0, y: 606.036, text: "Fourth" },
+                 { x: 306.0, y: 647.652, text: "First" },
+                 { x: 306.0, y: 633.78, text: "Second" }])
   end
 
   it 'creates a html table with cell colors' do
