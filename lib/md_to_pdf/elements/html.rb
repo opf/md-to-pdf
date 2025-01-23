@@ -52,6 +52,22 @@ module MarkdownToPDF
       end
     end
 
+    def draw_html(node, opts)
+      html = node.string_content.gsub("\n", '').strip
+      parsed_data = Nokogiri::HTML.fragment(html)
+      draw_html_tag(parsed_data, node, opts)
+    end
+
+    def data_inlinehtml(node, opts)
+      html = node.string_content
+      return [] if html.downcase == '</a>' || html.downcase == '</font>'
+
+      parsed_data = Nokogiri::HTML.fragment(html)
+      data_inlinehtml_tag(parsed_data, node, opts)
+    end
+
+    private
+
     def remove_font_stack_opts(opts)
       result = opts
       list = opts[:font_stack_opts]
@@ -69,22 +85,6 @@ module MarkdownToPDF
       end
       result
     end
-
-    def draw_html(node, opts)
-      html = node.string_content.gsub("\n", '').strip
-      parsed_data = Nokogiri::HTML.fragment(html)
-      draw_html_tag(parsed_data, node, opts)
-    end
-
-    def data_inlinehtml(node, opts)
-      html = node.string_content
-      return [] if html.downcase == '</a>' || html.downcase == '</font>'
-
-      parsed_data = Nokogiri::HTML.fragment(html)
-      data_inlinehtml_tag(parsed_data, node, opts)
-    end
-
-    private
 
     def data_inlinehtml_tag(tag, node, opts)
       result = []
@@ -111,7 +111,7 @@ module MarkdownToPDF
         when 'label', 'li'
           result.concat(data_inlinehtml_tag(sub, node, opts))
         when 'p'
-          result.concat(data_inlinehtml_tag(sub, node, opts)).push(text_hash_raw("\n", current_opts))
+          result.concat(data_inlinehtml_paragraph_tag(sub, node, opts))
         when 'br'
           result.push(text_hash_raw("\n", current_opts))
         when 'input'
@@ -127,6 +127,18 @@ module MarkdownToPDF
       end
       result
     end
+
+    def data_inlinehtml_paragraph_tag(sub, node, opts)
+      result = data_inlinehtml_tag(sub, node, opts)
+      # lists in tables are brittle and must handle their own newlines
+      # <p><br></p> should resolve to \n not to be duplicated into \n\n
+      unless (opts[:is_in_table] && opts[:is_in_list]) ||
+        (result.length == 1 && result[0][:text] == "\n")
+        result.push(text_hash_raw("\n", opts))
+      end
+      result
+    end
+
 
     def data_image_style_opts(tag, _node, _opts)
       result = {}
@@ -152,12 +164,11 @@ module MarkdownToPDF
     def data_inlinehtml_list_tag(tag, node, opts)
       result = []
       points, level, _list_style, content_opts = data_html_list(tag, node, opts)
-      result.push(text_hash_raw("\n", content_opts).merge({ list_level: level, list_indent: 0 })) if level > 1
+      content_opts[:is_in_list] = true
       points.each do |point|
-        data = data_inlinehtml_tag(point[:tag], node, content_opts)
-        data.push(text_hash_raw("\n", content_opts).merge({ list_entry_type: 'end' }))
-        data[0][:list_entry_type] = 'first' unless data.empty?
-        data.unshift(text_hash(point[:bullet], point[:opts]).merge({ list_entry_type: 'bullet' }))
+        data = data_inlinehtml_tag(point[:tag], node, opts.merge(content_opts))
+        data[0][:list_entry_type] = :first unless data.empty?
+        data.unshift(text_hash(point[:bullet], point[:opts]).merge({ list_entry_type: :bullet }))
         data.each do |item|
           item[:list_level] = level if item[:list_level].nil?
           item[:list_indent] = point[:width] if item[:list_indent].nil?
@@ -182,17 +193,18 @@ module MarkdownToPDF
     end
 
     def draw_html_table_tag(tag, opts)
-      table_font_opts = build_table_font_opts(opts)
-      rows = collect_html_table_tag_rows(tag, table_font_opts, opts)
+      current_opts = opts.merge({ is_in_table: true })
+      table_font_opts = build_table_font_opts(current_opts)
+      rows = collect_html_table_tag_rows(tag, table_font_opts, current_opts)
       column_count = 0
       rows.each do |row|
         column_count = [column_count, row.length].max
       end
       column_alignments = Array.new(column_count, :left)
       header_row_count = count_html_header_rows(tag)
-      table = build_table_settings(header_row_count, opts)
-      opts[:opts_cell] = table[:opts_cell]
-      draw_table_data(table, rows, column_alignments, opts)
+      table = build_table_settings(header_row_count, current_opts)
+      current_opts[:opts_cell] = table[:opts_cell]
+      draw_table_data(table, rows, column_alignments, current_opts)
     end
 
     def count_html_header_rows(tag, header_count = 0)
@@ -390,28 +402,30 @@ module MarkdownToPDF
     end
 
     def indent_html_table_list_items(cell_data)
-      cell_data.each do |item|
+      level_stack = {}
+      cell_data.each_with_index do |item, index|
         next if item[:list_level].nil?
+
+        level_stack[item[:list_level]] = space_stuffing(item[:list_indent], item[:list_indent_space])
 
         # Note: There is no settings for paddings of text fragments in Prawn::Table
         # so as a workaround the lists are stuffed with spaces, which is of course not pixel perfect
 
-        # first indenting with spaces of multiline list items
-        # * item
-        #   multiline item
-        #   multiline item
-        if item[:list_entry_type].nil? && item[:text] != "\n"
-          item[:text] = "#{space_stuffing(item[:list_indent], item[:list_indent_space])}#{item[:text]}"
+        prev = index > 0 ? cell_data[index - 1] : nil
+        if item[:text] != "\n" && !prev.nil? && prev[:list_entry_type] != :bullet
+          current_stuffing = ''
+          (1..item[:list_level] - 1).each do |i|
+            current_stuffing += level_stack[i] || ''
+          end
+          if item[:list_entry_type] == :bullet
+            item[:text] = "#{current_stuffing}#{item[:text]}"
+          else
+            indent = space_stuffing(item[:list_indent], item[:list_indent_space])
+            item[:text] = "#{current_stuffing}#{indent}#{item[:text]}"
+          end
         end
-
-        # second indenting of nested lists
-        # * item
-        #   multiline item
-        #   * sub list item
-        #   * sub list item
-        #     sub list multiline item
-        if item[:list_level] > 1 && (item[:list_entry_type].nil? || item[:list_entry_type] == 'bullet') && item[:text] != "\n"
-          item[:text] = "#{space_stuffing(item[:list_indent], item[:list_indent_space])}#{item[:text]}"
+        if prev && item[:list_entry_type] == :bullet && prev[:text] != "\n"
+          item[:text] = "\n#{item[:text]}"
         end
       end
       cell_data
