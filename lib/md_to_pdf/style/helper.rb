@@ -89,16 +89,53 @@ module MarkdownToPDF
       (style[:sign] || '•').to_s
     end
 
-    def list_point_alphabetically(int)
+    def list_point_latin(int)
       name = 'a'
       (int - 1).times { name.succ! }
       name
     end
 
+    def list_point_roman(int)
+      symbols = { 0 => %w[I V], 1 => %w[X L], 2 => %w[C D], 3 => ["M"] }
+      reversed_digits = int.to_s.split(//).reverse
+      romans = []
+      reversed_digits.length.times do |i|
+        if reversed_digits[i].to_i < 4
+          romans << (symbols[i][0] * reversed_digits[i].to_i)
+        elsif reversed_digits[i].to_i == 4
+          romans << (symbols[i][0] + symbols[i][1])
+        elsif reversed_digits[i].to_i == 9
+          romans << (symbols[i][0] + symbols[i + 1][0])
+        else
+          romans << (symbols[i][1] + (symbols[i][0] * ((reversed_digits[i].to_i) - 5)))
+        end
+      end
+      romans.reverse.join("")
+    end
+
     def opt_list_point_number(number, style)
-      bullet = opt_list_point_alphabetical?(style) ? list_point_alphabetically(number) : number
+      bullet = opt_list_point_bullet(number, style)
       template = opt_list_point_template(style)
       template.gsub('<number>', bullet.to_s)
+    end
+
+    def opt_list_point_bullet(number, style)
+      list_style_type = style[:list_style_type] || 'decimal'
+      list_style_type = 'lower-latin' if opt_list_point_alphabetical?(style) # TODO: option is deprecated
+
+      case list_style_type
+      when 'lower-latin'
+        list_point_latin(number)
+      when 'upper-latin'
+        list_point_latin(number).upcase
+      when 'lower-roman'
+        list_point_roman(number).downcase
+      when 'upper-roman'
+        list_point_roman(number)
+      else
+        # decimal
+        number
+      end
     end
 
     def opt_list_point_alphabetical?(style)

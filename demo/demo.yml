@@ -139,10 +139,17 @@ ordered_list_point:
 
 ordered_list_point_3:
   template: '<number>)'
-  alphabetical: true
+  list_style_type: lower-roman
 
 ordered_list_point_4:
   template: '(<number>)'
+  list_style_type: lower-latin
+
+ordered_list_point_5:
+  list_style_type: upper-latin
+
+ordered_list_point_6:
+  list_style_type: upper-roman
 
 hrule:
   margin_top: 2mm

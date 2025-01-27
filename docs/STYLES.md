@@ -496,7 +496,7 @@ Example:
 ```yml
 ordered_list_point:
   template: "<number>."
-  alphabetical: false
+  list_style_type: decimal
   spacing: 0.75mm
   spanning: true
 ```
@@ -504,7 +504,8 @@ ordered_list_point:
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `alphabetical` | **Alphabetical bullet points**<br/>Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
+| `alphabetical` | **Alphabetical bullet points**<br/>(deprecated; use list_style_type) Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
+| `list_style_type` | **List style type**<br/>The style of the list bullet points, eg. `decimal`, `lower-latin`, `upper-roman`<br/>Valid values:<br/>`decimal`, `lower-latin`, `lower-roman`, `upper-latin`, `upper-roman` | string |
 | `spanning` | **Spanning**<br/>Use the width of the largest bullet as indention. | boolean |
 | `template` | **Template**<br/>customize what the prefix should contain, eg. `(<number>)` | string |
 | … | See [Font properties](#font-properties) |  |
@@ -516,7 +517,8 @@ Key: `ordered_list_point_x`
 | Key | Description | Data type |
 | - | - | - |
 | `spacing` | A number >= 0 and an optional unit<br/>Examples: `10mm`, `10` | number or string<br/>See [Units](#units) |
-| `alphabetical` | **Alphabetical bullet points**<br/>Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
+| `alphabetical` | **Alphabetical bullet points**<br/>(deprecated; use list_style_type) Convert the list item number into a character, eg. `a.` `b.` `c.` | boolean |
+| `list_style_type` | **List style type**<br/>The style of the list bullet points, eg. `decimal`, `lower-latin`, `upper-roman`<br/>Valid values:<br/>`decimal`, `lower-latin`, `lower-roman`, `upper-latin`, `upper-roman` | string |
 | `spanning` | **Spanning**<br/>Use the width of the largest bullet as indention. | boolean |
 | `template` | **Template**<br/>customize what the prefix should contain, eg. `(<number>)` | string |
 | … | See [Font properties](#font-properties) |  |
