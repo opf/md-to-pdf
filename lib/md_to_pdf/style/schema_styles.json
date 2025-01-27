@@ -206,7 +206,7 @@
       "x-example": {
         "ordered_list_point": {
           "template": "<number>.",
-          "alphabetical": false,
+          "list_style_type": "decimal",
           "spacing": "0.75mm",
           "spanning": true
         }
@@ -915,8 +915,20 @@
         },
         "alphabetical": {
           "title": "Alphabetical bullet points",
-          "description": "Convert the list item number into a character, eg. `a.` `b.` `c.`",
+          "description": "(deprecated; use list_style_type) Convert the list item number into a character, eg. `a.` `b.` `c.`",
           "type": "boolean"
+        },
+        "list_style_type": {
+          "title": "List style type",
+          "description": "The style of the list bullet points, eg. `decimal`, `lower-latin`, `upper-roman`",
+          "type": "string",
+          "enum": [
+            "decimal",
+            "lower-latin",
+            "lower-roman",
+            "upper-latin",
+            "upper-roman"
+          ]
         },
         "spanning": {
           "title": "Spanning",
