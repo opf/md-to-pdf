@@ -97,20 +97,20 @@ module MarkdownToPDF
 
     def list_point_roman(int)
       symbols = { 0 => %w[I V], 1 => %w[X L], 2 => %w[C D], 3 => ["M"] }
-      reversed_digits = int.to_s.split(//).reverse
+      reversed_digits = int.to_s.chars.reverse
       romans = []
       reversed_digits.length.times do |i|
-        if reversed_digits[i].to_i < 4
-          romans << (symbols[i][0] * reversed_digits[i].to_i)
-        elsif reversed_digits[i].to_i == 4
-          romans << (symbols[i][0] + symbols[i][1])
-        elsif reversed_digits[i].to_i == 9
-          romans << (symbols[i][0] + symbols[i + 1][0])
-        else
-          romans << (symbols[i][1] + (symbols[i][0] * ((reversed_digits[i].to_i) - 5)))
-        end
+        romans << if reversed_digits[i].to_i < 4
+                    (symbols[i][0] * reversed_digits[i].to_i)
+                  elsif reversed_digits[i].to_i == 4
+                    (symbols[i][0] + symbols[i][1])
+                  elsif reversed_digits[i].to_i == 9
+                    (symbols[i][0] + symbols[i + 1][0])
+                  else
+                    (symbols[i][1] + (symbols[i][0] * (reversed_digits[i].to_i - 5)))
+                  end
       end
-      romans.reverse.join("")
+      romans.reverse.join
     end
 
     def opt_list_point_number(number, style)
