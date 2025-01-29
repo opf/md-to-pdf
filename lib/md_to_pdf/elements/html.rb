@@ -192,7 +192,8 @@ module MarkdownToPDF
     end
 
     def draw_html_table_tag(tag, opts)
-      current_opts = opts.merge({ is_in_table: true, is_html_table: true })
+      table_opts = tag.key?('style') ? parse_css_table_stylings(tag.get_attribute('style') || '') : nil
+      current_opts = opts.merge({ is_in_table: true, is_html_table: true, table_opts: table_opts }.compact)
       table_font_opts = build_table_font_opts(current_opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, current_opts)
       column_count = 0
@@ -331,8 +332,7 @@ module MarkdownToPDF
       cell_data = data_inlinehtml_tag(tag, nil, opts)
       cell_styling =
         if tag.key?('style')
-          style = tag.get_attribute('style') || ''
-          parse_css_stylings(style)
+          parse_css_cell_stylings(tag.get_attribute('style') || '')
         else
           { cell_borders: [] }
         end
@@ -341,34 +341,46 @@ module MarkdownToPDF
       cell_data
     end
 
+    def parse_css_cell_stylings(style)
+      css = parse_css_stylings(style)
+      {
+        cell_borders: css[:borders],
+        cell_background_color: css[:background_color],
+        cell_border_color: css[:border_color],
+        cell_border_width: css[:border_width],
+        cell_border_style: css[:border_style]
+      }.compact
+    end
+
+    def parse_css_table_stylings(style)
+      parse_css_stylings(style).compact
+    end
+
     def parse_css_stylings(style)
-      cell_background_color = parse_html_color(style, /background-color:(.*?)(?:;|\z)/)
-      cell_border_color = parse_html_color(style, /border-color:(.*?)(?:;|\z)/)
-      cell_border_width = parse_html_pt(style, /border-width:(.*?)(?:;|\z)/)
-      cell_border_style = parse_html_border_style(style)
-      cell_border = style.scan(/border:(.*?)(?:;|\z)/)
-      unless cell_border.empty?
-        cell_border_compact = cell_border.last[0].split(' ', 3)
-        if cell_border_width.nil?
-          test_size = parse_pt(cell_border_compact[0])
-          cell_border_width = test_size unless test_size.nil?
+      background_color = parse_html_color(style, /background-color:(.*?)(?:;|\z)/)
+      border_color = parse_html_color(style, /border-color:(.*?)(?:;|\z)/)
+      border_width = parse_html_pt(style, /border-width:(.*?)(?:;|\z)/)
+      border_style = parse_html_border_style(style)
+      border = style.scan(/border:(.*?)(?:;|\z)/)
+      unless border.empty?
+        border_compact = border.last[0].split(' ', 3)
+        if border_width.nil?
+          test_size = parse_pt(border_compact[0])
+          border_width = test_size unless test_size.nil?
         end
-        if cell_border_style.nil?
-          test_style = parse_border_style(cell_border_compact[1])
-          cell_border_style = test_style unless test_style.nil?
+        if border_style.nil?
+          test_style = parse_border_style(border_compact[1])
+          border_style = test_style unless test_style.nil?
         end
-        if cell_border_color.nil?
-          test_color = parse_color(cell_border_compact[2])
-          cell_border_color = test_color unless test_color.nil?
+        if border_color.nil?
+          test_color = parse_color(border_compact[2])
+          border_color = test_color unless test_color.nil?
         end
       end
       {
-        cell_borders: cell_border_color || cell_border_width || cell_border_style ? %i[left right top bottom] : [],
-        cell_background_color: cell_background_color,
-        cell_border_color: cell_border_color,
-        cell_border_width: cell_border_width,
-        cell_border_style: cell_border_style
-      }.compact
+        borders: border_color || border_width || border_style ? %i[left right top bottom] : [],
+        background_color:, border_color:, border_width:, border_style:
+      }
     end
 
     def parse_html_border_style(style)
