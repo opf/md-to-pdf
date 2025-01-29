@@ -236,6 +236,8 @@ describe MarkdownToPDF::Table do
 
   it 'creates a html table without cell borders' do
     generator.parse_file('table/html_no_borders.html')
+    out
+    out_borders
     expect_pdf_border_rects([])
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "No" },
@@ -244,6 +246,8 @@ describe MarkdownToPDF::Table do
 
   it 'creates a html table with cell borders' do
     generator.parse_file('table/html_borders.html')
+    out
+    out_borders
     expect_pdf_border_rects(
       [
         7.5, [0.0, 0.0, 0.0],
