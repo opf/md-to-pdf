@@ -101,14 +101,14 @@ module MarkdownToPDF
         end
         new_column_alignments = column_alignments.slice(start, range)
         new_column_alignments.unshift :left
-        pdf_table = build_pdf_table(table, table[:opts_cell], new_rows, new_column_alignments, opts)
+        pdf_table = build_pdf_table(table, new_rows, new_column_alignments, opts)
         pdf_tables.push pdf_table
       end
       pdf_tables
     end
 
     def try_build_table(table, data, column_alignments, opts)
-      [build_pdf_table(table, table[:opts_cell], data, column_alignments, opts)]
+      [build_pdf_table(table, data, column_alignments, opts)]
     rescue Prawn::Errors::CannotFit
       build_split_tables(table, data, column_alignments, opts)
     end
@@ -130,10 +130,12 @@ module MarkdownToPDF
       end
     end
 
-    def build_pdf_table(table, cell_style, data, column_alignments, opts)
+    def build_pdf_table(table, data, column_alignments, opts)
+      cell_style = table[:opts_cell]
       column_count = column_alignments.length
       column_widths = Array.new(column_count, @pdf.bounds.right / column_count)
       default_cell_style = opts[:is_html_table] ? cell_style.except(:borders, :border_widths, :border_colors) : cell_style
+      table_opts = opts[:table_opts]
       @pdf.make_table(
         data,
         width: @pdf.bounds.right,
@@ -154,6 +156,34 @@ module MarkdownToPDF
             cell.size = opts_header[:size] || table[:opts_cell][:size]
           end
         end
+        apply_prawn_table_outer_borders(prawn_table, table_opts) if table_opts && !table_opts.empty?
+      end
+    end
+
+    def apply_prawn_table_outer_borders(prawn_table, table_opts)
+      prawn_table.row(0).each do |cell|
+        cell.border_top_width = table_opts[:border_width] if table_opts[:border_width]
+        cell.border_top_color = table_opts[:border_color] if table_opts[:border_color]
+        cell.border_top_line = table_opts[:border_style] if table_opts[:border_style]
+        cell.borders = cell.borders + [:top]
+      end
+      prawn_table.row(-1).each do |cell|
+        cell.border_bottom_width = table_opts[:border_width] if table_opts[:border_width]
+        cell.border_bottom_color = table_opts[:border_color] if table_opts[:border_color]
+        cell.border_bottom_line = table_opts[:border_style] if table_opts[:border_style]
+        cell.borders = cell.borders + [:bottom]
+      end
+      prawn_table.column(0).each do |cell|
+        cell.border_left_width = table_opts[:border_width] if table_opts[:border_width]
+        cell.border_left_color = table_opts[:border_color] if table_opts[:border_color]
+        cell.border_left_line = table_opts[:border_style] if table_opts[:border_style]
+        cell.borders = cell.borders + [:left]
+      end
+      prawn_table.column(-1).each do |cell|
+        cell.border_right_width = table_opts[:border_width] if table_opts[:border_width]
+        cell.border_right_color = table_opts[:border_color] if table_opts[:border_color]
+        cell.border_right_line = table_opts[:border_style] if table_opts[:border_style]
+        cell.borders = cell.borders + [:right]
       end
     end
 
