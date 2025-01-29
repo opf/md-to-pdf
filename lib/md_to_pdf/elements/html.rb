@@ -192,7 +192,7 @@ module MarkdownToPDF
     end
 
     def draw_html_table_tag(tag, opts)
-      current_opts = opts.merge({ is_in_table: true })
+      current_opts = opts.merge({ is_in_table: true, is_html_table: true })
       table_font_opts = build_table_font_opts(current_opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, current_opts)
       column_count = 0
@@ -329,12 +329,15 @@ module MarkdownToPDF
 
     def collect_html_table_tag_cell(tag, opts)
       cell_data = data_inlinehtml_tag(tag, nil, opts)
-      if tag.key?('style')
-        style = tag.get_attribute('style') || ''
-        cell_styling = parse_css_stylings(style)
-        cell_data = [{}] if cell_data.empty?
-        cell_data[0] = cell_data[0].merge(cell_styling)
-      end
+      cell_styling =
+        if tag.key?('style')
+          style = tag.get_attribute('style') || ''
+          parse_css_stylings(style)
+        else
+          { cell_borders: [] }
+        end
+      cell_data = [{}] if cell_data.empty?
+      cell_data[0] = cell_data[0].merge(cell_styling)
       cell_data
     end
 
@@ -360,6 +363,7 @@ module MarkdownToPDF
         end
       end
       {
+        cell_borders: cell_border_color || cell_border_width || cell_border_style ? %i[left right top bottom] : [],
         cell_background_color: cell_background_color,
         cell_border_color: cell_border_color,
         cell_border_width: cell_border_width,

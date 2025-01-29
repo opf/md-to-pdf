@@ -155,6 +155,20 @@ module MarkdownToPDF
       headless_table[:header] || {}
     end
 
+    def html_table
+      return table if @styling[:html_table].nil?
+
+      get_style(:html_table)
+    end
+
+    def html_table_cell
+      html_table[:cell] || {}
+    end
+
+    def html_table_header
+      html_table[:header] || {}
+    end
+
     def codeblock
       get_style(:codeblock)
     end

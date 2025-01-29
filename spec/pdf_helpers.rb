@@ -119,18 +119,32 @@ RSpec.shared_context 'with pdf' do
 
   def borders
     border_calls = []
+    stroke = []
     calls.each do |call|
-      if call[0] == :set_line_width
-        border_calls.push(call[1])
-      elsif call[0] == :set_color_for_stroking_and_special
-        border_calls.push(call.slice(1, 3))
+      case call[0]
+      when :set_line_width, :set_color_for_stroking_and_special, :begin_new_subpath, :append_line, :set_line_dash
+        stroke.push(call.slice(1))
+      when :begin_text_object
+        stroke = []
+      when :stroke_path
+        border_calls.push(stroke)
+        stroke = []
       end
     end
     border_calls
   end
 
+  def out_calls
+    printed_calls = []
+    calls.each do |call|
+      printed_calls.push(call.inspect)
+    end
+    puts printed_calls.join("\n")
+  end
+
   def out_borders
-    puts "expect_pdf_border_rects(\n[\n#{borders.map(&:to_json).join(",\n")}\n])".gsub(",\n[", ', [')
+    puts "expect_pdf_borders(\n[\n#{borders.map(&:to_json).join(",\n")}\n])"
+    # puts "expect_pdf_border_rects(\n[\n#{borders.map(&:to_json).join(",\n")}\n])".gsub(",\n[", ', [')
   end
 
   def out_rectangles
@@ -164,7 +178,7 @@ RSpec.shared_context 'with pdf' do
     end
   end
 
-  def expect_pdf_border_rects(cases)
+  def expect_pdf_borders(cases)
     actual = borders
     expect(actual.length).to eq cases.length
     cases.each_with_index do |case_entry, index|
