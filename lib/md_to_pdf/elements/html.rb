@@ -379,7 +379,10 @@ module MarkdownToPDF
       end
       {
         borders: border_color || border_width || border_style ? %i[left right top bottom] : [],
-        background_color:, border_color:, border_width:, border_style:
+        background_color: background_color,
+        border_color: border_color,
+        border_width: border_width,
+        border_style: border_style
       }
     end
 
