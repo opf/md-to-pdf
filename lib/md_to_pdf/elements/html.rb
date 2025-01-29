@@ -192,7 +192,7 @@ module MarkdownToPDF
     end
 
     def draw_html_table_tag(tag, opts)
-      current_opts = opts.merge({ is_in_table: true })
+      current_opts = opts.merge({ is_in_table: true, is_html_table: true })
       table_font_opts = build_table_font_opts(current_opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, current_opts)
       column_count = 0
@@ -201,7 +201,7 @@ module MarkdownToPDF
       end
       column_alignments = Array.new(column_count, :left)
       header_row_count = count_html_header_rows(tag)
-      table = build_table_settings(header_row_count, true, current_opts)
+      table = build_table_settings(header_row_count, current_opts)
       current_opts[:opts_cell] = table[:opts_cell]
       draw_table_data(table, rows, column_alignments, current_opts)
     end

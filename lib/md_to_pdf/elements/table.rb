@@ -5,7 +5,7 @@ module MarkdownToPDF
     def draw_table(node, opts)
       table_font_opts = build_table_font_opts(opts)
       data_rows, header_row_count = build_data_rows(node, table_font_opts, opts)
-      table = build_table_settings(header_row_count, false, opts)
+      table = build_table_settings(header_row_count, opts)
       draw_table_data(table, data_rows, node.table_alignments, opts)
     end
 
@@ -41,7 +41,7 @@ module MarkdownToPDF
       return if data_rows.empty?
 
       data = build_table_data(data_rows, column_alignments, opts)
-      pdf_tables = try_build_table(table, data, column_alignments)
+      pdf_tables = try_build_table(table, data, column_alignments, opts)
       pdf_tables.each do |pdf_table|
         optional_break_before_table(table, pdf_table)
         with_block_margin_all(table[:margins]) do
@@ -56,12 +56,12 @@ module MarkdownToPDF
       { cell: cell_opts, header: header_opts }
     end
 
-    def build_table_settings(header_row_count, is_html, opts)
+    def build_table_settings(header_row_count, opts)
       table_style = @styles.table
       cell_style = @styles.table_cell
       header_style = @styles.table_header
 
-      if is_html
+      if opts[:is_html_table]
         table_style = @styles.html_table
         cell_style = @styles.html_table_cell
         header_style = @styles.html_table_header
@@ -87,7 +87,7 @@ module MarkdownToPDF
 
     private
 
-    def build_split_tables(table, data, column_alignments)
+    def build_split_tables(table, data, column_alignments, opts)
       range = 4
       header_row_count = table[:header_row_count]
       pdf_tables = []
@@ -101,16 +101,16 @@ module MarkdownToPDF
         end
         new_column_alignments = column_alignments.slice(start, range)
         new_column_alignments.unshift :left
-        pdf_table = build_pdf_table(table, table[:opts_cell], new_rows, new_column_alignments)
+        pdf_table = build_pdf_table(table, table[:opts_cell], new_rows, new_column_alignments, opts)
         pdf_tables.push pdf_table
       end
       pdf_tables
     end
 
-    def try_build_table(table, data, column_alignments)
-      [build_pdf_table(table, table[:opts_cell], data, column_alignments)]
+    def try_build_table(table, data, column_alignments, opts)
+      [build_pdf_table(table, table[:opts_cell], data, column_alignments, opts)]
     rescue Prawn::Errors::CannotFit
-      build_split_tables(table, data, column_alignments)
+      build_split_tables(table, data, column_alignments, opts)
     end
 
     def merge_cell_data(cell_data)
@@ -130,12 +130,10 @@ module MarkdownToPDF
       end
     end
 
-    def build_pdf_table(table, cell_style, data, column_alignments)
+    def build_pdf_table(table, cell_style, data, column_alignments, opts)
       column_count = column_alignments.length
       column_widths = Array.new(column_count, @pdf.bounds.right / column_count)
-      # the default border width/color property overrides the already set cell border widths/colors
-      # so we remove it and set it manually for each cell on creation
-      default_cell_style = cell_style.except(:borders, :border_widths, :border_colors)
+      default_cell_style = opts[:is_html_table] ? cell_style.except(:borders, :border_widths, :border_colors) : cell_style
       @pdf.make_table(
         data,
         width: @pdf.bounds.right,
