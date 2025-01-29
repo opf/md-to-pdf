@@ -119,14 +119,21 @@ RSpec.shared_context 'with pdf' do
 
   def borders
     border_calls = []
+    stroke = []
     calls.each do |call|
-      border_calls.push(call.slice(1, 2)) if call[0] == :begin_new_subpath
-      # || call[0] == :set_color_for_stroking_and_special
-      # if call[0] == :set_line_width
-      #   border_calls.push(call[1])
-      # elsif call[0] == :set_color_for_stroking_and_special
-      #   border_calls.push(call.slice(1, 3))
-      # end
+      if call[0] == :set_line_width ||
+        call[0] == :set_color_for_stroking_and_special ||
+        call[0] == :begin_new_subpath ||
+        call[0] == :append_line ||
+        call[0] == :set_line_dash ||
+        call[0] == :set_line_width
+        stroke.push(call.slice(1))
+      elsif call[0] == :begin_text_object
+        stroke = []
+      elsif call[0] == :stroke_path
+        border_calls.push(stroke)
+        stroke = []
+      end
     end
     border_calls
   end
