@@ -363,7 +363,7 @@ module MarkdownToPDF
         end
       end
       {
-        cell_borders: cell_border_color || cell_border_width || cell_border_style ? [:left, :right, :top, :bottom] : [],
+        cell_borders: cell_border_color || cell_border_width || cell_border_style ? %i[left right top bottom] : [],
         cell_background_color: cell_background_color,
         cell_border_color: cell_border_color,
         cell_border_width: cell_border_width,

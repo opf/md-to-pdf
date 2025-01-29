@@ -180,7 +180,7 @@ module MarkdownToPDF
         border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
         border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
         border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
-        borders: additional_cell_settings[:cell_borders],
+        borders: additional_cell_settings[:cell_borders]
       }.compact
       @pdf.make_table(rows,
                       cell_style: subtable_cell_style,
