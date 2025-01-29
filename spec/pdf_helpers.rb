@@ -89,6 +89,10 @@ RSpec.shared_context 'with pdf' do
                            .gsub(':text=>', 'text:')})"
   end
 
+  def out_calls
+    puts calls.inspect
+  end
+
   def images
     all_calls = calls
     image_calls = calls.each_index.select { |i| all_calls[i][0] == :invoke_xobject } # .find_index { |call| call[0] == :invoke_xobject }
