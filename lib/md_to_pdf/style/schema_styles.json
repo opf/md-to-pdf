@@ -171,6 +171,9 @@
     "table": {
       "$ref": "#/$defs/table"
     },
+    "html_table": {
+      "$ref": "#/$defs/table"
+    },
     "headless_table": {
       "$ref": "#/$defs/headless_table"
     },

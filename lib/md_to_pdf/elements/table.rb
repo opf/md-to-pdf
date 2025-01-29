@@ -5,7 +5,7 @@ module MarkdownToPDF
     def draw_table(node, opts)
       table_font_opts = build_table_font_opts(opts)
       data_rows, header_row_count = build_data_rows(node, table_font_opts, opts)
-      table = build_table_settings(header_row_count, opts)
+      table = build_table_settings(header_row_count, false, opts)
       draw_table_data(table, data_rows, node.table_alignments, opts)
     end
 
@@ -31,6 +31,7 @@ module MarkdownToPDF
         border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
         border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
         border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
+        borders: additional_cell_settings[:cell_borders],
         inline_format: true
       }.compact
       Prawn::Table::Cell::Text.new(@pdf, [0, 0], cell_opts)
@@ -55,12 +56,16 @@ module MarkdownToPDF
       { cell: cell_opts, header: header_opts }
     end
 
-    def build_table_settings(header_row_count, opts)
+    def build_table_settings(header_row_count, is_html, opts)
       table_style = @styles.table
       cell_style = @styles.table_cell
       header_style = @styles.table_header
 
-      if header_row_count == 0
+      if is_html
+        table_style = @styles.html_table
+        cell_style = @styles.html_table_cell
+        header_style = @styles.html_table_header
+      elsif header_row_count == 0
         table_style = @styles.headless_table
         cell_style = @styles.headless_table_cell
         header_style = @styles.headless_table_header
@@ -130,7 +135,7 @@ module MarkdownToPDF
       column_widths = Array.new(column_count, @pdf.bounds.right / column_count)
       # the default border width/color property overrides the already set cell border widths/colors
       # so we remove it and set it manually for each cell on creation
-      default_cell_style = cell_style.except(:border_widths, :border_colors)
+      default_cell_style = cell_style.except(:borders, :border_widths, :border_colors)
       @pdf.make_table(
         data,
         width: @pdf.bounds.right,
@@ -172,7 +177,16 @@ module MarkdownToPDF
       rows.push([make_subtable_cell(row, opts)]) unless row.empty?
       return make_table_cell([{ text: '' }], opts) if rows.empty?
 
-      @pdf.make_table(rows, column_widths: [@pdf.bounds.width / column_count]) do
+      additional_cell_settings = cell_data[0] || {}
+      subtable_cell_style = {
+        border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
+        border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
+        border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
+        borders: additional_cell_settings[:cell_borders],
+      }.compact
+      @pdf.make_table(rows,
+                      cell_style: subtable_cell_style,
+                      column_widths: [@pdf.bounds.width / column_count]) do
         columns(0).align = alignment unless alignment == nil
       end
     end

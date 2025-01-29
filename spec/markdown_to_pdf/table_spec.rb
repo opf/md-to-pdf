@@ -79,7 +79,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with checkboxes' do
-    generator.parse_file('table/html.md')
+    generator.parse_file('table/html_checklist.html')
     expect_pdf([
                  { x: 113.14286, y: 744.756, text: "Header 1" },
                  { x: 190.28571, y: 744.756, text: "Header 2" },
@@ -124,17 +124,18 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with header column' do
-    generator.parse_file('table/html_figure.md')
+    generator.parse_file('table/html_figure.html',
+                         { table: { header: { styles: ['bold'] } } })
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Header 1" },
                  { x: 306.0, y: 744.756, text: "Text 1" },
-                 { x: 36.0, y: 730.884, text: "Header 2" },
-                 { x: 306.0, y: 730.884, text: "Text 2" },
-                 { x: 36.0, y: 717.012, text: "Header 3" },
-                 { x: 306.0, y: 717.012, text: "Text 3" }])
+                 { x: 36.0, y: 730.476, text: "Header 2" },
+                 { x: 306.0, y: 730.476, text: "Text 2" },
+                 { x: 36.0, y: 716.196, text: "Header 3" },
+                 { x: 306.0, y: 716.196, text: "Text 3" }])
   end
 
-  it 'creates a html table with linefeeds inside' do
+  it 'creates a table with html linefeed inside' do
     generator.parse_file('table/linefeed_in_cell.md')
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Description Column 1" },
@@ -175,7 +176,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with subtable in a header row' do
-    generator.parse_file('table/subtable_in_header_row.md')
+    generator.parse_file('table/subtable_in_header_row.html')
     expect_pdf([
                  { x: 221.0, y: 739.756, text: "Header 1" },
                  { x: 396.0, y: 744.756, text: "Header 2" },
@@ -231,6 +232,14 @@ describe MarkdownToPDF::Table do
                  { x: 441.0, y: 717.012, text: "Partial RGBA support" },
                  { x: 36.0, y: 689.268, text: "Color empty cells to the" },
                  { x: 36.0, y: 675.396, text: "right" }])
+  end
+
+  it 'creates a html table without cell borders' do
+    generator.parse_file('table/html_no_borders.html')
+    expect_pdf_border_rects([])
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "No" },
+                 { x: 306.0, y: 744.756, text: "Borders!" }])
   end
 
   it 'creates a html table with cell borders' do
@@ -311,34 +320,8 @@ describe MarkdownToPDF::Table do
         3.0, [0.0, 0.0, 0.0],
         3.0, [0.0, 0.0, 0.0],
         3.0, [0.0, 0.0, 0.0],
-        1, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        1, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        1, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        1, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        1, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
-        0.25, [0.0, 0.0, 0.0],
         1, [0.0, 0.0, 0.0]
-      ]
-    )
+      ])
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "dotted" },
                  { x: 144.0, y: 744.756, text: "column1" },

@@ -201,7 +201,7 @@ module MarkdownToPDF
       end
       column_alignments = Array.new(column_count, :left)
       header_row_count = count_html_header_rows(tag)
-      table = build_table_settings(header_row_count, current_opts)
+      table = build_table_settings(header_row_count, true, current_opts)
       current_opts[:opts_cell] = table[:opts_cell]
       draw_table_data(table, rows, column_alignments, current_opts)
     end
@@ -329,12 +329,15 @@ module MarkdownToPDF
 
     def collect_html_table_tag_cell(tag, opts)
       cell_data = data_inlinehtml_tag(tag, nil, opts)
-      if tag.key?('style')
-        style = tag.get_attribute('style') || ''
-        cell_styling = parse_css_stylings(style)
-        cell_data = [{}] if cell_data.empty?
-        cell_data[0] = cell_data[0].merge(cell_styling)
-      end
+      cell_styling =
+        if tag.key?('style')
+          style = tag.get_attribute('style') || ''
+          parse_css_stylings(style)
+        else
+          { cell_borders: [] }
+        end
+      cell_data = [{}] if cell_data.empty?
+      cell_data[0] = cell_data[0].merge(cell_styling)
       cell_data
     end
 
@@ -360,6 +363,7 @@ module MarkdownToPDF
         end
       end
       {
+        cell_borders: cell_border_color || cell_border_width || cell_border_style ? [:left, :right, :top, :bottom] : [],
         cell_background_color: cell_background_color,
         cell_border_color: cell_border_color,
         cell_border_width: cell_border_width,

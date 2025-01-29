@@ -74,8 +74,8 @@ describe MarkdownToPDF::Image do
     expect_pdf_images([{ x: 256.0, y: 676.925, width: 100.0, height: 79.075 }])
   end
 
-  it 'creates image in table' do
-    generator.parse_file('image/in_table.md', { headless_table: { auto_width: true } })
+  it 'creates image in a html table' do
+    generator.parse_file('image/in_table.html', { html_table: { auto_width: true } })
     expect_pdf([
                  { x: 41.0, y: 739.756, text: "Lorem ipsum dolor sit amet, consetetur" },
                  { x: 41.0, y: 725.884, text: "sadipscing elitr, sed diam nonumy eirmod tempor" },
@@ -129,7 +129,7 @@ describe MarkdownToPDF::Image do
   end
 
   it 'creates large image in table' do
-    generator.parse_file('image/large_in_table.md', { headless_table: { auto_width: true } })
+    generator.parse_file('image/large_in_table.html', { html_table: { auto_width: true } })
     expect_pdf([
                  { x: 36.0, y: 747.384, text: "With image style.width:" },
                  { x: 41.0, y: 725.884, text: "Lorem ipsum dolor sit amet, consetetur" },

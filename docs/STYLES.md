@@ -20,6 +20,7 @@
 | `blockquote` | **Blockquote**<br/>Styling to denote a paragraph as quote<br/>See [Blockquote](#blockquote) | object |
 | `link` | **Link**<br/>Styling a clickable link<br/>See [Link](#link) | object |
 | `table` | **Table**<br/>See [Table](#table) | object |
+| `html_table` | **Table**<br/>See [Table](#table) | object |
 | `headless_table` | **Headless table**<br/>Tables without or empty header rows can be styled differently.<br/>See [Headless table](#headless-table) | object |
 | `image` | **Image**<br/>Styling of images<br/>See [Image](#image) | object |
 | `image_classes` | **Image classes**<br/>Styling for images by class names<br/>See [Image classes](#image-classes) | object |
