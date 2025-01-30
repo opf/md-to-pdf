@@ -1,4 +1,10 @@
-## [Unreleased]
+# Release notes
+
+## [0.1.5] - 2024-01-30
+
+- feat: support for html tables cell borders styles
+- feat: support for html tables cell outer border (overwrites cell border)
+- feat: support for lists styles `decimal`, `lower-latin`, `lower-roman`, `upper-latin`, `upper-roman`
 
 ## [0.1.4] - 2024-01-07
 
