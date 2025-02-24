@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    md_to_pdf (0.1.5)
+    md_to_pdf (0.1.6)
       color_conversion (~> 0.1)
       front_matter_parser (~> 1.0)
       json-schema (~> 4.3)
