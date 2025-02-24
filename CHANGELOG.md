@@ -1,5 +1,9 @@
 # Release notes
 
+## [0.1.6] - 2024-02-24
+ 
+- fix: html table cell border/background yml styles were not applied
+
 ## [0.1.5] - 2024-01-30
 
 - feat: support for html tables cell borders styles
