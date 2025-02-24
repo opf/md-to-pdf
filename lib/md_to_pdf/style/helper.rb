@@ -32,18 +32,10 @@ module MarkdownToPDF
     end
 
     def opts_borders(style)
-      borders = []
-      no_borders = style[:no_border] == true
-      unless no_borders
-        borders.push(:left) unless style[:no_border_left]
-        borders.push(:right) unless style[:no_border_right]
-        borders.push(:top) unless style[:no_border_top]
-        borders.push(:bottom) unless style[:no_border_bottom]
-      end
       {
         border_colors: opts_borders_colors(style),
         border_widths: opts_borders_width(style),
-        borders: borders
+        borders: opts_borders_enabled(style)
       }
     end
 
@@ -55,6 +47,18 @@ module MarkdownToPDF
         opts_font(style, opts),
         opts_table_cell_padding(style)
       )
+    end
+
+    def opts_borders_enabled(style)
+      no_borders = style[:no_border] == true
+      borders = []
+      unless no_borders
+        borders.push(:left) unless style[:no_border_left]
+        borders.push(:right) unless style[:no_border_right]
+        borders.push(:top) unless style[:no_border_top]
+        borders.push(:bottom) unless style[:no_border_bottom]
+      end
+      borders
     end
 
     def opts_alert_table_cell(style, opts = {})
@@ -228,35 +232,33 @@ module MarkdownToPDF
       )
     end
 
-    private
-
-    def opts_borders_colors(style)
+    def opts_borders_colors(style, default_color: '000000')
       color = style[:border_color]
       [
-        style[:border_color_top] || color || '000000',
-        style[:border_color_right] || color || '000000',
-        style[:border_color_bottom] || color || '000000',
-        style[:border_color_left] || color || '000000'
+        style[:border_color_top] || color || default_color,
+        style[:border_color_right] || color || default_color,
+        style[:border_color_bottom] || color || default_color,
+        style[:border_color_left] || color || default_color
       ]
     end
 
-    def opts_table_cell_padding(style)
+    def opts_table_cell_padding(style, default_padding: 0)
       padding = parse_pt(style[:padding])
       {
-        padding_left: first_number(parse_pt(style[:padding_left]), padding, 0),
-        padding_right: first_number(parse_pt(style[:padding_right]), padding, 0),
-        padding_bottom: first_number(parse_pt(style[:padding_bottom]), padding, 0),
-        padding_top: first_number(parse_pt(style[:padding_top]), padding, 0)
+        padding_left: first_number(parse_pt(style[:padding_left]), padding, default_padding),
+        padding_right: first_number(parse_pt(style[:padding_right]), padding, default_padding),
+        padding_bottom: first_number(parse_pt(style[:padding_bottom]), padding, default_padding),
+        padding_top: first_number(parse_pt(style[:padding_top]), padding, default_padding)
       }
     end
 
-    def opts_borders_width(style)
+    def opts_borders_width(style, default_width: 0.25)
       border = parse_pt(style[:border_width])
       [
-        first_number(parse_pt(style[:border_width_top]), border, 0.25),
-        first_number(parse_pt(style[:border_width_right]), border, 0.25),
-        first_number(parse_pt(style[:border_width_bottom]), border, 0.25),
-        first_number(parse_pt(style[:border_width_left]), border, 0.25)
+        first_number(parse_pt(style[:border_width_top]), border, default_width),
+        first_number(parse_pt(style[:border_width_right]), border, default_width),
+        first_number(parse_pt(style[:border_width_bottom]), border, default_width),
+        first_number(parse_pt(style[:border_width_left]), border, default_width)
       ]
     end
   end

@@ -334,7 +334,13 @@ module MarkdownToPDF
         if tag.key?('style')
           parse_css_cell_stylings(tag.get_attribute('style') || '')
         else
-          { cell_borders: [] }
+          cell_style = tag.name == 'th' ? @styles.html_table_header : @styles.html_table_cell
+          {
+            cell_background_color: cell_style[:background_color],
+            cell_borders: opts_borders_enabled(cell_style),
+            cell_border_color: opts_borders_colors(cell_style, default_color: nil),
+            cell_border_width: opts_borders_width(cell_style, default_width: 0)
+          }.compact
         end
       cell_data = [{}] if cell_data.empty?
       cell_data[0] = cell_data[0].merge(cell_styling)
