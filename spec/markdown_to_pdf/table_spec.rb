@@ -245,18 +245,19 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with styled cell borders' do
     generator.parse_file(
       'table/html_style_borders.html', {
-      html_table: {
-        header: {
-          border_width: 0.25,
-          border_color: "000000",
-          background_color: "F0F0F0"
-        },
-        cell: {
-          border_width: 0.25,
-          border_color: "F000FF"
+        html_table: {
+          header: {
+            border_width: 0.25,
+            border_color: "000000",
+            background_color: "F0F0F0"
+          },
+          cell: {
+            border_width: 0.25,
+            border_color: "F000FF"
+          }
         }
       }
-    })
+    )
     expect_pdf_borders(
       [
         [0.25, 0.0, 36.0, 36.0],
@@ -275,7 +276,8 @@ describe MarkdownToPDF::Table do
         [[], 0.25, 0.94118, 576.0, 576.0],
         [[], 0.25, 0.94118, 306.0, 576.0],
         [[], 0.25, 0.94118, 306.0, 576.0]
-      ])
+      ]
+    )
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Header" },
                  { x: 306.0, y: 744.756, text: "Borders!" },
@@ -299,7 +301,8 @@ describe MarkdownToPDF::Table do
         [[], 1.5, 0.6, 306.0, 576.0],
         [[], 1.5, 0.6, 306.0, 576.0],
         [[], 1.5, 0.6, 576.0, 576.0]
-      ])
+      ]
+    )
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Outer" },
                  { x: 306.0, y: 744.756, text: "Borders!" }])
@@ -394,7 +397,8 @@ describe MarkdownToPDF::Table do
         [[], 1.5, 0.6, 468.0, 576.0],
         [[], 1.5, 0.6, 468.0, 576.0],
         [[], 1.5, 0.6, 576.0, 576.0]
-      ])
+      ]
+    )
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "dotted" },
                  { x: 144.0, y: 744.756, text: "column1" },
