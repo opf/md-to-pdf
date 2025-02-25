@@ -143,8 +143,7 @@ RSpec.shared_context 'with pdf' do
   end
 
   def out_borders
-    puts "expect_pdf_borders(\n[\n#{borders.map(&:to_json).join(",\n")}\n])"
-    # puts "expect_pdf_border_rects(\n[\n#{borders.map(&:to_json).join(",\n")}\n])".gsub(",\n[", ', [')
+    puts "expect_pdf_borders(\n[\n#{borders.map(&:to_json).join(",\n")}\n]\n)"
   end
 
   def out_rectangles
