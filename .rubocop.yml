@@ -10,7 +10,7 @@ inherit_mode:
     - Exclude
 
 AllCops:
-  TargetRubyVersion: 3.0.3
+  TargetRubyVersion: 3.4.0
   # Enable any new cops in new versions by default
   NewCops: enable
   Exclude:
