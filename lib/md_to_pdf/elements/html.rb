@@ -191,9 +191,43 @@ module MarkdownToPDF
       rows
     end
 
+    def html_table_default_styling(style)
+      border_colors = opts_borders_colors(style, default_color: nil)
+      cell_borders = []
+      cell_border_width = nil
+      if border_colors.include?(nil)
+        border_colors = nil
+      else
+        cell_borders = opts_borders_enabled(style)
+        cell_border_width = opts_borders_width(style, default_width: 0)
+      end
+      {
+        cell_background_color: style[:background_color],
+        cell_borders: cell_borders,
+        cell_border_color: border_colors,
+        cell_border_width: cell_border_width
+      }.compact
+    end
+
+    def html_table_default_cell_styling
+      html_table_default_styling(@styles.html_table_cell)
+    end
+
+    def html_table_default_header_styling
+      html_table_default_styling(@styles.html_table_header)
+    end
+
     def draw_html_table_tag(tag, opts)
       table_opts = tag.key?('style') ? parse_css_table_stylings(tag.get_attribute('style') || '') : nil
-      current_opts = opts.merge({ is_in_table: true, is_html_table: true, table_opts: table_opts }.compact)
+      current_opts = opts.merge(
+        {
+          is_in_table: true,
+          is_html_table: true,
+          table_cell_defaults: html_table_default_cell_styling,
+          table_header_defaults: html_table_default_header_styling,
+          table_opts: table_opts
+        }.compact
+      )
       table_font_opts = build_table_font_opts(current_opts)
       rows = collect_html_table_tag_rows(tag, table_font_opts, current_opts)
       column_count = 0
@@ -334,13 +368,7 @@ module MarkdownToPDF
         if tag.key?('style')
           parse_css_cell_stylings(tag.get_attribute('style') || '')
         else
-          cell_style = tag.name == 'th' ? @styles.html_table_header : @styles.html_table_cell
-          {
-            cell_background_color: cell_style[:background_color],
-            cell_borders: opts_borders_enabled(cell_style),
-            cell_border_color: opts_borders_colors(cell_style, default_color: nil),
-            cell_border_width: opts_borders_width(cell_style, default_width: 0)
-          }.compact
+          tag.name == 'th' ? opts[:table_header_defaults] : opts[:table_cell_defaults]
         end
       cell_data = [{}] if cell_data.empty?
       cell_data[0] = cell_data[0].merge(cell_styling)
