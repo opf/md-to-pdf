@@ -135,10 +135,7 @@ RSpec.shared_context 'with pdf' do
   end
 
   def out_calls
-    printed_calls = []
-    calls.each do |call|
-      printed_calls.push(call.inspect)
-    end
+    printed_calls = calls.map(&:inspect)
     puts printed_calls.join("\n")
   end
 

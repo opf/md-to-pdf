@@ -17,17 +17,17 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.required_ruby_version = '>= 3.0.3'
 
-  s.add_runtime_dependency "base64", ["~> 0.2"]
-  s.add_runtime_dependency "bigdecimal", ["~> 3.1"]
-  s.add_runtime_dependency "color_conversion", ["~> 0.1"]
-  s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
-  s.add_runtime_dependency "json-schema", ["~> 4.3"]
-  s.add_runtime_dependency "markly", ["~> 0.10"]
-  s.add_runtime_dependency "matrix", ["~> 0.4"]
-  s.add_runtime_dependency "nokogiri", ["~> 1.18"]
-  s.add_runtime_dependency "prawn", ["~> 2.4"]
-  s.add_runtime_dependency "prawn-table", ["~> 0.2"]
-  s.add_runtime_dependency "text-hyphen", ["~> 1.5"]
+  s.add_dependency "base64", ["~> 0.2"]
+  s.add_dependency "bigdecimal", ["~> 3.1"]
+  s.add_dependency "color_conversion", ["~> 0.1"]
+  s.add_dependency "front_matter_parser", ["~> 1.0"]
+  s.add_dependency "json-schema", ["~> 4.3"]
+  s.add_dependency "markly", ["~> 0.10"]
+  s.add_dependency "matrix", ["~> 0.4"]
+  s.add_dependency "nokogiri", ["~> 1.18"]
+  s.add_dependency "prawn", ["~> 2.4"]
+  s.add_dependency "prawn-table", ["~> 0.2"]
+  s.add_dependency "text-hyphen", ["~> 1.5"]
 
   s.metadata['rubygems_mfa_required'] = 'true'
   s.metadata["homepage_uri"] = s.homepage

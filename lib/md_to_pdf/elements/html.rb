@@ -60,7 +60,7 @@ module MarkdownToPDF
 
     def data_inlinehtml(node, opts)
       html = node.string_content
-      return [] if html.downcase == '</a>' || html.downcase == '</font>'
+      return [] if ['</a>', '</font>'].include?(html.downcase)
 
       parsed_data = Nokogiri::HTML.fragment(html)
       data_inlinehtml_tag(parsed_data, node, opts)
