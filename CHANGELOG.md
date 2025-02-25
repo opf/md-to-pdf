@@ -1,5 +1,13 @@
 # Release notes
 
+## [0.2.0] - 2024-02-25
+ 
+- fix html-table: do not include zero width borders
+
+BREAKING:
+
+- drop ruby < 3.4
+
 ## [0.1.6] - 2024-02-24
  
 - fix: html table cell border/background yml styles were not applied
