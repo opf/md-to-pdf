@@ -12,7 +12,7 @@ bundle add md_to_pdf --github opf/md-to-pdf
 
 Requirements
 
-* Ruby 3.0.3 or newer
+* Ruby 3.4.0 or newer
 
 ## Usage
 

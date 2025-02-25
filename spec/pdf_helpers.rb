@@ -135,11 +135,7 @@ RSpec.shared_context 'with pdf' do
   end
 
   def out_calls
-    printed_calls = []
-    calls.each do |call|
-      printed_calls.push(call.inspect)
-    end
-    puts printed_calls.join("\n")
+    puts calls.map(&:inspect).join("\n")
   end
 
   def out_borders

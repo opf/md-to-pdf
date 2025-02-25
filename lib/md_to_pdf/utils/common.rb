@@ -16,15 +16,15 @@ module MarkdownToPDF
       @pdf.move_down(opts[:bottom_margin]) if opts.key?(:bottom_margin)
     end
 
-    def with_block_padding_all(opts, &block)
+    def with_block_padding_all(opts, &)
       with_block_padding(opts) do
-        @pdf.indent(opts[:left_padding] || 0, opts[:right_padding] || 0, &block)
+        @pdf.indent(opts[:left_padding] || 0, opts[:right_padding] || 0, &)
       end
     end
 
-    def with_block_margin_all(opts, &block)
+    def with_block_margin_all(opts, &)
       with_block_margin(opts) do
-        @pdf.indent(opts[:left_margin] || 0, opts[:right_margin] || 0, &block)
+        @pdf.indent(opts[:left_margin] || 0, opts[:right_margin] || 0, &)
       end
     end
 
