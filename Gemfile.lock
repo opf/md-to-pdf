@@ -3,6 +3,7 @@ PATH
   specs:
     md_to_pdf (0.1.6)
       base64 (~> 0.2)
+      bigdecimal (~> 3.1)
       color_conversion (~> 0.1)
       front_matter_parser (~> 1.0)
       json-schema (~> 4.3)
@@ -22,6 +23,7 @@ GEM
     afm (0.2.2)
     ast (2.4.2)
     base64 (0.2.0)
+    bigdecimal (3.1.9)
     color_conversion (0.1.2)
     diff-lcs (1.5.1)
     front_matter_parser (1.0.1)

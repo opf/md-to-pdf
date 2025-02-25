@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 3.0.3'
 
   s.add_runtime_dependency "base64", ["~> 0.2"]
+  s.add_runtime_dependency "bigdecimal", ["~> 3.1"]
   s.add_runtime_dependency "color_conversion", ["~> 0.1"]
   s.add_runtime_dependency "front_matter_parser", ["~> 1.0"]
   s.add_runtime_dependency "json-schema", ["~> 4.3"]
