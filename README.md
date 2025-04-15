@@ -48,15 +48,18 @@ MarkdownToPDF.generate_markdown_string_pdf(markdown_string, styling_filename, im
 
 * Table cells that exceed the height of a single page are truncated (see [prawn-table#41](https://github.com/prawnpdf/prawn-table/issues/41)).   
 
-## Markdown
-
-Please have a look at [demo.md](./demo/demo.md) for an overview and examples of all supported markdown syntax
-
 **Currently not supported:**
 
+* Tables in tables
 * Images inline in text in tables (images will be placed in own line)
 * Images inline in text (images will be placed in own line)
 * Remote images e.g. via http (images will be skipped)
+* Outer table borders at the same time as cell borders of outer cells
+  
+
+## Markdown
+
+Please have a look at [demo.md](./demo/demo.md) for an overview and examples of all supported markdown syntax
 
 ## Styling
 
