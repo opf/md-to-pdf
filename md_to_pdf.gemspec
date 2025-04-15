@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "color_conversion", ["~> 0.1"]
   s.add_dependency "front_matter_parser", ["~> 1.0"]
   s.add_dependency "json-schema", ["~> 4.3"]
-  s.add_dependency "markly", ["~> 0.10"]
+  s.add_dependency "markly", ["~> 0.13"]
   s.add_dependency "matrix", ["~> 0.4"]
   s.add_dependency "nokogiri", ["~> 1.18"]
   s.add_dependency "prawn", ["~> 2.4"]
