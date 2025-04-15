@@ -18,8 +18,8 @@ class ColumnSplitWidthCalculator < Prawn::Table::ColumnWidthCalculator
     @cells.each do |cell|
       next unless has_a_span_dummy?(cell.row)
 
-      # the width of a SpanDummy cell will be calculated by the "mother" cell
-      next if cell.is_a?(Cell::SpanDummy)
+      # the "mother" cell will calculate the width of a SpanDummy cell
+      next if cell.is_a?(::Prawn::Table::Cell::SpanDummy)
 
       if cell.colspan == 1
         @widths_by_column[cell.column] =
