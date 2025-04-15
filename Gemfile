@@ -9,7 +9,7 @@ group :development, :test do
   gem 'pdf-inspector', '~> 1.3'
   gem 'rake', '~> 13.2'
   gem 'rspec', '~> 3.1'
-  gem 'rubocop', '~> 1.6'
-  gem 'rubocop-rake', '~> 0.6'
-  gem 'rubocop-rspec', '~> 2.3'
+  gem 'rubocop', '~> 1.7'
+  gem 'rubocop-rake', '~> 0.7'
+  gem 'rubocop-rspec', '~> 3.5'
 end

@@ -1,8 +1,6 @@
-require:
-  - rubocop-rspec
-
 plugins:
   - rubocop-rake
+  - rubocop-rspec
 
 inherit_mode:
   merge:
@@ -305,9 +303,6 @@ Style/HashTransformValues:
   Enabled: true
 
 RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/FilePath:
   Enabled: false
 
 RSpec/SpecFilePathFormat:
