@@ -120,6 +120,8 @@ module MarkdownToPDF
             process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
             draw_html_tag(sub, node, opts) if process_children
           end
+        when 's'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:strikethrough] })))
         else
           data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
           result.concat(data_array)
