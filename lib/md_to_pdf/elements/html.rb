@@ -120,8 +120,18 @@ module MarkdownToPDF
             process_children, current_opts = handle_unknown_html_tag(sub, node, current_opts)
             draw_html_tag(sub, node, opts) if process_children
           end
-        when 's'
+        when 'b', 'strong', 'bold'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:bold] })))
+        when 'i', 'em', 'italic'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:italic] })))
+        when 's', 'strikethrough', 'del'
           result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:strikethrough] })))
+        when 'sup'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:sup] })))
+        when 'sub'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:sub] })))
+        when 'u'
+          result.concat(data_inlinehtml_tag(sub, node, opts.merge({ styles: [:underline] })))
         else
           data_array, current_opts = handle_unknown_inline_html_tag(sub, node, current_opts)
           result.concat(data_array)
