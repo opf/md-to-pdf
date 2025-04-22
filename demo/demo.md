@@ -292,7 +292,11 @@ var foo = function (bar) {
 
 ## HTML Table
 
-<table style="border:2px solid hsl(90, 75%, 60%);"><thead><tr><th>Header</th><th></th></tr></thead><tbody><tr><td style="background-color: #0fffff;">Cell Background Color</td><td style="border:4px solid hsl(0, 0%, 0%);">Cell border</td></tr></tbody></table>
+<table style="border:2px solid hsl(90, 75%, 60%);"><thead><tr><th>Header</th><th></th></tr></thead><tbody>
+<tr><td style="background-color: #0fffff;">Cell Background Color</td><td style="border:4px solid hsl(0, 0%, 0%);">Cell border</td></tr>
+<tr><td><s>Strikeout</s> <strikethrough>Strikethough</strikethrough></td><td><b>Bold</b> <strong>Strong</strong></td></tr>
+<tr><td><i>Italic</i> <em>Emphasis</em></td><td><u>Underline</u> <sup>sup</sup> <sub>sub</sub></td></tr>
+</tbody></table>
 
 <br-page/>
 

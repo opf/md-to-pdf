@@ -34,6 +34,25 @@ describe MarkdownToPDF::Table do
                  { x: 337.344, y: 703.14, text: "ipsum" }])
   end
 
+  it 'creates formatting in a html table' do
+    generator.parse_file('table/html_formatting.html')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "Strikeout" },
+                 { x: 83.292, y: 744.756, text: " " },
+                 { x: 86.628, y: 744.756, text: "Strikethough" },
+                 { x: 306.0, y: 744.756, text: "Bold" },
+                 { x: 332.664, y: 744.756, text: " " },
+                 { x: 336.0, y: 744.756, text: "Strong" },
+                 { x: 36.0, y: 730.476, text: "Italic" },
+                 { x: 60.672, y: 730.476, text: " " },
+                 { x: 64.008, y: 730.476, text: "Emphasis" },
+                 { x: 306.0, y: 730.476, text: "Underline" },
+                 { x: 357.528, y: 730.476, text: " " },
+                 { x: 360.864, y: 734.74566, text: "sup" },
+                 { x: 372.14155, y: 730.476, text: " " },
+                 { x: 375.47755, y: 729.02783, text: "sub" }])
+  end
+
   it 'creates a headerless table' do
     generator.parse_file('table/headerless.md')
     expect_pdf([
