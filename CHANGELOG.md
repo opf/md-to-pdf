@@ -1,8 +1,13 @@
 # Release notes
 
+## [0.2.1] - 2024-02-25
+ 
+- fix: html-table; include all supported html text formatting
+- fix: html-table; include strikethrough formatting by [@prathamesh-vic](https://github.com/opf/md-to-pdf/pull/27)
+
 ## [0.2.0] - 2024-02-25
  
-- fix html-table: do not include zero width borders
+- fix: html-table; do not include zero width borders
 
 BREAKING:
 
