@@ -146,11 +146,11 @@ module MarkdownToPDF
       style[:alphabetical] == true
     end
 
-    def opt_table_header_no_repeating(style)
+    def opt_table_header_no_repeating?(style)
       style[:no_repeating] == true
     end
 
-    def opt_table_auto_column_width(style)
+    def opt_table_auto_column_width?(style)
       style[:auto_width] == true
     end
 
