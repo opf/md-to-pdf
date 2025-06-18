@@ -1,7 +1,7 @@
 module MarkdownToPDF
   module Paragraph
     def draw_paragraph(node, opts)
-      return if handle_first_child_image(node, opts)
+      return if handle_first_child_image?(node, opts)
 
       p_opts = build_paragraph_opts(opts)
       p_padding_opts = build_paragraph_padding_opts(opts)
@@ -21,7 +21,7 @@ module MarkdownToPDF
       opts[:force_paragraph] || opts_padding(@styles.paragraph)
     end
 
-    def handle_first_child_image(node, opts)
+    def handle_first_child_image?(node, opts)
       n = node.first_child
       return false unless n && n.type == :image
 
