@@ -53,7 +53,6 @@ describe MarkdownToPDF::Image do
                         { x: 159.768, y: 518.775, width: 300.0, height: 237.225 },
                         { x: 41.0, y: 296.251, width: 527.35378, height: 417.005 }
                       ])
-
   end
 
   it 'creates image by footnote' do
@@ -127,7 +126,6 @@ describe MarkdownToPDF::Image do
                         { x: 401.0, y: 599.38896, width: 146.97674, height: 44.50704 },
                         { x: 41.0, y: 410.15696, width: 250.97674, height: 76.0 }
                       ])
-
   end
 
   it 'creates image with large width in table' do

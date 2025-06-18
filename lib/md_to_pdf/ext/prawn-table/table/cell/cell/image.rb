@@ -30,6 +30,6 @@ Prawn::Table::Cell::Image.prepend(Module.new do
     fit_width = [@width, @natural_width].min - padding_left - padding_right
     space_from_bottom = @pdf.y - @pdf.bounds.bottom
     fit_height = [@height, @natural_height, space_from_bottom].min - padding_top - padding_bottom
-    @pdf.embed_image(@pdf_object, @image_info, @image_options.merge({fit: [fit_width, fit_height], vposition: :top}))
+    @pdf.embed_image(@pdf_object, @image_info, @image_options.merge({ fit: [fit_width, fit_height], vposition: :top }))
   end
 end)
