@@ -478,7 +478,7 @@ module MarkdownToPDF
         prev = index > 0 ? cell_data[index - 1] : nil
         if item[:text] != "\n" && !prev.nil? && prev[:list_entry_type] != :bullet
           current_stuffing = ''
-          (1..item[:list_level] - 1).each do |i|
+          (1..(item[:list_level] - 1)).each do |i|
             current_stuffing += level_stack[i] || ''
           end
           if item[:list_entry_type] == :bullet

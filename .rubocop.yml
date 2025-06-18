@@ -113,9 +113,6 @@ Naming/ClassAndModuleCamelCase:
 Naming/FileName:
   Enabled: false
 
-Naming/PredicateName:
-  Enabled: false
-
 Style/Alias:
   Enabled: false
 
@@ -331,3 +328,6 @@ Metrics/PerceivedComplexity:
   Enabled: false # temp disable
   Exclude:
     - 'spec/**/*.rb'
+
+Naming/PredicatePrefix:
+  Enabled: false

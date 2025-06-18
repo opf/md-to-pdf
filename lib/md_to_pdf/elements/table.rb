@@ -72,8 +72,8 @@ module MarkdownToPDF
       end
 
       table_cell_style_opts = opts_table_cell(cell_style, opts)
-      no_repeating_header = opt_table_header_no_repeating(header_style)
-      auto_column_width = opt_table_auto_column_width(table_style)
+      no_repeating_header = opt_table_header_no_repeating?(header_style)
+      auto_column_width = opt_table_auto_column_width?(table_style)
 
       {
         opts_cell: table_cell_style_opts,
