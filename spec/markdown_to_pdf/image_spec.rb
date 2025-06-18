@@ -1,7 +1,5 @@
 require 'pdf_helpers'
 
-# TODO: test image objects in pdf
-
 describe MarkdownToPDF::Image do
   include_context 'with pdf'
 
@@ -53,7 +51,9 @@ describe MarkdownToPDF::Image do
                         { x: 156.0, y: 459.46875, width: 300.0, height: 237.225 },
                         { x: 156.0, y: 208.37175, width: 300.0, height: 237.225 },
                         { x: 159.768, y: 518.775, width: 300.0, height: 237.225 },
-                        { x: 41.0, y: 295.751, width: 527.35378, height: 417.005 }])
+                        { x: 41.0, y: 296.251, width: 527.35378, height: 417.005 }
+                      ])
+
   end
 
   it 'creates image by footnote' do
@@ -121,15 +121,17 @@ describe MarkdownToPDF::Image do
                  { x: 41.0, y: 498.78496, text: "" },
                  { x: 41.0, y: 375.04096, text: "" }])
     expect_pdf_images([
-                        { x: 41.0, y: 613.25144, width: 236.97674, height: 71.76056 },
-                        { x: 311.0, y: 386.64287, width: 236.97674, height: 71.76056 },
-                        { x: 311.0, y: 225.52231, width: 236.97674, height: 71.76056 },
-                        { x: 401.0, y: 598.88896, width: 146.97674, height: 44.50704 },
-                        { x: 41.0, y: 409.65696, width: 250.97674, height: 76.0 }])
+                        { x: 41.0, y: 613.75144, width: 236.97674, height: 71.76056 },
+                        { x: 311.0, y: 387.14287, width: 236.97674, height: 71.76056 },
+                        { x: 311.0, y: 226.02231, width: 236.97674, height: 71.76056 },
+                        { x: 401.0, y: 599.38896, width: 146.97674, height: 44.50704 },
+                        { x: 41.0, y: 410.15696, width: 250.97674, height: 76.0 }
+                      ])
+
   end
 
-  it 'creates large image in table' do
-    generator.parse_file('image/large_in_table.html', { html_table: { auto_width: true } })
+  it 'creates image with large width in table' do
+    generator.parse_file('image/width_in_table.html', { html_table: { auto_width: true } })
     expect_pdf([
                  { x: 36.0, y: 747.384, text: "With image style.width:" },
                  { x: 41.0, y: 725.884, text: "Lorem ipsum dolor sit amet, consetetur" },
@@ -260,7 +262,84 @@ describe MarkdownToPDF::Image do
                  { x: 437.324, y: 267.37109, text: "gubergren, no sea" },
                  { x: 437.324, y: 253.49909, text: "takimata sanctus est L" }])
     expect_pdf_images([
-                        { x: 41.0, y: 511.88562, width: 183.85378, height: 145.38238 },
-                        { x: 41.0, y: 473.45109, width: 250.00178, height: 197.68891 }])
+                        { x: 41.0, y: 512.38562, width: 183.85378, height: 145.38238 },
+                        { x: 41.0, y: 473.95109, width: 250.00178, height: 197.68891 }
+                      ])
+  end
+
+  it 'creates image with large height in table' do
+    generator.parse_file('image/height_in_table.html', { html_table: { auto_width: true } })
+    expect_pdf([
+                 { x: 36.0, y: 747.384, text: "With image larger than a page:" },
+                 { x: 41.0, y: 739.756, text: "Lorem ipsum dolor sit amet, consetetur" },
+                 { x: 41.0, y: 725.884, text: "sadipscing elitr, sed diam nonumy eirmod" },
+                 { x: 41.0, y: 712.012, text: "tempor invidunt ut labore et dolore magna" },
+                 { x: 41.0, y: 698.14, text: "aliquyam erat, " },
+                 { x: 41.0, y: -1318.476, text: "sed diam voluptua. At vero eos et accusam et" },
+                 { x: 41.0, y: -1332.348, text: "justo duo dolores et ea rebum. " },
+                 { x: 298.648, y: 744.756, text: "Lorem ipsum dolor sit" },
+                 { x: 298.648, y: 730.884, text: "amet, consetetur" },
+                 { x: 298.648, y: 717.012, text: "sadipscing elitr, sed diam" },
+                 { x: 298.648, y: 703.14, text: "nonumy eirmod tempor" },
+                 { x: 298.648, y: 689.268, text: "invidunt ut labore et" },
+                 { x: 298.648, y: 675.396, text: "dolore magna aliquyam" },
+                 { x: 298.648, y: 661.524, text: "erat, sed diam voluptua." },
+                 { x: 298.648, y: 647.652, text: "At vero eos et accusam et" },
+                 { x: 298.648, y: 633.78, text: "justo duo dolores et ea" },
+                 { x: 298.648, y: 619.908, text: "rebum. Stet clita kasd" },
+                 { x: 298.648, y: 606.036, text: "gubergren, no sea" },
+                 { x: 298.648, y: 592.164, text: "takimata sanctus est L" },
+                 { x: 437.324, y: 744.756, text: "Lorem ipsum dolor sit" },
+                 { x: 437.324, y: 730.884, text: "amet, consetetur" },
+                 { x: 437.324, y: 717.012, text: "sadipscing elitr, sed diam" },
+                 { x: 437.324, y: 703.14, text: "nonumy eirmod tempor" },
+                 { x: 437.324, y: 689.268, text: "invidunt ut labore et" },
+                 { x: 437.324, y: 675.396, text: "dolore magna aliquyam" },
+                 { x: 437.324, y: 661.524, text: "erat, sed diam voluptua." },
+                 { x: 437.324, y: 647.652, text: "At vero eos et accusam et" },
+                 { x: 437.324, y: 633.78, text: "justo duo dolores et ea" },
+                 { x: 437.324, y: 619.908, text: "rebum. Stet clita kasd" },
+                 { x: 437.324, y: 606.036, text: "gubergren, no sea" },
+                 { x: 437.324, y: 592.164, text: "takimata sanctus est L" },
+                 { x: 36.0, y: 744.756, text: "Stet clita kasd gubergren, no sea takimata" },
+                 { x: 36.0, y: 730.884, text: "sanctus est Lorem ipsum dolor sit amet. Lorem" },
+                 { x: 36.0, y: 717.012, text: "ipsum dolor sit amet, consetetur sadipscing elitr," },
+                 { x: 36.0, y: 703.14, text: "sed diam nonumy eirmod tempor invidunt ut" },
+                 { x: 36.0, y: 689.268, text: "labore et dolore magna aliquyam erat, sed diam" },
+                 { x: 36.0, y: 675.396, text: "voluptua. At vero eos et accusam et justo duo" },
+                 { x: 36.0, y: 661.524, text: "dolores et ea rebum. Stet clita kasd gubergren," },
+                 { x: 36.0, y: 647.652, text: "no sea takimata sanctus est Lorem ipsum dolor" },
+                 { x: 36.0, y: 633.78, text: "sit amet." },
+                 { x: 298.648, y: 744.756, text: "Lorem ipsum dolor sit" },
+                 { x: 298.648, y: 730.884, text: "amet, consetetur" },
+                 { x: 298.648, y: 717.012, text: "sadipscing elitr, sed diam" },
+                 { x: 298.648, y: 703.14, text: "nonumy eirmod tempor" },
+                 { x: 298.648, y: 689.268, text: "invidunt ut labore et" },
+                 { x: 298.648, y: 675.396, text: "dolore magna aliquyam" },
+                 { x: 298.648, y: 661.524, text: "erat, sed diam voluptua." },
+                 { x: 298.648, y: 647.652, text: "At vero eos et accusam et" },
+                 { x: 298.648, y: 633.78, text: "justo duo dolores et ea" },
+                 { x: 298.648, y: 619.908, text: "rebum. Stet clita kasd" },
+                 { x: 298.648, y: 606.036, text: "gubergren, no sea" },
+                 { x: 298.648, y: 592.164, text: "takimata sanctus est L" },
+                 { x: 437.324, y: 744.756, text: "Lorem ipsum dolor sit" },
+                 { x: 437.324, y: 730.884, text: "amet, consetetur" },
+                 { x: 437.324, y: 717.012, text: "sadipscing elitr, sed diam" },
+                 { x: 437.324, y: 703.14, text: "nonumy eirmod tempor" },
+                 { x: 437.324, y: 689.268, text: "invidunt ut labore et" },
+                 { x: 437.324, y: 675.396, text: "dolore magna aliquyam" },
+                 { x: 437.324, y: 661.524, text: "erat, sed diam voluptua." },
+                 { x: 437.324, y: 647.652, text: "At vero eos et accusam et" },
+                 { x: 437.324, y: 633.78, text: "justo duo dolores et ea" },
+                 { x: 437.324, y: 619.908, text: "rebum. Stet clita kasd" },
+                 { x: 437.324, y: 606.036, text: "gubergren, no sea" },
+                 { x: 437.324, y: 592.164, text: "takimata sanctus est L" }
+               ])
+    expect_pdf_images([{ x: 41.0, y: 10.0, width: 66.164, height: 661.64 }])
+  end
+
+  it 'creates image mot larger than a page' do
+    generator.parse_file('image/height.md')
+    expect_pdf_images([{ x: 270.0, y: 36.0, width: 72.0, height: 720.0 }])
   end
 end

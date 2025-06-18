@@ -220,8 +220,7 @@ module MarkdownToPDF
     end
 
     def image_in_table_column(image_file, alignment)
-      { image: image_file,
-        position: alignment, vposition: :center }
+      { image: image_file, position: alignment }
     end
 
     def build_table_data(data_rows, column_alignments, opts)
