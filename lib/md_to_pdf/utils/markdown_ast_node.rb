@@ -142,6 +142,8 @@ module MarkdownToPDF
     end
 
     def estimate_height_by_type(node, opts)
+      return 50 if node.type == :list
+
       height = 0
       with_shadow_pdf do
         shadow_pdf.start_new_page

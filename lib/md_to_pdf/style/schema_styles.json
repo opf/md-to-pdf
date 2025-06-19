@@ -1214,6 +1214,12 @@
       "allOf": [
         {
           "$ref": "#/$defs/font"
+        },
+        {
+          "$ref": "#/$defs/padding"
+        },
+        {
+          "$ref": "#/$defs/border"
         }
       ]
     },
