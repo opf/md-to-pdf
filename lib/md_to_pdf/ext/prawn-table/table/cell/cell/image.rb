@@ -23,14 +23,13 @@ Prawn::Table::Cell::Image.prepend(Module.new do
   end
 
   def natural_content_height
-    @height || @natural_height
+    [@height || @natural_height, @pdf.bounds.height].min
   end
 
   def draw_content
     fit_width = [@width, @natural_width].min - padding_left - padding_right
-    fit_height = [@height, @natural_height].min - padding_top - padding_bottom
-    @pdf.embed_image(@pdf_object, @image_info,
-                     @image_options
-                       .merge(fit: [fit_width, fit_height]))
+    space_from_bottom = @pdf.y - @pdf.bounds.bottom
+    fit_height = [@height, @natural_height, space_from_bottom].min - padding_top - padding_bottom
+    @pdf.embed_image(@pdf_object, @image_info, @image_options.merge({ fit: [fit_width, fit_height], vposition: :top }))
   end
 end)
