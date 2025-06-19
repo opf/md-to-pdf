@@ -1,11 +1,18 @@
 # Release notes
 
-## [0.2.1] - 2024-02-25
+## [0.2.2] - 2025-06-19
+
+- fix: for smart-header don't measure lists with all child nodes
+- fix: html-table, always use yml styles as default, so e.g. borders have to be turned off explicitly if not wanted
+- feat: html-table, implement css text-align/vertical-align for cells
+- fix: limit images height to the page height
+
+## [0.2.1] - 2025-04-22
  
 - fix: html-table; include all supported html text formatting
 - fix: html-table; include strikethrough formatting by [@prathamesh-vic](https://github.com/opf/md-to-pdf/pull/27)
 
-## [0.2.0] - 2024-02-25
+## [0.2.0] - 2025-02-25
  
 - fix: html-table; do not include zero width borders
 
@@ -13,22 +20,22 @@ BREAKING:
 
 - drop ruby < 3.4
 
-## [0.1.6] - 2024-02-24
+## [0.1.6] - 2025-02-24
  
 - fix: html table cell border/background yml styles were not applied
 
-## [0.1.5] - 2024-01-30
+## [0.1.5] - 2025-01-30
 
 - feat: support for html tables cell borders styles
 - feat: support for html tables cell outer border (overwrites cell border)
 - feat: support for lists styles `decimal`, `lower-latin`, `lower-roman`, `upper-latin`, `upper-roman`
 
-## [0.1.4] - 2024-01-07
+## [0.1.4] - 2025-01-07
 
 - fix: smart header feature to avoid dangling header rows on page breaks with height measurements
 - fix: avoid split of alert box first line on page breaks
 
-## [0.1.3] - 2024-01-07
+## [0.1.3] - 2025-01-07
 
 - feat: parse and use more html table cell css
 
