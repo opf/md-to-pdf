@@ -28,6 +28,8 @@ module MarkdownToPDF
         size: opts[:size],
         padding: opts[:cell_padding] || additional_cell_settings[:cell_padding],
         background_color: additional_cell_settings[:cell_background_color],
+        align: additional_cell_settings[:cell_align],
+        valign: additional_cell_settings[:cell_valign],
         border_colors: additional_cell_settings[:cell_border_color] || opts.dig(:opts_cell, :border_colors),
         border_widths: additional_cell_settings[:cell_border_width] || opts.dig(:opts_cell, :border_widths),
         border_line: additional_cell_settings[:cell_border_style] ? [additional_cell_settings[:cell_border_style]] * 4 : opts.dig(:opts_cell, :border_line),
@@ -143,8 +145,10 @@ module MarkdownToPDF
         cell_style: default_cell_style,
         column_widths: table[:auto_column_width] ? [] : column_widths
       ) do |prawn_table|
-        column_alignments.each_with_index do |alignment, index|
-          prawn_table.columns(index).align = alignment unless alignment == nil
+        unless opts[:is_html_table]
+          column_alignments.each_with_index do |alignment, index|
+            prawn_table.columns(index).align = alignment unless alignment == nil
+          end
         end
         if table[:header_row_count] > 0
           opts_header = table[:opts_header]

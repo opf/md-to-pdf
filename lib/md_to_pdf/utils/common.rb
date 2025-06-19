@@ -38,6 +38,26 @@ module MarkdownToPDF
       args.find { |value| !value.nil? }
     end
 
+    H_ALIGNS = {
+      left: :left,
+      center: :center,
+      right: :right
+    }.freeze
+
+    def parse_halign(something)
+      H_ALIGNS[something.to_s.strip.to_sym]
+    end
+
+    V_ALIGNS = {
+      top: :top,
+      center: :center,
+      bottom: :bottom
+    }.freeze
+
+    def parse_valign(something)
+      V_ALIGNS[something.to_s.strip.to_sym]
+    end
+
     def parse_pt(something)
       return nil if something.nil?
 
