@@ -79,6 +79,41 @@ describe MarkdownToPDF::Table do
                  { x: 564.328, y: 703.14, text: "3c" }])
   end
 
+  it 'creates a html table with cell align' do
+    generator.parse_file('table/alignment.html',
+                         {
+                           html_table: {
+                             cell: {
+                               border_width: 0.25,
+                               border_color: "000000"
+                             }
+                           }
+                         })
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "Left" },
+                 { x: 288.494, y: 730.884, text: "Center" },
+                 { x: 548.992, y: 717.012, text: "Right" }
+               ])
+
+  end
+
+  it 'creates a html table with vertical cell align' do
+    generator.parse_file('table/valignment.html',
+                         {
+                           html_table: {
+                             cell: {
+                               border_width: 0.25,
+                               border_color: "000000"
+                             }
+                           }
+                         })
+    expect_pdf([
+                 { x: 306.0, y: 744.756, text: "Top" },
+                 { x: 306.0, y: 633.78, text: "Center" },
+                 { x: 306.0, y: 421.928, text: "Bottom" }
+               ])
+  end
+
   it 'creates a table with images' do
     generator.parse_file('table/images.md')
     expect_pdf([
@@ -254,7 +289,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table without cell borders' do
-    generator.parse_file('table/html_no_borders.html')
+    generator.parse_file('table/html_no_borders.html', { html_table: { cell: { no_border: true } } })
     expect_pdf_borders([])
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "No" },
@@ -264,18 +299,18 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with styled cell borders' do
     generator.parse_file(
       'table/html_style_borders.html', {
-        html_table: {
-          header: {
-            border_width: 0.25,
-            border_color: "000000",
-            background_color: "F0F0F0"
-          },
-          cell: {
-            border_width: 0.25,
-            border_color: "F000FF"
-          }
+      html_table: {
+        header: {
+          border_width: 0.25,
+          border_color: "000000",
+          background_color: "F0F0F0"
+        },
+        cell: {
+          border_width: 0.25,
+          border_color: "F000FF"
         }
       }
+    }
     )
     expect_pdf_borders(
       [
@@ -305,7 +340,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with outer table borders' do
-    generator.parse_file('table/html_outer_borders.html')
+    generator.parse_file('table/html_outer_borders.html', { html_table: { cell: { no_border: true } } })
     expect_pdf_borders(
       [
         [1.5, 0.6, 36.0, 306.0],
@@ -322,7 +357,7 @@ describe MarkdownToPDF::Table do
   end
 
   it 'creates a html table with cell borders' do
-    generator.parse_file('table/html_borders.html')
+    generator.parse_file('table/html_borders.html', { html_table: { cell: { no_border: true } } })
     expect_pdf_borders(
       [
         [1.5, 0.6, 36.0, 36.0],

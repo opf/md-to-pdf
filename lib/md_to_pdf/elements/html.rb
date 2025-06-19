@@ -205,12 +205,11 @@ module MarkdownToPDF
 
     def html_table_default_styling(style)
       border_colors = opts_borders_colors(style, default_color: nil)
-      cell_borders = []
+      cell_borders = opts_borders_enabled(style)
       cell_border_width = nil
       if border_colors.include?(nil)
         border_colors = nil
       else
-        cell_borders = opts_borders_enabled(style)
         cell_border_width = opts_borders_width(style, default_width: 0)
       end
       {
@@ -394,7 +393,9 @@ module MarkdownToPDF
         cell_background_color: css[:background_color],
         cell_border_color: css[:border_color],
         cell_border_width: css[:border_width],
-        cell_border_style: css[:border_style]
+        cell_border_style: css[:border_style],
+        cell_align: css[:align],
+        cell_valign: css[:valign]
       }.compact
     end
 
@@ -405,6 +406,8 @@ module MarkdownToPDF
     def parse_css_stylings(style)
       background_color = parse_html_color(style, /background-color:(.*?)(?:;|\z)/)
       border_color = parse_html_color(style, /border-color:(.*?)(?:;|\z)/)
+      align = parse_html_text_align(style, /text-align:(.*?)(?:;|\z)/)
+      valign = parse_html_text_valign(style, /vertical-align:(.*?)(?:;|\z)/)
       border_width = parse_html_pt(style, /border-width:(.*?)(?:;|\z)/)
       border_style = parse_html_border_style(style)
       border = style.scan(/border:(.*?)(?:;|\z)/)
@@ -424,11 +427,13 @@ module MarkdownToPDF
         end
       end
       {
-        borders: border_color || border_width || border_style ? %i[left right top bottom] : [],
+        borders: border_color || border_width || border_style ? %i[left right top bottom] : nil,
         background_color: background_color,
         border_color: border_color,
         border_width: border_width,
-        border_style: border_style
+        border_style: border_style,
+        align: align,
+        valign: valign
       }
     end
 
@@ -446,6 +451,16 @@ module MarkdownToPDF
       else
         :solid
       end
+    end
+
+    def parse_html_text_align(style, align_regexp)
+      res = style.scan(align_regexp)
+      parse_halign(res.last[0]) unless res.empty?
+    end
+
+    def parse_html_text_valign(style, align_regexp)
+      res = style.scan(align_regexp)
+      parse_valign(res.last[0]) unless res.empty?
     end
 
     def parse_html_pt(style, size_regexp)
