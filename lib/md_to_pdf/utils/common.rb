@@ -38,30 +38,24 @@ module MarkdownToPDF
       args.find { |value| !value.nil? }
     end
 
+    H_ALIGNS = {
+      left: :left,
+      center: :center,
+      right: :right
+    }.freeze
+
     def parse_halign(something)
-      case something.to_s.strip
-      when 'left'
-        :left
-      when 'center'
-        :center
-      when 'right'
-        :right
-      else
-        nil
-      end
+      H_ALIGNS[something.to_s.strip.to_sym]
     end
 
+    V_ALIGNS = {
+      top: :top,
+      center: :center,
+      bottom: :bottom
+    }.freeze
+
     def parse_valign(something)
-      case something.to_s.strip
-      when 'top'
-        :top
-      when 'center'
-        :center
-      when 'bottom'
-        :bottom
-      else
-        nil
-      end
+      V_ALIGNS[something.to_s.strip.to_sym]
     end
 
     def parse_pt(something)
