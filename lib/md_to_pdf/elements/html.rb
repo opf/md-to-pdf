@@ -145,7 +145,7 @@ module MarkdownToPDF
       # lists in tables are brittle and must handle their own newlines
       # <p><br></p> should resolve to \n not to be duplicated into \n\n
       unless (opts[:is_in_table] && opts[:is_in_list]) ||
-        (result.length == 1 && result[0][:text] == "\n")
+             (result.length == 1 && result[0][:text] == "\n")
         result.push(text_hash_raw("\n", opts))
       end
       result
@@ -375,27 +375,23 @@ module MarkdownToPDF
 
     def collect_html_table_tag_cell(tag, opts)
       cell_data = data_inlinehtml_tag(tag, nil, opts)
-      cell_styling =
-        if tag.key?('style')
-          parse_css_cell_stylings(tag.get_attribute('style') || '')
-        else
-          tag.name == 'th' ? opts[:table_header_defaults] : opts[:table_cell_defaults]
-        end
+      cell_styling = tag.name == 'th' ? opts[:table_header_defaults] : opts[:table_cell_defaults]
+      cell_styling = parse_css_cell_stylings(tag.get_attribute('style') || '', cell_styling) if tag.key?('style')
       cell_data = [{}] if cell_data.empty?
       cell_data[0] = cell_data[0].merge(cell_styling)
       cell_data
     end
 
-    def parse_css_cell_stylings(style)
+    def parse_css_cell_stylings(style, default_styling)
       css = parse_css_stylings(style)
       {
-        cell_borders: css[:borders],
-        cell_background_color: css[:background_color],
-        cell_border_color: css[:border_color],
-        cell_border_width: css[:border_width],
-        cell_border_style: css[:border_style],
-        cell_align: css[:align],
-        cell_valign: css[:valign]
+        cell_borders: css[:borders] || default_styling[:cell_borders],
+        cell_background_color: css[:background_color] || default_styling[:cell_background_color],
+        cell_border_color: css[:border_color] || default_styling[:cell_border_color],
+        cell_border_width: css[:border_width] || default_styling[:cell_border_width],
+        cell_border_style: css[:border_style] || default_styling[:cell_border_style],
+        cell_align: css[:align] || default_styling[:cell_align],
+        cell_valign: css[:valign] || default_styling[:cell_valign]
       }.compact
     end
 
