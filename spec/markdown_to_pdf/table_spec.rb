@@ -97,7 +97,6 @@ describe MarkdownToPDF::Table do
                  { x: 288.494, y: 703.14, text: "Center" },
                  { x: 548.992, y: 689.268, text: "Right" }
                ])
-
   end
 
   it 'creates a html table with vertical cell align' do
@@ -302,18 +301,18 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with styled cell borders' do
     generator.parse_file(
       'table/html_style_borders.html', {
-      html_table: {
-        header: {
-          border_width: 0.25,
-          border_color: "000000",
-          background_color: "F0F0F0"
-        },
-        cell: {
-          border_width: 0.25,
-          border_color: "F000FF"
+        html_table: {
+          header: {
+            border_width: 0.25,
+            border_color: "000000",
+            background_color: "F0F0F0"
+          },
+          cell: {
+            border_width: 0.25,
+            border_color: "F000FF"
+          }
         }
       }
-    }
     )
     expect_pdf_borders(
       [
