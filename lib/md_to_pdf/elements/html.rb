@@ -212,11 +212,14 @@ module MarkdownToPDF
       else
         cell_border_width = opts_borders_width(style, default_width: 0)
       end
+      alignments = opts_table_cell_alignment(style)
       {
         cell_background_color: style[:background_color],
         cell_borders: cell_borders,
         cell_border_color: border_colors,
-        cell_border_width: cell_border_width
+        cell_border_width: cell_border_width,
+        cell_align: alignments[:align],
+        cell_valign: alignments[:valign]
       }.compact
     end
 

@@ -105,14 +105,16 @@ describe MarkdownToPDF::Table do
                            html_table: {
                              cell: {
                                border_width: 0.25,
-                               border_color: "000000"
+                               border_color: "000000",
+                               valign: 'center'
                              }
                            }
                          })
     expect_pdf([
                  { x: 306.0, y: 744.756, text: "Top" },
-                 { x: 306.0, y: 633.78, text: "Center" },
-                 { x: 306.0, y: 421.928, text: "Bottom" }
+                 { x: 306.0, y: 582.1, text: "Center" },
+                 { x: 306.0, y: 421.928, text: "Bottom" },
+                 { x: 306.0, y: 380.956, text: "Default (center)" }
                ])
   end
 

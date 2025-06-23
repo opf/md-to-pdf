@@ -236,6 +236,49 @@ headless_table:
     border_color: '0000FF'
     padding: 5mm
 
+html_table:
+  auto_width: true
+  #  margin: 2mm
+  #  margin_left: 2mm
+  #  margin_right: 2mm
+  margin_top: 2mm
+  margin_bottom: 4mm
+  header:
+    # no_repeating: true
+    styles: ['bold']
+    background_color: 'F0F0F0'
+    size: 10
+    #    character_spacing: 0
+    #    color: '000088'
+    #    font: 'Helvetica'
+  cell:
+    #    background_color: '000FFF'
+    #    border_color_top: '000FFF'
+    #    border_color_bottom: 'FFF000'
+    #    border_color_left: 'F000FF'
+    #    border_color_right: '00FFF0'
+    #    no_border_right: false
+    #    no_border_left: false
+    #    no_border_bottom: false
+    #    no_border_top: false
+    border_width: 0.25mm
+    #    border_width_top: 0.25mm
+    #    border_width_left: 0.25mm
+    #    border_width_right: 0.25mm
+    #    border_width_bottom: 0.25mm
+    #    padding: 3mm
+    padding_left: 3mm
+    padding_right: 3mm
+    padding_top: 1mm
+    padding_bottom: 2mm
+    align: 'center'
+    valign: 'middle'
+    #    font: 'Helvetica'
+    size: 9
+    #    character_spacing: 0
+    #    styles: []
+    #    color: '000088'
+
 blockquote:
   background_color: 'f4f9ff'
   #    font: 'Helvetica'
