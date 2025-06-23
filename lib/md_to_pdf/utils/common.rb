@@ -41,6 +41,7 @@ module MarkdownToPDF
     H_ALIGNS = {
       left: :left,
       center: :center,
+      justify: :justify,
       right: :right
     }.freeze
 
