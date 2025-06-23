@@ -136,7 +136,11 @@ module MarkdownToPDF
       cell_style = table[:opts_cell]
       column_count = column_alignments.length
       column_widths = Array.new(column_count, @pdf.bounds.right / column_count)
-      default_cell_style = opts[:is_html_table] ? cell_style.except(:borders, :border_widths, :border_colors) : cell_style
+      default_cell_style = if opts[:is_html_table]
+                             cell_style.except(:borders, :border_widths, :border_colors, :valign, :align)
+                           else
+                             cell_style
+                           end
       table_opts = opts[:table_opts]
       @pdf.make_table(
         data,

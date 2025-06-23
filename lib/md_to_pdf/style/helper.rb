@@ -45,7 +45,8 @@ module MarkdownToPDF
         { background_color: style[:background_color] },
         opts_borders(style),
         opts_font(style, opts),
-        opts_table_cell_padding(style)
+        opts_table_cell_padding(style),
+        opts_table_cell_alignment(style)
       )
     end
 
@@ -240,6 +241,13 @@ module MarkdownToPDF
         style[:border_color_bottom] || color || default_color,
         style[:border_color_left] || color || default_color
       ]
+    end
+
+    def opts_table_cell_alignment(style)
+      {
+        align: parse_halign(style[:align]),
+        valign: parse_valign(style[:valign])
+      }
     end
 
     def opts_table_cell_padding(style, default_padding: 0)

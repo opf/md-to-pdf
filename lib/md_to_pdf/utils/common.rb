@@ -38,19 +38,15 @@ module MarkdownToPDF
       args.find { |value| !value.nil? }
     end
 
-    H_ALIGNS = {
-      left: :left,
-      center: :center,
-      right: :right
-    }.freeze
-
     def parse_halign(something)
-      H_ALIGNS[something.to_s.strip.to_sym]
+      string = something.to_s.strip
+      string.to_sym if %w[left center right].include?(string)
     end
 
     V_ALIGNS = {
       top: :top,
       center: :center,
+      middle: :center,
       bottom: :bottom
     }.freeze
 

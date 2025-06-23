@@ -1194,6 +1194,9 @@
         },
         {
           "$ref": "#/$defs/border"
+        },
+        {
+          "$ref": "#/$defs/cell_alignment"
         }
       ]
     },
@@ -1373,6 +1376,44 @@
           "title": "Disable border bottom",
           "description": "Turn off border on the bottom sides",
           "type": "boolean"
+        }
+      }
+    },
+    "cell_alignment": {
+      "type": "object",
+      "title": "Cell alignment properties",
+      "description": "Properties to set vertical and horizontal alignment of table cells",
+      "x-example": {
+        "align": "center",
+        "valign": "middle"
+      },
+      "properties": {
+        "align": {
+          "title": "Horizontal alignment",
+          "description": "Set the horizontal alignment of the content in a cell",
+          "examples": [
+            "center"
+          ],
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "valign": {
+          "title": "Vertical alignment",
+          "description": "Border width only on the left side",
+          "examples": [
+            "middle"
+          ],
+          "type": "string",
+          "enum": [
+            "top",
+            "center",
+            "middle",
+            "bottom"
+          ]
         }
       }
     },

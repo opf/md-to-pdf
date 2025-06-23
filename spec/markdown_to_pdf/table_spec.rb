@@ -91,8 +91,11 @@ describe MarkdownToPDF::Table do
                          })
     expect_pdf([
                  { x: 36.0, y: 744.756, text: "Left" },
-                 { x: 288.494, y: 730.884, text: "Center" },
-                 { x: 548.992, y: 717.012, text: "Right" }
+                 { x: 396.0, y: 744.756, text: "Lorem ipsum dolor sit amet," },
+                 { x: 396.0, y: 730.884, text: "consetetur sadipscing elitr, sed" },
+                 { x: 396.0, y: 717.012, text: "diam nonumy eirmod tempor" },
+                 { x: 288.494, y: 703.14, text: "Center" },
+                 { x: 548.992, y: 689.268, text: "Right" }
                ])
   end
 
@@ -102,14 +105,16 @@ describe MarkdownToPDF::Table do
                            html_table: {
                              cell: {
                                border_width: 0.25,
-                               border_color: "000000"
+                               border_color: "000000",
+                               valign: 'center'
                              }
                            }
                          })
     expect_pdf([
                  { x: 306.0, y: 744.756, text: "Top" },
-                 { x: 306.0, y: 633.78, text: "Center" },
-                 { x: 306.0, y: 421.928, text: "Bottom" }
+                 { x: 306.0, y: 582.1, text: "Center" },
+                 { x: 306.0, y: 421.928, text: "Bottom" },
+                 { x: 306.0, y: 380.956, text: "Default (center)" }
                ])
   end
 
