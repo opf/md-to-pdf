@@ -52,6 +52,7 @@ module MarkdownToPDF
     V_ALIGNS = {
       top: :top,
       center: :center,
+      middle: :center,
       bottom: :bottom
     }.freeze
 
