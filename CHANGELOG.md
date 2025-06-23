@@ -1,5 +1,11 @@
 # Release notes
 
+## [0.2.3] - 2025-06-23
+
+- feature: support justify text alignment
+- feature: allow default cell alignments for tables in styles
+- fix: css centered vertical alignment of table cells is called "middle"
+
 ## [0.2.2] - 2025-06-19
 
 - fix: for smart-header don't measure lists with all child nodes
