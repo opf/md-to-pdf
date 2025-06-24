@@ -1,5 +1,9 @@
 # Release notes
 
+## [0.2.4] - 2025-06-24
+
+- fix: html-links, inline a-tag without text
+
 ## [0.2.3] - 2025-06-23
 
 - feature: support justify text alignment
