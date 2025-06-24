@@ -101,6 +101,7 @@ module MarkdownToPDF
             else
               current_opts[:link] = url
             end
+            result.concat(data_inlinehtml_tag(sub, node, current_opts))
           end
         when 'comment'
           # ignore html comments

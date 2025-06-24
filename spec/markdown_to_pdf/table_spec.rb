@@ -466,4 +466,12 @@ describe MarkdownToPDF::Table do
                  { x: 360.0, y: 703.14, text: "none" },
                  { x: 468.0, y: 703.14, text: "none" }])
   end
+
+  it 'html table with a html link in a cell' do
+    generator.parse_file('table/html_link.html')
+    expect_pdf([
+                 { x: 36.0, y: 744.756, text: "Test" },
+                 { x: 306.0, y: 744.756, text: "https://example.com" }
+               ])
+  end
 end

@@ -21,7 +21,9 @@ describe MarkdownToPDF::Link do
     expect_pdf([
                  { x: 36.0, y: 747.384, text: "Inline " },
                  { x: 68.016, y: 747.384, text: "link text" },
-                 { x: 113.184, y: 747.384, text: " HTML tag" }])
+                 { x: 113.184, y: 747.384, text: " HTML tag" },
+                 { x: 36.0, y: 733.104, text: "link text" }
+               ])
   end
 
   it 'creates an anchor link' do
