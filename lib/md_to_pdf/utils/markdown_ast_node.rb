@@ -126,6 +126,8 @@ module MarkdownToPDF
     def create_shadow_pdf
       clone_pdf = Prawn::Document.new(pdf_document_options(@styles.page))
       clone_pdf.font_families.update(@pdf.font_families)
+      clone_pdf.set_font clone_pdf.font(@pdf.font.family)
+      clone_pdf.fallback_fonts = @pdf.fallback_fonts
       clone_pdf
     end
 
