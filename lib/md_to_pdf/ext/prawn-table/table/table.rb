@@ -31,21 +31,40 @@ Prawn::Table.prepend(Module.new do
     @column_widths
   end
 
-  def distribute_to_available_space(needed)
-    steps = needed / natural_split_column_widths.length
+  def distribute_to_available_space(available_space)
     cols = natural_split_column_widths.each_with_index
                                       .map { |w, index| { min: w, max: natural_column_widths[index], index: index } }
-                                      .sort_by { |e| -e[:max] }
-    col = cols.first
-    while needed > Prawn::FLOAT_PRECISION
-      grow = [steps, needed].min
-      col[:min] += grow
-      col[:max] -= grow
-      needed -= grow
-      col = cols.max_by { |e| e[:max] }
+    done = []
+    # first move out already fitting columns
+    cols.dup.each do |col|
+      if col[:max] - col[:min] < Prawn::FLOAT_PRECISION
+        done.push(col)
+        cols.delete(col)
+      end
+    end
+    # distribute the available space to the columns, starting with those with the smallest difference
+    while (available_space > Prawn::FLOAT_PRECISION) && !cols.empty?
+      steps = available_space / cols.length
+      cols.dup.sort_by { |e| e[:max] - e[:min] }.each do |col|
+        diff = col[:max] - col[:min]
+        grow = [diff, steps, available_space].min
+        col[:min] += grow
+        available_space -= grow
+        if col[:max] - col[:min] < Prawn::FLOAT_PRECISION
+          done.push(col)
+          cols.delete(col)
+        end
+      end
+    end
+    list = cols.concat(done)
+    # if there is still available space, distribute it equally to the columns
+    if available_space > Prawn::FLOAT_PRECISION
+      list.each do |c|
+        c[:min] += available_space / cols.length
+      end
     end
 
-    cols.sort_by { |e| e[:index] }.map { |e| e[:min] }
+    list.sort_by { |e| e[:index] }.map { |e| e[:min] }
   end
 
   def reduce_to_available_space(needed)

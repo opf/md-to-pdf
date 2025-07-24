@@ -83,10 +83,9 @@ RSpec.shared_context 'with pdf' do
   end
 
   def out
-    puts "expect_pdf(#{page.to_s
-                           .gsub('{:x=>', "\n{x:")
-                           .gsub(':y=>', 'y:')
-                           .gsub(':text=>', 'text:')})"
+    puts "expect_pdf("
+    pp page
+    puts ")"
   end
 
   def images
@@ -99,11 +98,9 @@ RSpec.shared_context 'with pdf' do
   end
 
   def out_images
-    puts "expect_pdf_images(#{images.to_s
-                                    .gsub('{:x=>', "\n{x:")
-                                    .gsub(':width=>', 'width:')
-                                    .gsub(':height=>', 'height:')
-                                    .gsub(':y=>', 'y:')})"
+    puts "expect_pdf_images("
+    pp images
+    puts ")"
   end
 
   def rectangles

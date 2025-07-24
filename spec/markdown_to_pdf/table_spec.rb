@@ -303,18 +303,18 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with styled cell borders' do
     generator.parse_file(
       'table/html_style_borders.html', {
-        html_table: {
-          header: {
-            border_width: 0.25,
-            border_color: "000000",
-            background_color: "F0F0F0"
-          },
-          cell: {
-            border_width: 0.25,
-            border_color: "F000FF"
-          }
+      html_table: {
+        header: {
+          border_width: 0.25,
+          border_color: "000000",
+          background_color: "F0F0F0"
+        },
+        cell: {
+          border_width: 0.25,
+          border_color: "F000FF"
         }
       }
+    }
     )
     expect_pdf_borders(
       [
@@ -473,5 +473,94 @@ describe MarkdownToPDF::Table do
                  { x: 36.0, y: 744.756, text: "Test" },
                  { x: 306.0, y: 744.756, text: "https://example.com" }
                ])
+  end
+
+  it 'html table with sane auto width columns' do
+    generator.parse_file('table/columns.html', { html_table: { auto_width: true } })
+    expect_pdf(
+      [{ x: 36.0, y: 747.384, text: "" },
+       { x: 36.0, y: 730.884, text: "Person" },
+       { x: 187.368, y: 730.884, text: "Role" },
+       { x: 344.748, y: 730.884, text: "Organisation" },
+       { x: 36.0, y: 717.012, text: "Bumbleworth Fizzlebottom" },
+       { x: 187.368, y: 717.012, text: "Grand Wizard" },
+       { x: 344.748, y: 717.012, text: "Council of Sparkleshire" },
+       { x: 36.0, y: 703.14, text: "Dr. Pickle Pumpernickel" },
+       { x: 187.368, y: 703.14, text: "Whimsy Master" },
+       { x: 344.748, y: 703.14, text: "Academy of Giggleton" },
+       { x: 36.0, y: 689.268, text: "Wobble Butterscotch" },
+       { x: 187.368, y: 689.268, text: "Assistant to Dr. Pumpernickel" },
+       { x: 344.748, y: 689.268, text: "Giggleton" },
+       { x: 36.0, y: 675.396, text: "Twinkletoes Muffintop" },
+       { x: 187.368, y: 675.396, text: "Assistant to Fizzlebottom" },
+       { x: 344.748, y: 675.396, text: "Sparkleshire" },
+       { x: 36.0, y: 661.524, text: "Crumple Snickerdoodle" },
+       { x: 187.368, y: 661.524, text: "Assistant to Fizzlebottom" },
+       { x: 344.748, y: 661.524, text: "Sparkleshire" },
+       { x: 36.0, y: 647.652, text: "Dr. Waffle Wimbleton" },
+       { x: 187.368, y: 647.652, text: "Member" },
+       { x: 344.748, y: 647.652, text: "Doodleshire" },
+       { x: 36.0, y: 633.78, text: "Dr. Pudding Poppyseed" },
+       { x: 187.368, y: 633.78, text: "Member" },
+       { x: 344.748, y: 633.78, text: "Noodleton" },
+       { x: 36.0, y: 619.908, text: "Dr. Dibble Dribbleworth" },
+       { x: 187.368, y: 619.908, text: "Member" },
+       { x: 344.748, y: 619.908, text: "Tiddlywinks" },
+       { x: 36.0, y: 606.036, text: "Bubble Bobbington" },
+       { x: 187.368, y: 606.036, text: "Member" },
+       { x: 344.748, y: 606.036, text: "Whiff" },
+       { x: 36.0, y: 592.164, text: "Wiffle Womp" },
+       { x: 187.368, y: 592.164, text: "Guest (Standby)" },
+       { x: 344.748, y: 592.164, text: "Whiff" },
+       { x: 36.0, y: 578.292, text: "Crinkle Snazzleberry" },
+       { x: 187.368, y: 578.292, text: "Member" },
+       { x: 344.748, y: 578.292, text: "Whimsical District" },
+       { x: 36.0, y: 564.42, text: "Zigzag Zookeeper" },
+       { x: 187.368, y: 564.42, text: "Member" },
+       { x: 344.748, y: 564.42, text: "Gigglebox Ltd." },
+       { x: 36.0, y: 550.548, text: "Doodle Dandyworth" },
+       { x: 187.368, y: 550.548, text: "Guest (Standby)" },
+       { x: 344.748, y: 550.548, text: "Gigglebox Ltd." },
+       { x: 36.0, y: 536.676, text: "Fidget Fandango" },
+       { x: 187.368, y: 536.676, text: "Guest" },
+       { x: 344.748, y: 536.676, text: "Gigglebox Ltd." },
+       { x: 36.0, y: 522.804, text: "Quibble Quirkworth" },
+       { x: 187.368, y: 522.804, text: "Member" },
+       { x: 344.748, y: 522.804, text: "Chucklenet Inc." },
+       { x: 36.0, y: 508.932, text: "Squiggle McWiggle" },
+       { x: 187.368, y: 508.932, text: "Member" },
+       { x: 344.748, y: 508.932, text: "Fun Co." },
+       { x: 36.0, y: 495.06, text: "Pickle Prankster" },
+       { x: 187.368, y: 495.06, text: "Member" },
+       { x: 344.748, y: 495.06, text: "JOSIT" },
+       { x: 36.0, y: 481.188, text: "Prof. Dr. Wobble Wackworth" },
+       { x: 187.368, y: 481.188, text: "Member" },
+       { x: 344.748, y: 481.188, text: "Sillyton School of Whimsy (SSW)" },
+       { x: 36.0, y: 467.316, text: "Topsy Teacup" },
+       { x: 187.368, y: 467.316, text: "Member" },
+       { x: 344.748, y: 467.316, text: "National Fun-Government" },
+       { x: 344.748, y: 453.444, text: "Consortium (NFGC) Ltd." },
+       { x: 36.0, y: 439.572, text: "Jingle Jamboree" },
+       { x: 187.368, y: 439.572, text: "Member" },
+       { x: 344.748, y: 439.572, text: "WIBBLE" },
+       { x: 36.0, y: 425.7, text: "Tumble Teakettle" },
+       { x: 187.368, y: 425.7, text: "Chief Mischief Maker" },
+       { x: 344.748, y: 425.7, text: "WIBBLE" },
+       { x: 36.0, y: 411.828, text: "Giggle Gumdrop" },
+       { x: 187.368, y: 411.828, text: "Guest" },
+       { x: 344.748, y: 411.828, text: "WIBBLE (Silliness)" },
+       { x: 36.0, y: 397.956, text: "Bubble Bobkins" },
+       { x: 187.368, y: 397.956, text: "Guest" },
+       { x: 344.748, y: 397.956, text: "BVA (Silliness)" },
+       { x: 36.0, y: 384.084, text: "Twinkle Teaspoon" },
+       { x: 187.368, y: 384.084, text: "Guest (sometimes)" },
+       { x: 344.748, y: 384.084, text: "FMI" },
+       { x: 36.0, y: 370.212, text: "Wobble Whimsy" },
+       { x: 187.368, y: 370.212, text: "Guest (sometimes)" },
+       { x: 344.748, y: 370.212, text: "FMI" },
+       { x: 36.0, y: 356.34, text: "Dribble Dreamworth" },
+       { x: 187.368, y: 356.34, text: "Guest (sometimes)" },
+       { x: 344.748, y: 356.34, text: "FMI" }]
+    )
   end
 end
