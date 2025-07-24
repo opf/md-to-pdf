@@ -53,19 +53,19 @@ module MarkdownToPDF
 
     def draw_points(points, opts)
       points.each do |point|
-        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])]) }
+        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])], filter_block_hash(point[:opts])) }
         @pdf.indent(point[:width]) { draw_node(point[:node], opts) }
       end
     end
 
     def draw_points_html(points, node, opts)
       points.each do |point|
-        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])]) }
+        @pdf.float { @pdf.formatted_text([text_hash(point[:bullet], point[:opts])], filter_block_hash(point[:opts])) }
         @pdf.indent(point[:width]) do
           y = @pdf.y
           draw_html_tag(point[:tag], node, opts)
           if y == @pdf.y
-            point_height = @pdf.height_of_formatted([text_hash(point[:bullet], point[:opts])])
+            point_height = @pdf.height_of_formatted([text_hash(point[:bullet], point[:opts])], filter_block_hash(point[:opts]))
             @pdf.move_down(point_height)
           end
         end
@@ -77,7 +77,7 @@ module MarkdownToPDF
         node = point[:node]
         bullet = point[:bullet]
         child = node.first_child
-        return @pdf.formatted_text([text_hash(bullet, point[:opts])]) if child.nil?
+        return @pdf.formatted_text([text_hash(bullet, point[:opts])], filter_block_hash(point[:opts])) if child.nil?
 
         # insert into paragraph
         text_node = Markly::Node.new(:text).tap { |n| n.string_content = bullet }

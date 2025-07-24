@@ -281,7 +281,7 @@ module MarkdownToPDF
           embed_image(sub.attr('src'), node, current_opts
                                                .merge(data_image_style_opts(sub, node, current_opts)))
         when 'text'
-          @pdf.formatted_text([text_hash(sub.text, current_opts)])
+          @pdf.formatted_text([text_hash(sub.text, current_opts)], filter_block_hash(current_opts))
         when 'a'
           draw_html_tag(sub, node, link_opts(sub.attr('href'), current_opts))
         when 'table'
