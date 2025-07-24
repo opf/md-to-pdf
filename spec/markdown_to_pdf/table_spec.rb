@@ -303,18 +303,18 @@ describe MarkdownToPDF::Table do
   it 'creates a html table with styled cell borders' do
     generator.parse_file(
       'table/html_style_borders.html', {
-      html_table: {
-        header: {
-          border_width: 0.25,
-          border_color: "000000",
-          background_color: "F0F0F0"
-        },
-        cell: {
-          border_width: 0.25,
-          border_color: "F000FF"
+        html_table: {
+          header: {
+            border_width: 0.25,
+            border_color: "000000",
+            background_color: "F0F0F0"
+          },
+          cell: {
+            border_width: 0.25,
+            border_color: "F000FF"
+          }
         }
       }
-    }
     )
     expect_pdf_borders(
       [
@@ -561,6 +561,26 @@ describe MarkdownToPDF::Table do
        { x: 36.0, y: 356.34, text: "Dribble Dreamworth" },
        { x: 187.368, y: 356.34, text: "Guest (sometimes)" },
        { x: 344.748, y: 356.34, text: "FMI" }]
+    )
+  end
+
+  it 'html table settings are applied' do
+    generator.parse_file('table/table.html', {
+                           table: { header: { size: 10 }, cell: { size: 10 } },
+                           html_table: { header: { size: 20 }, cell: { size: 20 } }
+                         })
+    expect_pdf(
+      [
+        { x: 36.0, y: 747.384, text: "" },
+        { x: 36.0, y: 725.14, text: "Person" },
+        { x: 216.0, y: 725.14, text: "Role" },
+        { x: 396.0, y: 725.14, text: "Organisation" },
+        { x: 36.0, y: 702.02, text: "Bumbleworth" },
+        { x: 36.0, y: 678.9, text: "Fizzlebottom" },
+        { x: 216.0, y: 702.02, text: "Grand Wizard" },
+        { x: 396.0, y: 702.02, text: "Council of" },
+        { x: 396.0, y: 678.9, text: "Sparkleshire" }
+      ]
     )
   end
 end

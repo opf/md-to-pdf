@@ -53,16 +53,16 @@ module MarkdownToPDF
     end
 
     def build_table_font_opts(opts)
-      cell_opts = opts_font(@styles.table_cell, opts)
-      header_opts = opts_header_font(@styles.table_header, opts)
+      cell_style, header_style = get_table_styles(1, opts)
+      cell_opts = opts_font(cell_style, opts)
+      header_opts = opts_header_font(header_style, opts)
       { cell: cell_opts, header: header_opts }
     end
 
-    def build_table_settings(header_row_count, opts)
+    def get_table_styles(header_row_count, opts)
       table_style = @styles.table
       cell_style = @styles.table_cell
       header_style = @styles.table_header
-
       if opts[:is_html_table]
         table_style = @styles.html_table
         cell_style = @styles.html_table_cell
@@ -72,7 +72,11 @@ module MarkdownToPDF
         cell_style = @styles.headless_table_cell
         header_style = @styles.headless_table_header
       end
+      [cell_style, header_style, table_style]
+    end
 
+    def build_table_settings(header_row_count, opts)
+      cell_style, header_style, table_style = get_table_styles(header_row_count, opts)
       table_cell_style_opts = opts_table_cell(cell_style, opts)
       no_repeating_header = opt_table_header_no_repeating?(header_style)
       auto_column_width = opt_table_auto_column_width?(table_style)
