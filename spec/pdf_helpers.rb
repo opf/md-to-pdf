@@ -159,7 +159,7 @@ RSpec.shared_context 'with pdf' do
   end
 
   def pdf_raw_color(color)
-    "#{(color.upcase.scan %r/../).map { |it| ((it.to_i 16) / 255.0).round 5 }.join ' '} scn"
+    "#{(color.upcase.scan %r/../).map { |color_part| ((color_part.to_i 16) / 255.0).round 5 }.join ' '} scn"
   end
 
   def expect_pdf_color_rects(cases)

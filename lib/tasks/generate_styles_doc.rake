@@ -6,6 +6,7 @@ require 'yaml'
 desc "Generate styles documentation"
 task :styles_doc do
   include MarkdownToPDF::StyleSchema
+
   generator = MarkdownToPDF::StyleSchemaDocsGenerator.new(styles_schema)
   markdown = generator.generate_markdown
   root = File.expand_path("../../", __dir__)
