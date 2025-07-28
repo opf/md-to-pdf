@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    md_to_pdf (0.2.4)
+    md_to_pdf (0.2.5)
       base64 (~> 0.2)
       bigdecimal (~> 3.2)
       color_conversion (~> 0.1)

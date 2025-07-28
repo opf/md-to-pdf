@@ -1,5 +1,12 @@
 # Release notes
 
+## [0.2.5] - 2025-07-28
+
+- fix: html table; use its own font settings, not that one from the markdown table
+- fix: formatted text; make sure block settings like ":leading" are passed as parameters
+- fix: table with auto-column-width; prioritize easy to fit columns to avoid pointless wrapping
+- fix: shadow-pdf; must set default font
+
 ## [0.2.4] - 2025-06-24
 
 - fix: html-links, inline a-tag without text
