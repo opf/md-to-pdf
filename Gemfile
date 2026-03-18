@@ -8,6 +8,7 @@ gemspec
 group :development, :test do
   gem 'pdf-inspector', '~> 1.3'
   gem 'rake', '~> 13.2'
+  gem 'rdoc', '~> 3.9'
   gem 'rspec', '~> 3.1'
   gem 'rubocop', '~> 1.7'
   gem 'rubocop-rake', '~> 0.7'
