@@ -14,11 +14,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.4.1'
+        ruby-version: '3.4.7'
         bundler-cache: true
     - name: Run rspec
       run: bundle exec rspec
