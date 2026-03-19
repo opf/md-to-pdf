@@ -138,22 +138,25 @@ describe MarkdownToPDF::Table do
 
   it 'creates a html table with checkboxes' do
     generator.parse_file('table/html_checklist.html')
-    expect_pdf([
-                 { x: 113.14286, y: 744.756, text: "Header 1" },
-                 { x: 190.28571, y: 744.756, text: "Header 2" },
-                 { x: 267.42857, y: 744.756, text: "Header 3" },
-                 { x: 344.57143, y: 744.756, text: "Header 4" },
-                 { x: 421.71429, y: 744.756, text: "Header 5" },
-                 { x: 498.85714, y: 744.756, text: "Header 6" },
-                 { x: 36.0, y: 730.884, text: "Entry 1" },
-                 { x: 344.57143, y: 730.884, text: "[x]" },
-                 { x: 498.85714, y: 730.884, text: "[x]" },
-                 { x: 36.0, y: 717.012, text: "Entry 2" },
-                 { x: 344.57143, y: 717.012, text: "[x]" },
-                 { x: 421.71429, y: 717.012, text: "[x]" },
-                 { x: 36.0, y: 703.14, text: "Entry 3" },
-                 { x: 36.0, y: 689.268, text: "Entry 4" },
-                 { x: 113.14286, y: 689.268, text: "[x]" }])
+    expect_pdf(
+      [
+        { x: 113.14286, y: 744.756, text: "Header 1" },
+        { x: 190.28571, y: 744.756, text: "Header 2" },
+        { x: 267.42857, y: 744.756, text: "Header 3" },
+        { x: 344.57143, y: 744.756, text: "Header 4" },
+        { x: 421.71429, y: 744.756, text: "Header 5" },
+        { x: 498.85714, y: 744.756, text: "Header 6" },
+        { x: 36.0, y: 730.884, text: "Entry 1" },
+        { x: 344.57143, y: 730.884, text: "[x] " },
+        { x: 498.85714, y: 730.884, text: "[x] " },
+        { x: 36.0, y: 717.012, text: "Entry 2" },
+        { x: 344.57143, y: 717.012, text: "[x] " },
+        { x: 421.71429, y: 717.012, text: "[x] " },
+        { x: 36.0, y: 703.14, text: "Entry 3" },
+        { x: 36.0, y: 689.268, text: "Entry 4" },
+        { x: 113.14286, y: 689.268, text: "[x] " }
+      ]
+    )
   end
 
   it 'creates a table without bad wrapping with doc font style' do
@@ -580,6 +583,25 @@ describe MarkdownToPDF::Table do
         { x: 216.0, y: 702.02, text: "Grand Wizard" },
         { x: 396.0, y: 702.02, text: "Council of" },
         { x: 396.0, y: 678.9, text: "Sparkleshire" }
+      ]
+    )
+  end
+
+  it 'list in tables' do
+    generator.parse_file('table/list_in_tables.html')
+    expect_pdf(
+      [
+        { x: 36.0, y: 744.756, text: "This is just text." },
+        { x: 36.0, y: 730.884, text: "Paragraph1:" },
+        { x: 36.0, y: 717.012, text: "• Unordered list" },
+        { x: 36.0, y: 703.14, text: "• Unordered list" },
+        { x: 36.0, y: 689.268, text: "Paragraph2:" },
+        { x: 36.0, y: 675.396, text: "1. Ordered list" },
+        { x: 36.0, y: 661.524, text: "2. Ordered list" },
+        { x: 36.0, y: 647.652, text: "Paragraph3:" },
+        { x: 36.0, y: 633.78, text: "[ ] Task list" },
+        { x: 36.0, y: 619.908, text: "[ ] Task list" },
+        { x: 36.0, y: 606.036, text: "This is just text 2." }
       ]
     )
   end

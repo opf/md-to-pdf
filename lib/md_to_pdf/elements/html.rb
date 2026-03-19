@@ -188,6 +188,7 @@ module MarkdownToPDF
         end
         result.concat(data)
       end
+      result.push(text_hash_raw("\n", opts))
       result
     end
 
@@ -503,8 +504,9 @@ module MarkdownToPDF
             item[:text] = "#{current_stuffing}#{indent}#{item[:text]}"
           end
         end
-        if prev && item[:list_entry_type] == :bullet && prev[:text] != "\n"
-          item[:text] = "\n#{item[:text]}"
+        if prev && item[:list_entry_type] == :bullet
+          prev_sig = cell_data[0..(index - 1)].reverse.find { |i| !i[:text].to_s.match?(/\A[ \t]*\z/) }
+          item[:text] = "\n#{item[:text]}" if prev_sig && prev_sig[:text] != "\n"
         end
       end
       cell_data

@@ -255,7 +255,9 @@ module MarkdownToPDF
 
         return make_subtable(cell_data, opts, alignment, column_count)
       end
-      make_table_cell(cell_data, opts)
+      data = cell_data
+      data = data[0..-2] while data.last&.fetch(:text, nil)&.match?(/\A[ \t]+\z/)
+      make_table_cell(data, opts)
     end
 
     def build_data_rows(node, table_font_opts, opts)
