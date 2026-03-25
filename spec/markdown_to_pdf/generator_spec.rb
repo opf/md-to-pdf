@@ -3,13 +3,12 @@ require 'prawn'
 
 Prawn::Fonts::AFM.hide_m17n_warning = true
 
-demo_dir = File.expand_path(File.join(__dir__, '..', '..', 'demo'))
-
-styling_filename = File.join(demo_dir, 'demo.yml')
-source_filename = File.join(demo_dir, 'demo.md')
-dest_filename = File.join(demo_dir, 'generated', 'demo.pdf')
-
 describe MarkdownToPDF::Generator do
+  let(:demo_dir) { File.expand_path(File.join(__dir__, '..', '..', 'demo')) }
+  let(:styling_filename) { File.join(demo_dir, 'demo.yml') }
+  let(:source_filename) { File.join(demo_dir, 'demo.md') }
+  let(:dest_filename) { File.join(demo_dir, 'generated', 'demo.pdf') }
+
   it "generate the demo file via module" do
     FileUtils.rm_f(dest_filename)
     MarkdownToPDF.generate_markdown_pdf(source_filename, styling_filename, dest_filename)

@@ -331,3 +331,6 @@ Metrics/PerceivedComplexity:
 
 Naming/PredicatePrefix:
   Enabled: false
+
+RSpec/Output:
+  Enabled: false
