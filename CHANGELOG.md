@@ -1,5 +1,9 @@
 # Release notes
 
+## [0.2.6] - 2025-03-25
+
+- fix: No line break in table cells after ordered/undordered/task list
+
 ## [0.2.5] - 2025-07-28
 
 - fix: html table; use its own font settings, not that one from the markdown table
