@@ -11,9 +11,11 @@ require 'md_to_pdf/elements/link'
 require 'md_to_pdf/elements/list'
 require 'md_to_pdf/elements/page'
 require 'md_to_pdf/elements/paragraph'
+require 'md_to_pdf/elements/svg'
 require 'md_to_pdf/elements/table'
 require 'md_to_pdf/elements/text'
 require 'md_to_pdf/utils/attributes_parser'
+require 'md_to_pdf/utils/svg_sanitizer'
 require 'md_to_pdf/utils/common'
 require 'md_to_pdf/utils/fonts'
 require 'md_to_pdf/utils/ids'
@@ -46,6 +48,7 @@ module MarkdownToPDF
     include MarkdownToPDF::MarkdownASTNode
     include MarkdownToPDF::Page
     include MarkdownToPDF::Paragraph
+    include MarkdownToPDF::Svg
     include MarkdownToPDF::Table
     include MarkdownToPDF::Text
     include MarkdownToPDF::AttributesParser
