@@ -3,9 +3,12 @@ require 'pdf_helpers'
 describe MarkdownToPDF::Codeblock do
   include_context 'with pdf'
 
-  it 'keeps using the code block if mermaid cli is not available' do
+  it 'keeps using the code block if no mermaid renderer is available' do
     allow_any_instance_of(described_class)
       .to receive(:mermaid_cli_available?)
+            .and_return(false)
+    allow_any_instance_of(described_class)
+      .to receive(:mermaid_rs_cli_available?)
             .and_return(false)
     generator.parse_file('mermaid/mermaid.md')
     expect_pdf_images([])

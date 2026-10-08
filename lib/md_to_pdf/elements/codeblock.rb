@@ -3,6 +3,13 @@ require "tempfile"
 
 module MarkdownToPDF
   module Codeblock
+    # https://github.com/1jehuang/mermaid-rs-renderer, a single static binary that
+    # renders mermaid without a node installation.
+    MERMAID_RS_CLI = "mmdr".freeze
+    MERMAID_RS_CONFIG = '{"theme":"neutral","themeVariables":{"background":"transparent"}}'.freeze
+    MERMAID_RS_SCALE = 1
+    MAX_MERMAID_SOURCE_BYTES = 64 * 1024
+
     def draw_codeblock(node, opts)
       return if node.fence_info == "mermaid" && build_mermaid_block(node, opts)
 
@@ -39,14 +46,47 @@ module MarkdownToPDF
         end
     end
 
-    def build_mermaid_block(node, _opts)
-      return false unless respond_to?(:mermaid_cli_enabled?) && mermaid_cli_enabled?
-      return false unless mermaid_cli_available?
+    def mermaid_rs_cli_available?
+      return $mermaid_rs_cli_available if defined?($mermaid_rs_cli_available)
 
+      $mermaid_rs_cli_available =
+        begin
+          _, status = Open3.capture2e(MERMAID_RS_CLI, "--version")
+          status.success?
+        rescue StandardError
+          false
+        end
+    end
+
+    def build_mermaid_block(node, opts)
+      return true if build_mermaid_cli_block(node, opts)
+
+      build_mermaid_rs_block(node, opts)
+    end
+
+    def build_mermaid_cli_block(node, _opts)
+      return false unless respond_to?(:mermaid_cli_enabled?, true) && mermaid_cli_enabled?
+      return false unless respond_to?(:mermaid_cli_available?, true) && mermaid_cli_available?
+
+      embed_mermaid_image do |destination|
+        run_mermaid_cli(node.string_content, destination, 'png',
+                        { background: "transparent", theme: "neutral", scale: "2" })
+      end
+    end
+
+    def build_mermaid_rs_block(node, _opts)
+      return false unless respond_to?(:mermaid_rs_cli_enabled?, true) && mermaid_rs_cli_enabled?
+      return false unless respond_to?(:mermaid_rs_cli_available?, true) && mermaid_rs_cli_available?
+
+      embed_mermaid_image do |destination|
+        run_mermaid_rs_cli(node.string_content, destination)
+      end
+    end
+
+    def embed_mermaid_image
       image_file = Tempfile.new(['mermaid', ".png"])
       begin
-        return false unless run_mermaid_cli(node.string_content, image_file.path, 'png',
-                                            { background: "transparent", theme: "neutral", scale: "2" })
+        return false unless yield(image_file.path)
 
         image_obj, image_info = @pdf.build_image_object(image_file.path)
         options = {}
@@ -60,6 +100,41 @@ module MarkdownToPDF
       ensure
         image_file.unlink
       end
+    end
+
+    def run_mermaid_rs_cli(source, destination)
+      return false if source.to_s.bytesize > MAX_MERMAID_SOURCE_BYTES
+
+      tmp_file('mermaid', 'mmd', source) do |input|
+        tmp_file('mermaid', 'json', MERMAID_RS_CONFIG) do |config|
+          args = ["-i", input, "-e", 'png', "-o", destination, "-c", config]
+          width, height = mermaid_rs_scaled_size(input, config)
+          args.push("-w", width.to_s, "-H", height.to_s) if width && height
+          _, _, status = Open3.capture3(MERMAID_RS_CLI, *args)
+          status.success?
+        end
+      end
+    rescue StandardError
+      false
+    end
+
+    # mmdr renders at the diagram's natural size, which lands in the pdf at 72 dpi.
+    # Rendering at a multiple of it keeps the image sharp in print. The size comes
+    # from the svg, which every mmdr version writes to stdout when -o is omitted.
+    def mermaid_rs_scaled_size(input, config)
+      svg, _, status = Open3.capture3(MERMAID_RS_CLI, "-i", input, "-c", config)
+      return nil unless status.success?
+
+      root = svg[/<svg\b[^>]*>/]
+      return nil if root.nil?
+
+      width = root[/\bwidth="([0-9.]+)"/, 1].to_f
+      height = root[/\bheight="([0-9.]+)"/, 1].to_f
+      return nil unless width > 0 && height > 0
+
+      [(width * MERMAID_RS_SCALE).round, (height * MERMAID_RS_SCALE).round]
+    rescue StandardError
+      nil
     end
 
     def run_mermaid_cli(mmdc, destination, format, options = {})

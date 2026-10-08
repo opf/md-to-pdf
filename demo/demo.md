@@ -364,7 +364,7 @@ use one of these formats to start a new page (all with mandatory empty lines aro
 
 # Mermaid
 
-if https://github.com/mermaid-js/mermaid-cli is installed, the following code block with mermaid fence is converted to and included as PNG
+If https://github.com/mermaid-js/mermaid-cli (mmdc) or https://github.com/1jehuang/mermaid-rs-renderer (mmdr) is installed, the following code block with a mermaid fence is converted to and included as PNG
 
 ```mermaid
 quadrantChart

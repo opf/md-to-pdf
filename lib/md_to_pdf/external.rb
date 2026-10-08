@@ -26,7 +26,14 @@ module MarkdownToPDF
       puts "WARNING: #{text}\nGot #{element} at #{node ? node.source_position.inspect : '?'}\n\n"
     end
 
+    # Mermaid code blocks are rendered by mmdc when it is installed, and by mmdr
+    # otherwise. Either renderer can be switched off here; with both off, or with
+    # neither installed, the diagram is rendered as its source.
     def mermaid_cli_enabled?
+      true
+    end
+
+    def mermaid_rs_cli_enabled?
       true
     end
 
